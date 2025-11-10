@@ -1,0 +1,800 @@
+    /* Fuentes: sans ancha para HUMANA y estilo cyberpunk para DIGITALES */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Orbitron:wght@700&display=swap');
+    
+    :root{
+      --bg: #0b0f13;
+      --text: #ffffff;
+      --cyber: #77c7ff; /* azul neón */
+      --gap: clamp(12px, 2vw, 28px);
+      /* Tamaño base del botón; se sobreescribe en breakpoints */
+      --btn-size: 40px;
+      --btn-radius: 12px;
+      --btn-bg: #0F1518;
+      --btn-bg-top: #12181C;
+      --btn-bg-bot: #0B1013;
+      --btn-border: #1E262B;
+      --btn-border-active: #2A3640;
+      --icon-color: #42B8FF;
+      --icon-glow: rgba(66,184,255,0.55);
+      --focus-ring: #42B8FF;
+      --transition: 140ms cubic-bezier(.4,.14,.3,1);
+    }
+
+/* Hover */
+.search-btn:hover{
+  background:
+    linear-gradient(160deg, var(--hover-grad-1), var(--hover-grad-2));
+  box-shadow:
+    0 4px 10px -2px rgba(0,0,0,0.65),
+    0 6px 18px -4px rgba(0,0,0,0.55),
+    inset 0 0 0 1px var(--btn-border-active);
+}
+
+.search-btn:hover .search-icon{
+  transform: scale(1.05);
+  filter:
+    drop-shadow(0 0 4px var(--icon-glow))
+    drop-shadow(0 0 10px var(--icon-glow));
+}
+
+/* Active (click) */
+.search-btn:active{
+  transform: translateY(1px) scale(.97);
+  box-shadow:
+    0 2px 6px -2px rgba(0,0,0,0.7),
+    inset 0 0 0 1px var(--btn-border-active),
+    inset 0 0 6px 2px var(--accent-light-15);
+}
+
+/* Accesibilidad: foco teclado */
+.search-btn:focus-visible{
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* Estilos de la sección Junta Directiva */
+  /* === JUNTA DIRECTIVA (estilo renovado tipo "afiliados") === */
+  .junta {
+    padding: 1.75rem 0 1.5rem;
+  }
+  .junta-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    letter-spacing: .5px;
+    color: #b5ecf6; /* título cyan claro similar a captura */
+    margin: 0 0 1.6rem;
+    text-align: center;
+    text-transform: uppercase;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:.75rem;
+  }
+  .junta-title i { font-size: 2.2rem; color: #00bcd4; }
+
+  /* Contenedor de tarjetas apiladas */
+  .junta-members {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* Tarjeta flotante */
+  .member-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 1.25rem;
+    padding: 18px 22px 18px 26px;
+    background: #121719; /* fondo interno profundo */
+    border-radius: 18px;
+    box-shadow:
+      0 14px 28px -14px rgba(0,0,0,0.6),
+      0 4px 10px -4px rgba(0,0,0,0.55),
+      inset 0 0 0 1px rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(2px);
+    transition: box-shadow .25s ease, transform .2s ease, background .3s ease;
+  }
+  .member-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius: inherit;
+    background: linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+    pointer-events:none;
+  }
+  /* línea superior de acento */
+  .member-card::after{
+    content:"";
+    position:absolute; left:0; right:0; top:0; height:3px;
+    border-top-left-radius:18px; border-top-right-radius:18px;
+    background: linear-gradient(90deg, rgba(23,228,228,0), rgba(23,228,228,0.65), rgba(23,228,228,0));
+    opacity:.35; pointer-events:none; transition:opacity .2s ease;
+  }
+  .member-card:hover {
+    box-shadow:
+      0 18px 34px -16px rgba(0,0,0,0.72),
+      0 6px 14px -6px rgba(0,0,0,0.65),
+      inset 0 0 0 1px rgba(255,255,255,0.07),
+      0 0 0 1px rgba(23,228,228,0.25);
+    transform: translateY(-2px);
+  }
+  .member-card:hover::after{ opacity:.85; }
+
+  /* Avatar circular con halo */
+  .member-avatar {
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #1f2a30, #121719 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.06), 0 6px 12px -6px rgba(0,0,0,0.8);
+  }
+  /* presencia */
+  .presence-dot{
+    position:absolute; right:-2px; bottom:-2px;
+    width:14px; height:14px; border-radius:9999px;
+    box-shadow:0 0 0 2px #121719, 0 0 8px rgba(16,185,129,.55);
+  }
+  .presence-dot.is-online{ background:#10b981; }
+  .presence-dot.is-offline{ background:#6b7280; box-shadow:0 0 0 2px #121719; }
+  .member-avatar::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    pointer-events:none;
+  }
+  .member-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .member-avatar i { font-size: 2.3rem; color:#00bcd4; opacity:.85; }
+
+  /* Bloque de info a la derecha */
+  .member-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+  /* push actions to the right now that menu-icon-member is gone */
+  .member-actions{ margin-left:auto; }
+  .member-details h3 {
+    margin: 0 0 2px;
+    font-size: 1.06rem;
+    font-weight: 600;
+    letter-spacing: .3px;
+    color: rgba(255,255,255,0.90);
+  }
+  .member-details p {
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: .8px;
+    font-weight:500;
+    color: rgba(255,255,255,0.50);
+  }
+  .member-meta{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+  .role-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:6px 10px; border-radius:9999px;
+    background:linear-gradient(160deg,#0e3e46,#0c2d33);
+    color:#b5ecf6; font-size:.68rem; font-weight:700; letter-spacing:.4px;
+    box-shadow: inset 0 0 0 1px rgba(0,188,212,0.35);
+  }
+  .mandate-chip{
+    display:inline-flex; align-items:center;
+    padding:4px 10px; border-radius:9999px;
+    background:#161e21; color:#b8c6cc; font-size:.64rem; font-weight:600;
+    border:1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Columna de estado y acciones */
+  .member-status {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+  }
+  .status-badge {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding: 6px 14px 6px 14px;
+    background: linear-gradient(160deg,#0e3e46,#0c2d33);
+    color:#b5ecf6;
+    font-size:0.70rem;
+    font-weight:600;
+    border-radius: 28px;
+    letter-spacing:.6px;
+    box-shadow: inset 0 0 0 1px rgba(0,188,212,0.35), 0 2px 4px -2px rgba(0,0,0,0.65);
+    white-space:nowrap;
+  }
+  .edit-btn {
+    padding: 6px 16px;
+    background: #161e21;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    color: #b5ecf6;
+    font-weight:600;
+    cursor:pointer;
+    font-size:0.72rem;
+    letter-spacing:.6px;
+    box-shadow: 0 4px 10px -4px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.04);
+    transition: background .2s ease, box-shadow .2s ease, transform .18s ease;
+  }
+  .edit-btn:hover {
+    background:#17343a;
+    box-shadow:0 6px 14px -6px rgba(0,0,0,0.75), inset 0 0 0 1px rgba(255,255,255,0.07);
+    transform:translateY(-1px);
+  }
+
+  /* Menú contextual icónico */
+  .menu-icon-member {
+    width: 36px;
+    height: 36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: rgba(255,255,255,0.45);
+    background: #161d20;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px -2px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: color .18s ease, box-shadow .2s ease, background .25s ease;
+  }
+  /* Acciones rápidas */
+  .member-actions{ display:flex; gap:8px; align-items:center; }
+  .view-btn{
+    padding: 6px 12px;
+    background:#151d20; border:1px solid rgba(255,255,255,0.08);
+    border-radius:10px; color:#cfe9f1; font-size:.72rem; font-weight:600;
+    box-shadow:0 3px 8px -4px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.03);
+    cursor:pointer; transition: background .2s ease, box-shadow .2s ease, transform .18s ease;
+  }
+  .view-btn:hover{ background:#19242a; transform:translateY(-1px); }
+  .menu-icon-member:hover {
+    color:#00bcd4;
+    box-shadow: 0 4px 10px -4px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(0,188,212,0.35);
+    background:#1c262a;
+  }
+
+  @media (max-width:700px){
+    .member-card{ padding:16px 18px; gap:1rem; }
+    .member-avatar{ width:64px; height:64px; min-width:64px; }
+    .member-details h3{ font-size:1rem; }
+    .member-details p{ font-size:0.68rem; }
+    .edit-btn{ padding:6px 14px; }
+  }
+
+
+/* Separador de secciones */
+.aside-separator{
+  margin: 16px 0 12px;
+  /* legacy style retained but element removed from DOM */
+  padding: 8px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(160deg, #1a1f23, #151a1f);
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+}
+
+/* Listas del menú (ítems apilados con separación) */
+.menu-list{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+/* Ítem estilo “tarjeta” que cubre todo el ancho */
+.menu-item{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  background: linear-gradient(170deg, #1a2328, #11171b);
+  border: 1px solid #1E262B;
+  box-shadow:
+    0 8px 22px -10px rgba(0,0,0,0.55),
+    0 2px 6px -2px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+  transition: background .18s ease, box-shadow .18s ease, transform .12s ease, color .18s ease;
+}
+/* Submenu expandable styles */
+.menu-item.has-submenu{ position:relative; cursor:default; }
+.submenu-toggle{
+  margin-left:auto;
+  width:30px; height:30px;
+  display:flex; align-items:center; justify-content:center;
+  background:#1e262b;
+  border:1px solid #273036;
+  color:#b5ecf6;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:13px;
+  transition:background .2s ease, transform .25s ease, box-shadow .25s ease;
+}
+.submenu-toggle:hover{ background:#253139; box-shadow:0 0 0 1px rgba(0,188,212,0.35); }
+.submenu-toggle:focus-visible{ outline:2px solid var(--humana-10); outline-offset:2px; }
+.menu-item.has-submenu[aria-expanded="true"], .menu-item.has-submenu.expanded{ background:linear-gradient(170deg,#1c252a,#12191d); }
+.menu-item.has-submenu.expanded .submenu-toggle{ transform:rotate(180deg); }
+.submenu{
+  display:none;
+  flex-direction:column;
+  gap:8px;
+  margin:10px 0 4px;
+  padding:2px 2px 4px 2px;
+}
+.submenu-item{
+  display:flex; align-items:center; gap:8px;
+  padding:8px 10px;
+  background:#141c20;
+  border:1px solid #1e262b;
+  border-radius:10px;
+  font-size:12px;
+  color:rgba(255,255,255,0.85);
+  text-decoration:none;
+  box-shadow:0 2px 4px -2px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.03);
+  transition:background .18s ease,color .18s ease;
+}
+.submenu-item i{ font-size:14px; opacity:.85; }
+.submenu-item:hover{ background:#192229; color:#ffffff; }
+.submenu.open{ display:flex; }
+.humana-aside.collapsed .submenu{ display:none !important; }
+/* Hide toggle and adjust spacing when aside collapsed */
+.humana-aside.collapsed .submenu-toggle{ display:none !important; }
+.humana-aside.collapsed .menu-item.has-submenu{ padding-right:14px; }
+
+/* Recuadro del icono */
+.menu-icon{
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: linear-gradient(160deg, #243038, #2A3942);
+  display: grid;
+  place-items: center;
+  color: rgba(255,255,255,0.85);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.04),
+    0 2px 6px rgba(0,0,0,0.35);
+  flex: 0 0 auto;
+}
+.menu-icon i{
+  font-size: 16px; /* Font Awesome */
+  line-height: 1;
+  transition: color .18s ease, text-shadow .18s ease, filter .18s ease;
+}
+
+/* Texto */
+.menu-text{
+  font-size: 0.98rem;
+  letter-spacing: .2px;
+  color: var(--text);
+}
+
+
+/* Hover/focus */
+.menu-item:hover{
+  box-shadow:
+    0 10px 26px -10px rgba(0,0,0,0.6),
+    0 3px 10px -4px rgba(0,0,0,0.55),
+    inset 0 0 0 1px rgba(255,255,255,0.06);
+  background: linear-gradient(170deg, #1c252a, #12191d);
+}
+.menu-item:hover .menu-icon i{
+  color: var(--humana-10);
+  text-shadow: 0 0 6px rgba(0,169,229,0.85), 0 0 14px rgba(0,169,229,0.55);
+  filter: brightness(1.15);
+}
+.humana-aside.collapsed .menu-item:hover .menu-icon i{
+  color: var(--humana-10);
+  text-shadow: 0 0 5px rgba(0,169,229,0.75);
+}
+.menu-item:focus-visible{
+  outline: 2px solid var(--humana-10);
+  outline-offset: 3px;
+}
+
+/* Estado activo (úsalo si lo necesitas) */
+.menu-item.is-active{
+  background: linear-gradient(170deg, #1b252a, #12181c);
+  box-shadow:
+    0 10px 26px -10px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(0,188,212,0.25);
+}
+.menu-item.is-active .menu-text{ color:#F3F7FA; }
+.menu-item.is-active .menu-icon i{
+  color: var(--humana-10);
+  text-shadow: 0 0 6px rgba(0,169,229,0.8);
+}
+
+
+/* Fondo del main: misma temática que el aside (oscuro con gradiente) */
+.humana-main{
+  /* Fondo sólido, sin gradientes ni imágenes de fondo */
+  
+  --text: rgba(255,255,255,0.88);
+  --muted: rgba(255,255,255,0.66);
+
+  color: var(--text);
+  background: var(--bg) !important;
+  background-image: none !important;
+}
+
+/* === NUEVO LAYOUT: dividir zona superior y contenido ancho completo inferior === */
+.layout-top{
+  display: flex;
+  align-items: flex-start; /* no forzar alturas por el más alto */
+  gap: 0; /* podrías ajustar si quieres separación */
+}
+    .layout-top .humana-aside{
+      flex: 0 0 18rem; /* ancho base coincide con w-72 */
+      display: flex;
+      flex-direction: column;
+      height: auto; /* será estirado por align-items:stretch */
+      max-height: none; /* permitir que flex defina */
+      overflow-y: auto;
+    }
+    .layout-top .humana-aside.collapsed{ flex: 0 0 5rem; }
+    .layout-top .top-content{
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+    }
+/* (Removed duplicate layout-top block to avoid redundancy) */
+
+/* Sección inferior ocupará todo el ancho del page-container (aside ya no afecta) */
+.full-width-content{
+  width: 100%;
+  padding-top: 0;
+}
+
+/* Ajuste visual: separar ligeramente top-content del bloque inferior */
+.top-content .video{ margin-bottom: 0; }
+.full-width-content .junta{ padding-top: 2rem; }
+
+/* Cuando el aside está colapsado, aseguramos que layout-top refluya sin afectar full-width-content */
+.humana-aside.collapsed{ width: 5rem !important; }
+/* Ajuste: scrollbar más angosto cuando está colapsado */
+.humana-aside.collapsed::-webkit-scrollbar { width: 4px; }
+.humana-aside.collapsed { scrollbar-width: thin; }
+/* Removed empty ruleset: .layout-top .humana-aside.collapsed ~ .top-content */
+
+@media (max-width: 1024px){
+  .layout-top{ flex-direction: row; }
+}
+
+@media (max-width: 780px){
+  .layout-top{ flex-direction: column; }
+  .layout-top .humana-aside{ width: 100% !important; }
+  .humana-aside.collapsed{ width: 100% !important; }
+}
+
+.portada{
+  height: 230px;
+  background-color: var(--btn-border-active);
+}
+
+
+.menu-icon-member {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: color .18s ease;
+}
+
+.menu-icon-member:hover {
+  color: var(--accent);
+}
+
+.member-avatar i {
+  font-size: 2.5rem;
+  color: var(--accent);
+}
+
+/* Marca: estilos consistentes para el header */
+.brand__text{ display:flex; flex-direction:column; line-height:1; }
+.brand__title{
+  margin: 0;
+  font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: .5px;
+  font-size: clamp(28px, 6vw, 42px);
+  color: #ffffff;
+}
+.brand__subtitle{
+  margin: 0;
+  font-family: 'Orbitron', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(12px, 3.2vw, 16px);
+  letter-spacing: .6em; /* más separación entre letras */
+  color: #a3f0ff;
+  display:flex;
+  gap: 2px;
+}
+/* Letras individuales de DIGITALES en línea */
+.brand__subtitle span{ display:inline-block; margin:0; }
+
+    /* Responsive fino: si el espacio es muy pequeño, reducimos tamaños para evitar desbordes */
+    @media (max-width: 420px){
+      .brand{
+        gap: 8px;
+      }
+      .brand__logo, 
+      header img {
+        width: 40px;
+        height: 40px;
+      }
+      .brand__title{
+        font-size: clamp(14px, 5vw, 20px);
+      }
+      .brand__subtitle{
+        font-size: clamp(6px, 2vw, 10px);
+      }
+    }
+    
+    /* === SISTEMA DE BORDE DE PÁGINA === */
+    .page-container {
+      min-height: 100vh;
+      margin: 3vh;
+       /* Color oscuro consistente */
+      border: 1px solid #1E262B; /* Borde personalizable */
+      border-radius: 8px; /* Esquinas redondeadas opcionales */
+      overflow: hidden; /* Para que el contenido respete las esquinas */
+      box-shadow: 0 0 2px rgba(26, 89, 100, 0.982); /* Sombra opcional */
+    }
+    
+    /* El body tendrá el color del "marco" */
+    body {
+      background-color: #090d10; /* Color del marco/borde */
+      margin: 0;
+      padding: 0;
+      
+    }
+    
+    
+    /* === ESTILOS PERSONALIZADOS DEL HEADER === */
+
+    .custom-header {
+      min-height: 128px;/* un poco más alto */
+      height: auto ;      /* Permite crecimiento automático */
+      padding: 28px 0;   /* algo más de espacio vertical */
+    }   
+    
+    .custom-header .header-content {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Botón de búsqueda: estilo cuadrado redondeado con borde y leve glow al hover */
+    .search-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:48px;
+      height:48px;
+      border-radius:14px; /* esquinas redondeadas */
+      border:1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(160deg,#11171b,#0d1317);
+      color:#42B8FF;
+      position:relative;
+      cursor:pointer;
+      transition: box-shadow .35s ease, background .35s ease, transform .15s ease;
+      box-shadow: 0 4px 12px -6px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+    .search-btn::before{
+      content:"";
+      position:absolute; inset:0; border-radius:inherit;
+      background: radial-gradient(circle at 50% 45%, rgba(66,184,255,0.12), rgba(66,184,255,0.04) 60%, rgba(0,0,0,0) 75%);
+      opacity:0; transition:opacity .4s ease;
+      pointer-events:none;
+    }
+    .search-btn:hover{
+      box-shadow: 0 6px 16px -6px rgba(0,0,0,0.75), 0 0 0 1px rgba(66,184,255,0.35), inset 0 0 0 1px rgba(255,255,255,0.05);
+      background: linear-gradient(160deg,#141d22,#0f1519);
+    }
+    .search-btn:hover::before{ opacity:1; }
+    .search-btn:active{ transform: scale(.96); box-shadow: 0 3px 10px -4px rgba(0,0,0,0.75), 0 0 0 1px rgba(66,184,255,0.45); }
+    .search-btn:focus-visible{ outline:2px solid rgba(66,184,255,0.55); outline-offset:3px; }
+    .search-icon{ width:22px; height:22px; display:block; }
+    @media (min-width:768px){ .search-btn{ width:54px; height:54px; } .search-icon{ width:24px; height:24px; } }
+    
+    .search-icon{ width: calc(var(--btn-size) * 0.5); height: calc(var(--btn-size) * 0.5); display: block; }
+    @media (min-width: 768px){ /* md */
+      :root{ --btn-size: 54px; } /* 36px → +50% */
+    }
+    
+    /* Opcional: Diferentes alturas para responsive */
+    @media (max-width: 768px) {
+      .custom-header {
+        min-height: 104px !important;
+        padding: 18px 0 !important;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .custom-header {
+        min-height: 176px !important;
+        padding: 36px 0 !important;
+      }
+    }
+
+    /* === ESTILOS PARA COLAPSO DEL ASIDE === */
+    .humana-aside {
+      transition: width 0.3s ease;
+    }
+
+    /* Scrollbar oscuro del aside (WebKit y Firefox) */
+    .humana-aside{
+      /* Firefox */
+      scrollbar-color: rgba(100,110,120,0.6) #0d1317; /* thumb, track */
+      scrollbar-width: thin;
+    }
+    /* WebKit (Chrome, Edge, Safari) */
+    .humana-aside::-webkit-scrollbar{ width: 8px; height: 8px; }
+    .humana-aside::-webkit-scrollbar-track{
+      background: #0d1317;
+      border-radius: 8px;
+    }
+    .humana-aside::-webkit-scrollbar-thumb{
+      background: linear-gradient(180deg, #1f2a30, #131a1e);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .humana-aside::-webkit-scrollbar-thumb:hover{
+      background: linear-gradient(180deg, #27333a, #182126);
+    }
+    .humana-aside::-webkit-scrollbar-corner{ background: #0d1317; }
+
+    /* Cuando está colapsado */
+    .humana-aside.collapsed {
+      width: 80px !important;
+    }
+
+    /* Ocultar textos cuando está colapsado */
+    .humana-aside.collapsed .menu-text,
+    .humana-aside.collapsed .aside-section-title,
+    .humana-aside.collapsed .aside-chip {
+      background: transparent;
+      opacity: 0;
+      pointer-events: none;
+      display: none;
+    }
+
+    .aside-chip{
+      transition: background 0.3s ease, opacity 0.3s ease;
+      color: var(--humana-20);
+    }
+
+    /* El contenedor del email se oculta */
+    .humana-aside.collapsed .aside-header span:nth-child(2) {
+      display: none;
+    }
+
+    /* El ícono del botón toggle rota */
+    .toggle-aside-btn svg {
+      transition: transform 0.3s ease;
+    }
+
+    .humana-aside.collapsed .toggle-aside-btn svg {
+      transform: rotate(180deg);
+    }
+
+    /* Mantener los iconos del menú centrados */
+    .humana-aside.collapsed .menu-item {
+      justify-content: center;
+      padding: 12px;
+    }
+
+    /* Mantener visible el icono del menu */
+    .humana-aside.collapsed .menu-icon {
+      margin: 0;
+      flex: 0 0 auto;
+    }
+
+    /* Mantener visible el icono Font Awesome */
+    .humana-aside.collapsed .menu-icon i {
+      opacity: 1 !important;
+      font-size: 16px;
+    }
+
+    /* Scrollbar más angosto cuando está colapsado (WebKit) */
+    .humana-aside.collapsed::-webkit-scrollbar { width: 4px; }
+    .humana-aside.collapsed { scrollbar-width: thin; }
+
+    /* === FOOTER === */
+    .site-footer{
+      background: #e7eaee; /* claro como en captura */
+      color: #374151;
+      font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      padding: 28px 28px 24px; /* reducido */
+    }
+    .site-footer .footer-inner{
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px; /* menos espacio vertical */
+    }
+    .footer-social{
+      display: flex;
+      gap: 56px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .social-link{
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: #5b6470;
+      font-size: 22px;
+      transition: background .25s ease, color .25s ease, box-shadow .25s ease;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+    }
+    .social-link:hover{
+      background: #d9dde2;
+      color: #2f3945;
+      box-shadow: 0 4px 12px -4px rgba(0,0,0,0.25);
+    }
+
+    .footer-brand-block{ width:100%; display:flex; justify-content:center; }
+    .sena-wrapper{
+      display: flex;
+      align-items: center;
+      gap: 20px; /* reducir separación */
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .sena-logo{ display:block; object-fit:contain; }
+    .footer-separator{ width:1px; height:52px; background:#9ca3af; }
+    .footer-entity{ display:flex; flex-direction:column; align-items:flex-start; }
+    .entity-title{ font-weight:700; font-size:18px; color:#008f39; }
+    .entity-subtitle{ font-size:11px; color:#4b5563; letter-spacing:.5px; }
+
+    .footer-copy{ text-align:center; max-width:860px; }
+    .footer-copy p{ margin:0 0 6px; font-size:13px; line-height:1.35; }
+    .footer-dev{ font-size:12px; color:#4b5563; }
+
+
+
+    @media (max-width:640px){
+      .footer-social{ gap:28px; }
+      .social-link{ width:44px; height:44px; font-size:20px; }
+      /* sizing handled by Tailwind utility on the img; no fixed size here */
+      .footer-separator{ height:52px; }
+      .entity-title{ font-size:18px; }
+      .site-footer{ padding:24px 18px 20px; }
+    }
+
+    /* End footer styles */
+    
+    /* Panel de tema eliminado por solicitud: se retiraron estilos y overrides relacionados */
