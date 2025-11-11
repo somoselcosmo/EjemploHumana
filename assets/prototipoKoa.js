@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const topContent = document.getElementById('topContent');
   const submenuToggle = document.querySelector('.submenu-toggle[aria-controls="submenu-libros"]');
   const submenu = document.getElementById('submenu-libros');
+  const homeNav = document.querySelector('.menu-item[data-nav="home"]');
+  const libroLinks = document.querySelectorAll('.submenu-item[data-libro]');
 
   // Recuperar estado del localStorage (si el usuario ya colapsó antes)
   const isCollapsed = localStorage.getItem('asideCollapsed') === 'true';
@@ -38,6 +40,75 @@ document.addEventListener('DOMContentLoaded', function() {
     const h = topContent.offsetHeight;
     aside.style.maxHeight = h + 'px';
     aside.style.height = 'auto';
+  };
+
+  const defaultTopMarkup = topContent ? topContent.innerHTML : '';
+  const libroCache = {};
+  const libroRoutes = {
+    afiliados: './assets/libros/afiliados.html'
+  };
+
+  const showLibroState = (message) => {
+    if (!topContent) return;
+    topContent.innerHTML = `
+      <div class="libro-embed">
+        <div class="libro-feedback">${message}</div>
+      </div>
+    `;
+    requestAnimationFrame(syncAsideHeight);
+  };
+
+  const renderLibroView = (html) => {
+    if (!topContent) return;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const layout = doc.querySelector('.book-layout');
+    if (!layout) {
+      showLibroState('No se pudo preparar el contenido del libro.');
+      return;
+    }
+    const wrapper = document.createElement('div');
+    wrapper.className = 'libro-embed';
+    wrapper.appendChild(layout);
+    topContent.innerHTML = '';
+    topContent.appendChild(wrapper);
+    topContent.classList.add('is-libro');
+    topContent.scrollTop = 0;
+    requestAnimationFrame(syncAsideHeight);
+  };
+
+  const loadLibroView = (libroId) => {
+    if (!topContent) return;
+    topContent.classList.add('is-libro');
+    if (!libroRoutes[libroId]) {
+      showLibroState('Este libro aún se está preparando.');
+      return;
+    }
+    if (libroCache[libroId]) {
+      renderLibroView(libroCache[libroId]);
+      return;
+    }
+    showLibroState('Cargando libro...');
+    fetch(libroRoutes[libroId])
+      .then((response) => {
+        if (!response.ok) throw new Error('Network');
+        return response.text();
+      })
+      .then((html) => {
+        libroCache[libroId] = html;
+        renderLibroView(html);
+      })
+      .catch(() => {
+        showLibroState('No se pudo cargar el libro. Inténtalo nuevamente.');
+      });
+  };
+
+  const restoreHomeView = () => {
+    if (!topContent) return;
+    topContent.classList.remove('is-libro');
+    topContent.innerHTML = defaultTopMarkup;
+    topContent.scrollTop = 0;
+    requestAnimationFrame(syncAsideHeight);
   };
 
   // Observador para cambios dinámicos dentro de topContent
@@ -87,6 +158,22 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(syncAsideHeight, 340);
     });
   }
+
+  if (homeNav) {
+    homeNav.addEventListener('click', (event) => {
+      event.preventDefault();
+      restoreHomeView();
+    });
+  }
+
+  libroLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const libroId = link.getAttribute('data-libro');
+      if (!libroId) return;
+      loadLibroView(libroId);
+    });
+  });
 
   // Panel de tema eliminado: se removió la lógica de UI del switch/orb
 });

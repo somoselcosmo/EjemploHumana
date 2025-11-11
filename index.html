@@ -30,9 +30,12 @@
     }
   </script>
   <!-- Font Awesome para los iconos -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  
-<link rel="stylesheet" href="./assets/prototipoKoa.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/prototipoKoa.css">
+  <link rel="stylesheet" href="./assets/libros.css">
 
 </head>
 <body>
@@ -75,18 +78,18 @@
   </div>
 </header>
 
-  <main class="humana-main">
-  <div class="layout-top"> <!-- layout-top: agrupa aside y top-content para igualar alturas -->
+<main class="humana-main">
+<div class="layout-top"> <!-- layout-top: agrupa aside y top-content para igualar alturas -->
 
 <aside class="humana-aside w-72 flex flex-col py-4 px-3 font-sans">
   <!-- Usuario y controles (contenido original) -->
   <div class="flex items-center mb-6 px-1 aside-header">
     <button class="aside-chip mr-2 ">USUARIO</button>
-    <span class="text-xs" style="color: rgba(255,255,255,0.65);">Felipechaverra@gmail.com</span>
+    <span class="text-xs">Felipechaverra@gmail.com</span>
     <div class="aside-actions ml-auto flex">
       <button class="ml-1 p-1 rounded toggle-aside-btn" id="toggleAsideBtn">
         <!-- Flecha doble izquierda SVG -->
-        <svg class="w-5 h-5" style="color: var(--accent);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
+        <svg class="w-5 h-5 color-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
           <path stroke-linecap="round" stroke-linejoin="round" d="M14 16l-4-4 4-4M10 16l-4-4 4-4"/>
         </svg>
       </button>
@@ -95,7 +98,7 @@
 
   <!-- Menú superior (contenido original, ahora con estilo “menu-item”) -->
   <nav class="menu-list">
-    <a href="#" class="menu-item">
+  <a href="#" class="menu-item" data-nav="home">
       <span class="menu-icon"><i class="fas fa-home"></i></span>
       <span class="menu-text">Inicio</span>
     </a>
@@ -125,10 +128,11 @@
       </button>
     </div>
     <div id="submenu-libros" class="submenu" role="region" aria-label="Libros JAC">
-      <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro de Actas</span></a>
-      <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro de Afiliados</span></a>
+      <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro de Actas: Asamblea General</span></a>
+  <a href="#" class="submenu-item" data-libro="afiliados"><i class="fas fa-book-open"></i><span>Libro de Afiliados</span></a>
       <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro de Tesorería</span></a>
-      <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro de Correspondencia</span></a>
+      <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro Contable</span></a>
+      <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro de Convivencia</span></a>
     </div>
     <a href="#" class="menu-item">
       <span class="menu-icon"><i class="fas fa-running"></i></span>
