@@ -58,8 +58,47 @@ document.addEventListener('DOMContentLoaded', function() {
     requestAnimationFrame(syncAsideHeight);
   };
 
-  const renderLibroView = (html) => {
+  const resolveScriptSrc = (value, sourceUrl) => {
+    if (!value) return '';
+    const trimmed = value.trim();
+    const isAbsolute = /^(?:https?:)?\/\//i.test(trimmed) || trimmed.startsWith('/') || trimmed.startsWith('data:');
+    if (isAbsolute) {
+      return trimmed;
+    }
+    if (!sourceUrl) {
+      return trimmed;
+    }
+    const segments = sourceUrl.split('/');
+    segments.pop();
+    const basePath = segments.join('/') + (segments.length ? '/' : '');
+    return basePath + trimmed;
+  };
+
+  // Execute any script tags found in the fetched libro markup.
+  const runEmbeddedScripts = (doc, mountPoint, sourceUrl) => {
+    const scripts = doc.querySelectorAll('script');
+    scripts.forEach((script) => {
+      const freshScript = document.createElement('script');
+      Array.from(script.attributes).forEach(({ name, value }) => {
+        if (name === 'src') {
+          const resolved = resolveScriptSrc(value, sourceUrl);
+          if (resolved) {
+            freshScript.src = resolved;
+          }
+        } else {
+          freshScript.setAttribute(name, value);
+        }
+      });
+      if (!script.src) {
+        freshScript.textContent = script.textContent;
+      }
+      mountPoint.appendChild(freshScript);
+    });
+  };
+
+  const renderLibroView = (html, sourceUrl, libroId) => {
     if (!topContent) return;
+    document.dispatchEvent(new CustomEvent('humana:libro-unload'));
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
     const layout = doc.querySelector('.book-layout');
@@ -72,9 +111,13 @@ document.addEventListener('DOMContentLoaded', function() {
     wrapper.appendChild(layout);
     topContent.innerHTML = '';
     topContent.appendChild(wrapper);
+    runEmbeddedScripts(doc, wrapper, sourceUrl);
     topContent.classList.add('is-libro');
     topContent.scrollTop = 0;
     requestAnimationFrame(syncAsideHeight);
+    if (libroId) {
+      document.dispatchEvent(new CustomEvent('humana:libro-loaded', { detail: { libroId } }));
+    }
   };
 
   const loadLibroView = (libroId) => {
@@ -85,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     if (libroCache[libroId]) {
-      renderLibroView(libroCache[libroId]);
+      renderLibroView(libroCache[libroId], libroRoutes[libroId], libroId);
       return;
     }
     showLibroState('Cargando libro...');
@@ -96,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .then((html) => {
         libroCache[libroId] = html;
-        renderLibroView(html);
+        renderLibroView(html, libroRoutes[libroId], libroId);
       })
       .catch(() => {
         showLibroState('No se pudo cargar el libro. Inténtalo nuevamente.');
@@ -105,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const restoreHomeView = () => {
     if (!topContent) return;
+    document.dispatchEvent(new CustomEvent('humana:libro-unload'));
     topContent.classList.remove('is-libro');
     topContent.innerHTML = defaultTopMarkup;
     topContent.scrollTop = 0;

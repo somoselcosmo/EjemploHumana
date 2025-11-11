@@ -8,10 +8,10 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="../libros.css">
+	<link rel="stylesheet" href="../libros.css">
 </head>
-	<body class="libro-humana">
-	<div class="book-layout">
+<body class="libro-humana">
+	<div class="book-layout" data-js="book-layout">
 		<section class="book-list" aria-labelledby="titleAfiliados">
 			<header class="book-header">
 				<h1 id="titleAfiliados">Libro de Afiliados</h1>
@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="table-scroll" role="region" aria-live="polite">
-				<table>
+				<table class="affiliate-table">
 					<thead>
 						<tr>
 							<th scope="col">Estado</th>
@@ -40,165 +40,69 @@
 							<th scope="col">Nivel SISBEN</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<div class="member-cell">
-									<span class="member-avatar"><img src="https://i.pravatar.cc/120?img=12" alt="Foto de Albert Ramos"></span>
-									<div class="member-info">
-										<strong>Albert Ramos</strong>
-										<span>DDI/CC: 243455087 · Tel. +57 300</span>
-										<div class="status-pill"><i class="fas fa-circle" aria-hidden="true"></i>Activo</div>
-									</div>
-								</div>
-							</td>
-							<td>Las Delicias</td>
-							<td>35</td>
-							<td>23/07/2021</td>
-							<td>Masculino</td>
-							<td>Nivel II</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="member-cell">
-									<span class="member-avatar"><img src="https://i.pravatar.cc/120?img=47" alt="Foto de Blanca Ruiz"></span>
-									<div class="member-info">
-										<strong>Blanca Ruiz</strong>
-										<span>DDI/CC: 18877994 · Tel. +57 319</span>
-										<div class="status-pill"><i class="fas fa-circle" aria-hidden="true"></i>Activo</div>
-									</div>
-								</div>
-							</td>
-							<td>Santander</td>
-							<td>42</td>
-							<td>15/05/2020</td>
-							<td>Femenino</td>
-							<td>Nivel III</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="member-cell">
-									<span class="member-avatar"><img src="https://i.pravatar.cc/120?img=32" alt="Foto de Marcela Fuentes"></span>
-									<div class="member-info">
-										<strong>Marcela Fuentes</strong>
-										<span>DDI/CC: 28505967 · Tel. +57 315</span>
-										<div class="status-pill inactive"><i class="fas fa-circle" aria-hidden="true"></i>Inactivo</div>
-									</div>
-								</div>
-							</td>
-							<td>Zacatín</td>
-							<td>39</td>
-							<td>02/11/2018</td>
-							<td>Femenino</td>
-							<td>Nivel I</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="member-cell">
-									<span class="member-avatar"><img src="https://i.pravatar.cc/120?img=54" alt="Foto de Alejandra Arroyo"></span>
-									<div class="member-info">
-										<strong>Alejandra Arroyo</strong>
-										<span>DDI/CC: 46960122 · Tel. +57 322</span>
-										<div class="status-pill"><i class="fas fa-circle" aria-hidden="true"></i>Activo</div>
-									</div>
-								</div>
-							</td>
-							<td>Buenos Aires</td>
-							<td>29</td>
-							<td>07/08/2023</td>
-							<td>Femenino</td>
-							<td>Nivel II</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="member-cell">
-									<span class="member-avatar"><img src="https://i.pravatar.cc/120?img=5" alt="Foto de Juliana Ortiz"></span>
-									<div class="member-info">
-										<strong>Juliana Ortiz</strong>
-										<span>DDI/CC: 31095879 · Tel. +57 210</span>
-										<div class="status-pill"><i class="fas fa-circle" aria-hidden="true"></i>Activo</div>
-									</div>
-								</div>
-							</td>
-							<td>Aranjuez</td>
-							<td>33</td>
-							<td>16/12/2021</td>
-							<td>Femenino</td>
-							<td>Nivel II</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="member-cell">
-									<span class="member-avatar"><img src="https://i.pravatar.cc/120?img=21" alt="Foto de Miguel Pardo"></span>
-									<div class="member-info">
-										<strong>Miguel Pardo</strong>
-										<span>DDI/CC: 28440639 · Tel. +57 311</span>
-										<div class="status-pill"><i class="fas fa-circle" aria-hidden="true"></i>Activo</div>
-									</div>
-								</div>
-							</td>
-							<td>El Placer</td>
-							<td>41</td>
-							<td>30/09/2019</td>
-							<td>Masculino</td>
-							<td>Nivel III</td>
-						</tr>
-					</tbody>
+					<tbody data-js="affiliate-list"></tbody>
 				</table>
 			</div>
 
 			<p class="table-note">* Datos simulados para ilustrar el diseño de la libreta digital de afiliados.</p>
 		</section>
 
-		<aside class="details-panel" aria-labelledby="detalleAfiliado">
+		<aside class="details-panel" aria-labelledby="detalleAfiliado" hidden data-js="details-panel">
+			<button type="button" class="panel-close" aria-label="Cerrar panel de detalles">
+				<i class="fas fa-xmark" aria-hidden="true"></i>
+			</button>
 			<div class="profile">
-				<div class="photo"><img src="https://i.pravatar.cc/200?img=12" alt="Retrato de Albert Ramos"></div>
+				<div class="photo" data-detail="photo">
+					<img src="" alt="" data-detail="avatar" hidden>
+				</div>
 				<div>
-					<h2 id="detalleAfiliado">Albert Ramos</h2>
-					<span>DDI/C.C. 24345587</span>
-					<div class="status-pill"><i class="fas fa-circle" aria-hidden="true"></i>Activo</div>
+					<h2 id="detalleAfiliado" data-detail="name">Selecciona un afiliado</h2>
+					<span data-detail="document">Usa la lista para ver la información detallada.</span>
+					<div class="status-pill" data-detail="status" hidden></div>
 				</div>
 			</div>
 
-			<div class="contact-list">
+			<div class="contact-list" data-detail="contact">
 				<div class="contact-item">
 					<i class="fas fa-phone"></i>
 					<div>
 						<span>Teléfono</span>
-						<div>+57 500 184 597</div>
+						<div data-detail="phone">N/D</div>
 					</div>
 				</div>
 				<div class="contact-item">
 					<i class="fas fa-envelope"></i>
 					<div>
 						<span>Email</span>
-						<div>aiberf@example.org</div>
+						<div data-detail="email">N/D</div>
 					</div>
 				</div>
 				<div class="contact-item">
 					<i class="fas fa-map-marker-alt"></i>
 					<div>
 						<span>Barrio / Vereda</span>
-						<div>Las Delicias</div>
+						<div data-detail="address">N/D</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="data-table">
-				<div><span>Edad</span><strong>35 años</strong></div>
-				<div><span>Sexo</span><strong>Masculino</strong></div>
-				<div><span>Fecha de afiliación</span><strong>23/07/2021</strong></div>
-				<div><span>SISBEN</span><strong>II EPS</strong></div>
-				<div><span>EPS</span><strong>SaludVida</strong></div>
-				<div><span>Nivel de participación</span><strong>Consejo de vigilancia</strong></div>
+			<div class="data-table" data-detail="data">
+				<div><span>Edad</span><strong data-detail="age">N/D</strong></div>
+				<div><span>Sexo</span><strong data-detail="gender">N/D</strong></div>
+				<div><span>Fecha de afiliación</span><strong data-detail="affiliationDate">N/D</strong></div>
+				<div><span>SISBEN</span><strong data-detail="sisben">N/D</strong></div>
+				<div><span>EPS</span><strong data-detail="eps">N/D</strong></div>
+				<div><span>Nivel de participación</span><strong data-detail="participation">N/D</strong></div>
 			</div>
 
-			<div class="detail-actions">
-				<button type="button"><i class="fas fa-pen"></i>Editar datos</button>
-				<button type="button"><i class="fas fa-random"></i>Cambiar estado</button>
-				<a href="#"><i class="fas fa-id-card"></i>Generar carné</a>
+			<div class="detail-actions" data-detail="actions">
+				<button type="button"><i class="fas fa-pen" aria-hidden="true"></i>Editar datos</button>
+				<button type="button"><i class="fas fa-random" aria-hidden="true"></i>Cambiar estado</button>
+				<a href="#"><i class="fas fa-id-card" aria-hidden="true"></i>Generar carné</a>
 			</div>
 		</aside>
 	</div>
+
+	<script src="afiliados.js" defer></script>
 </body>
 </html>

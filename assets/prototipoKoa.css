@@ -449,6 +449,13 @@
   align-items: flex-start; /* no forzar alturas por el más alto */
   gap: 0; /* podrías ajustar si quieres separación */
 }
+.layout-top.host-aside-hidden .humana-aside,
+.humana-aside.is-hidden{
+  display: none !important;
+}
+.layout-top.host-aside-hidden .top-content{
+  flex: 1 1 100%;
+}
     .layout-top .humana-aside{
       flex: 0 0 18rem; /* ancho base coincide con w-72 */
       display: flex;
