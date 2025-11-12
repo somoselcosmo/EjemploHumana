@@ -29,7 +29,6 @@ body.libro-humana {
 	display: flex;
 	align-items: stretch;
 	justify-content: center;
-	padding: clamp(20px, 4vw, 48px);
 }
 
 .libro-embed {
@@ -61,10 +60,8 @@ body.libro-humana {
 }
 
 .book-layout {
-	width: min(1200px, 100%);
 	background: rgba(9, 14, 18, 0.75);
 	border: 1px solid rgba(255, 255, 255, 0.05);
-	border-radius: 24px;
 	backdrop-filter: blur(26px);
 	overflow: hidden;
 	box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.9);
@@ -220,19 +217,43 @@ body.libro-humana {
 	gap: 12px;
 }
 
-.member-avatar {
+body.libro-humana .member-avatar,
+.libro-embed .member-avatar {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	width: 46px;
-	height: 46px;
+	max-width: 46px;
+	flex: 0 0 46px;
+	aspect-ratio: 1 / 1;
 	border-radius: 50%;
 	overflow: hidden;
-	flex-shrink: 0;
-	box-shadow: 0 12px 24px -14px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.04);
+	background: linear-gradient(145deg, rgba(26, 36, 45, 0.92), rgba(12, 18, 24, 0.92));
+	border: 1.5px solid rgba(255, 255, 255, 0.08);
+	box-shadow: 0 8px 18px -14px rgba(0, 0, 0, 0.85);
+	transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
-.member-avatar img {
+body.libro-humana .member-avatar img,
+.libro-embed .member-avatar img {
+	display: block;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	border-radius: 50%;
+}
+
+body.libro-humana .member-avatar[data-status="activo"],
+.libro-embed .member-avatar[data-status="activo"] {
+	border-color: rgba(25, 180, 255, 0.38);
+	box-shadow: 0 0 0 1.5px rgba(25, 180, 255, 0.24), 0 0 14px rgba(25, 180, 255, 0.28);
+}
+
+body.libro-humana .member-avatar[data-status="inactivo"],
+.libro-embed .member-avatar[data-status="inactivo"] {
+	border-color: rgba(255, 107, 107, 0.42);
+	box-shadow: 0 0 0 1.5px rgba(255, 107, 107, 0.24), 0 0 12px rgba(255, 107, 107, 0.28);
 }
 
 .member-info strong {

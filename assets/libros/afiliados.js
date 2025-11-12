@@ -161,15 +161,12 @@
     document: 'Usa la lista para ver la información detallada.'
   };
 
-  const hostLayout = document.querySelector('.layout-top');
   const hostAside = document.querySelector('.humana-aside');
   const HIDDEN_FLAG = 'afiliadosHideState';
   const PREV_COLLAPSED = 'afiliadosPrevCollapsed';
-  const HOST_ASIDE_HIDDEN_CLASS = 'host-aside-hidden';
-  const HOST_ASIDE_MANUAL_CLASS = 'is-hidden';
 
   const hideHostAside = () => {
-    if (!hostLayout || !hostAside) {
+    if (!hostAside) {
       return;
     }
 
@@ -178,14 +175,12 @@
     }
 
     hostAside.dataset[PREV_COLLAPSED] = hostAside.classList.contains('collapsed') ? 'true' : 'false';
-    hostAside.classList.remove('collapsed');
-    hostAside.classList.add(HOST_ASIDE_MANUAL_CLASS);
-    hostLayout.classList.add(HOST_ASIDE_HIDDEN_CLASS);
+    hostAside.classList.add('collapsed');
     hostAside.dataset[HIDDEN_FLAG] = 'active';
   };
 
   const showHostAside = () => {
-    if (!hostLayout || !hostAside) {
+    if (!hostAside) {
       return;
     }
 
@@ -193,15 +188,14 @@
       return;
     }
 
-    hostAside.classList.remove(HOST_ASIDE_MANUAL_CLASS);
-    hostLayout.classList.remove(HOST_ASIDE_HIDDEN_CLASS);
-
     const shouldRestoreCollapsed = hostAside.dataset[PREV_COLLAPSED] === 'true';
     delete hostAside.dataset[HIDDEN_FLAG];
     delete hostAside.dataset[PREV_COLLAPSED];
 
     if (shouldRestoreCollapsed) {
       hostAside.classList.add('collapsed');
+    } else {
+      hostAside.classList.remove('collapsed');
     }
   };
 
@@ -238,6 +232,8 @@
     tbody.innerHTML = '';
 
     affiliates.forEach((affiliate) => {
+      const statusValue = (affiliate.status || '').trim().toLowerCase();
+      const statusAttr = statusValue ? ` data-status="${statusValue}"` : '';
       const row = document.createElement('tr');
       row.dataset.affiliate = affiliate.id;
       row.dataset.name = affiliate.name;
@@ -258,14 +254,10 @@
       row.setAttribute('role', 'button');
       row.setAttribute('aria-label', `Ver detalle de ${affiliate.name}`);
 
-      const statusLabel = formatStatus(affiliate.status);
-      const isInactive = (affiliate.status || '').toLowerCase() === 'inactivo';
-      const statusMarkup = statusLabel ? ` ${statusLabel}` : '';
-
       row.innerHTML = `
         <td>
           <div class="member-cell">
-            <span class="member-avatar"><img src="${affiliate.avatarThumb}" alt="Foto de ${affiliate.name}"></span>
+            <span class="member-avatar"${statusAttr}><img src="${affiliate.avatarThumb}" alt="Foto de ${affiliate.name}"></span>
             <div class="member-info">
               <strong>${affiliate.name}</strong>
               <span>${affiliate.document} · Tel. ${affiliate.phone}</span>

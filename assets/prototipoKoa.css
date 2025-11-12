@@ -14,6 +14,8 @@
       --btn-bg-bot: #0B1013;
       --btn-border: #1E262B;
       --btn-border-active: #2A3640;
+      --btn-bg-morado-top: #917ec5;
+      --btn-bg-morado-bot: #a76cc0;
       --icon-color: #42B8FF;
       --icon-glow: rgba(66,184,255,0.55);
       --focus-ring: #42B8FF;
@@ -295,6 +297,27 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.35);
 }
 
+/* Etiquetas de secciones dentro del aside */
+.aside-section-title{
+  margin: 22px 0 10px;
+  padding: 0 2px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(198, 219, 235, 0.82);
+  border-bottom: 1px solid rgba(66, 184, 255, 0.18);
+  padding-bottom: 6px;
+}
+
+.aside-section-title:first-of-type{
+  margin-top: 14px;
+}
+
+.aside-section-title + .menu-list{
+  margin-top: 12px;
+}
+
 /* Listas del menú (ítems apilados con separación) */
 .menu-list{
   display: flex;
@@ -449,13 +472,6 @@
   align-items: flex-start; /* no forzar alturas por el más alto */
   gap: 0; /* podrías ajustar si quieres separación */
 }
-.layout-top.host-aside-hidden .humana-aside,
-.humana-aside.is-hidden{
-  display: none !important;
-}
-.layout-top.host-aside-hidden .top-content{
-  flex: 1 1 100%;
-}
     .layout-top .humana-aside{
       flex: 0 0 18rem; /* ancho base coincide con w-72 */
       display: flex;
@@ -472,6 +488,13 @@
     }
 /* (Removed duplicate layout-top block to avoid redundancy) */
 
+/*Fondo moradito gradiante de izquierda a derecha*/
+.moradito{
+  background: linear-gradient(to left,var(--btn-bg-morado-bot), var(--btn-bg-morado-top));
+}
+.cyber{
+  color: var(--cyber);
+}
 /* Sección inferior ocupará todo el ancho del page-container (aside ya no afecta) */
 .full-width-content{
   width: 100%;
@@ -701,7 +724,7 @@
 
     .aside-chip{
       transition: background 0.3s ease, opacity 0.3s ease;
-      color: var(--humana-20);
+      color: var(--focus-ring);
     }
 
     /* El contenedor del email se oculta */
