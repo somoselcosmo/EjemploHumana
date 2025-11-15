@@ -77,12 +77,6 @@
     </div>
   </div>
 </header>
-  <!-- Botón global para crear nuevo afiliado (abre modal, disponible desde cualquier página) -->
-  <button class="action-btn primary floating-new" data-js="nuevo-affiliado" title="Nuevo afiliado">
-    <i class="ri-user-add-line" aria-hidden="true"></i>
-    <span>Nuevo afiliado</span>
-  </button>
-
 <main class="humana-main">
 <div class="layout-top"> <!-- layout-top: agrupa aside y top-content para igualar alturas -->
 
@@ -108,10 +102,6 @@
       <span class="menu-text">Inicio</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="ri-search-line"></i></span>
-      <span class="menu-text">Buscar</span>
-    </a>
-    <a href="#" class="menu-item">
       <span class="menu-icon"><i class="ri-settings-3-line"></i></span>
       <span class="menu-text">Configuracion</span>
     </a>
@@ -133,11 +123,11 @@
       </button>
     </div>
     <div id="submenu-libros" class="submenu" role="region" aria-label="Libros JAC">
-      <a href="#" class="submenu-item"><i class="ri-book-open-line"></i><span>Libro de Actas: Asamblea General</span></a>
-  <a href="#" class="submenu-item" data-libro="afiliados"><i class="ri-book-open-line"></i><span>Libro de Afiliados</span></a>
-      <a href="#" class="submenu-item"><i class="ri-book-open-line"></i><span>Libro de Tesorería</span></a>
-      <a href="#" class="submenu-item"><i class="ri-book-open-line"></i><span>Libro Contable</span></a>
-      <a href="#" class="submenu-item"><i class="ri-book-open-line"></i><span>Libro de Convivencia</span></a>
+      <a href="#" class="submenu-item" data-libro="actas" data-route="./assets/libros/actas.html"><i class="ri-book-open-line"></i><span>Libro de Actas: Asamblea General</span></a>
+      <a href="#" class="submenu-item" data-libro="afiliados" data-route="./assets/libros/afiliados.html"><i class="ri-book-open-line"></i><span>Libro de Afiliados</span></a>
+      <a href="#" class="submenu-item" data-libro="contable" data-route="./assets/libros/contable.html"><i class="ri-book-open-line"></i><span>Libro Contable</span></a>
+      <a href="#" class="submenu-item" data-libro="inventario" data-route="./assets/libros/inventario.html"><i class="ri-book-open-line"></i><span>Libro de Inventario</span></a>
+      <a href="#" class="submenu-item" data-libro="convivencia" data-route="./assets/libros/convivencia.html"><i class="ri-book-open-line"></i><span>Libro de Convivencia</span></a>
     </div>
     <a href="#" class="menu-item">
       <span class="menu-icon"><i class="ri-run-line"></i></span>

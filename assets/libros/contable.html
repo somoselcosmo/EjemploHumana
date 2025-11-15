@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Libro Contable</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+	<link rel="stylesheet" href="../libros.css">
+</head>
+<body class="libro-humana">
+	<div class="book-layout">
+		<div class="contable-layout" data-js="contable-layout">
+		<header class="ledger-hero">
+			<div>
+				<p class="ledger-breadcrumb">Libro Contable · JAC Providencia</p>
+				<h1>Ingresos, egresos y control de comprobantes</h1>
+				<p class="ledger-subtitle">Monitorea en tiempo real los movimientos y estados de tus comprobantes.</p>
+			</div>
+			<div class="ledger-hero-actions">
+				<button class="btn-ghost" data-js="back-home"><i class="ri-arrow-left-line"></i>Volver al inicio</button>
+			</div>
+		</header>
+
+		<section class="ledger-metrics" aria-label="Resumen del mes">
+			<article class="metric-card" data-card="income">
+				<p class="metric-label">Ingresos del mes</p>
+				<p class="metric-value" data-summary="income-value">$ 0</p>
+				<p class="metric-caption" data-summary="income-caption">Actualizado al 00/00/0000</p>
+			</article>
+			<article class="metric-card" data-card="expense">
+				<p class="metric-label">Egresos del mes</p>
+				<p class="metric-value" data-summary="expense-value">$ 0</p>
+				<p class="metric-caption" data-summary="expense-caption">Incluye mantenimiento y suministros</p>
+			</article>
+			<article class="metric-card" data-card="status">
+				<p class="metric-label">Estado de comprobantes</p>
+				<div class="status-pills" data-summary="status-wrapper">
+					<span class="status-pill" data-status="approved">Aprobados <strong data-count="approved">0</strong></span>
+					<span class="status-pill" data-status="review">En revisión <strong data-count="review">0</strong></span>
+					<span class="status-pill" data-status="rejected">Rechazados <strong data-count="rejected">0</strong></span>
+				</div>
+			</article>
+		</section>
+
+		<section class="ledger-actions" aria-label="Acciones principales">
+			<div class="ledger-search">
+				<i class="ri-search-line" aria-hidden="true"></i>
+				<input type="search" placeholder="Buscar por concepto, tercero o #" aria-label="Buscar comprobante" data-js="ledger-search">
+			</div>
+			<div class="ledger-actions-group">
+				<button class="btn primary" data-js="new-record"><i class="ri-add-line"></i>Nuevo comprobante<i class="ri-arrow-down-s-line" aria-hidden="true"></i></button>
+				<button class="btn" data-js="upload-csv"><i class="ri-upload-2-line"></i>Cargar CSV</button>
+				<button class="btn" data-js="download-template"><i class="ri-download-2-line"></i>Descargar plantilla</button>
+				<button class="btn ghost" data-js="export-pdf"><i class="ri-printer-line"></i>Imprimir / Exportar PDF</button>
+			</div>
+		</section>
+
+		<nav class="ledger-tabs" aria-label="Filtro de comprobantes" role="tablist">
+			<button class="tab active" role="tab" aria-selected="true" data-ledger-tab="todos">Todos <span data-tab-count="todos">0</span></button>
+			<button class="tab" role="tab" aria-selected="false" data-ledger-tab="ingresos">Ingresos <span data-tab-count="ingresos">0</span></button>
+			<button class="tab" role="tab" aria-selected="false" data-ledger-tab="egresos">Egresos <span data-tab-count="egresos">0</span></button>
+			<button class="tab" role="tab" aria-selected="false" data-ledger-tab="pendientes">Pendientes <span data-tab-count="pendientes">0</span></button>
+			<button class="tab" role="tab" aria-selected="false" data-ledger-tab="firma">Firma <span data-tab-count="firma">0</span></button>
+		</nav>
+
+		<section class="ledger-table" aria-label="Listado de comprobantes">
+			<div class="table-scroll">
+				<table>
+					<thead>
+						<tr>
+							<th># Comprobante</th>
+							<th>Fecha</th>
+							<th>Tipo</th>
+							<th>Concepto</th>
+							<th>Débito / Crédito</th>
+							<th>Estado</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody data-js="ledger-body"></tbody>
+				</table>
+			</div>
+			<footer class="table-footer">
+				<p data-js="ledger-count">Mostrando 0 comprobantes</p>
+				<button class="btn ghost" data-js="refresh-ledger"><i class="ri-refresh-line"></i>Actualizar</button>
+			</footer>
+		</section>
+		</div>
+	</div>
+
+	<script src="contable.js" defer></script>
+</body>
+</html>

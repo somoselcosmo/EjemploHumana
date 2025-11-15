@@ -687,17 +687,17 @@
     /* Scrollbar oscuro del aside (WebKit y Firefox) */
     .humana-aside{
       /* Firefox */
-      scrollbar-color: rgba(100,110,120,0.6) #0d1317; /* thumb, track */
+      scrollbar-color: var(--scroll-thumb, rgba(100,110,120,0.6)) var(--scroll-track, #0d1317); /* thumb, track */
       scrollbar-width: thin;
     }
     /* WebKit (Chrome, Edge, Safari) */
     .humana-aside::-webkit-scrollbar{ width: 8px; height: 8px; }
     .humana-aside::-webkit-scrollbar-track{
-      background: #0d1317;
+      background: var(--scroll-track, #0d1317);
       border-radius: 8px;
     }
     .humana-aside::-webkit-scrollbar-thumb{
-      background: linear-gradient(180deg, #1f2a30, #131a1e);
+      background: linear-gradient(180deg, var(--scroll-thumb, #1f2a30), #131a1e);
       border-radius: 8px;
       border: 1px solid rgba(255,255,255,0.06);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);

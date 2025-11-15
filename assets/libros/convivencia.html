@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Libro de Convivencia</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+	<link rel="stylesheet" href="../libros.css">
+</head>
+<body class="libro-humana">
+	<div class="book-layout">
+		<div class="civics-layout" data-js="civics-layout">
+			<header class="civics-hero">
+				<div class="civics-hero__heading">
+					<p class="civics-chip">JAC · Providencia</p>
+					<h1>Libro de Convivencia</h1>
+					<p>Normas básicas de convivencia acordadas por la comunidad.</p>
+				</div>
+				<div class="civics-hero__actions">
+					<button class="civics-back" data-js="back-home"><i class="ri-arrow-left-line" aria-hidden="true"></i><span>Volver</span></button>
+					<label class="civics-search">
+						<i class="ri-search-line" aria-hidden="true"></i>
+						<input type="search" placeholder="Buscar" data-js="civics-search" aria-label="Buscar norma">
+					</label>
+					<button class="civics-btn primary" data-js="new-rule">+ Agregar norma</button>
+				</div>
+			</header>
+
+			<section class="civics-table" aria-label="Normas de convivencia">
+				<div class="table-scroll">
+					<table>
+						<thead>
+							<tr>
+								<th>Fecha de acuerdo</th>
+								<th>Norma / Regla</th>
+								<th>Descripción / Justificación</th>
+								<th>Aprobado por (Votos)</th>
+								<th>Responsable (DDI)</th>
+							</tr>
+						</thead>
+						<tbody data-js="civics-body"></tbody>
+					</table>
+				</div>
+				<footer class="civics-table__footer">
+					<p data-js="civics-count">Mostrando 0 normas</p>
+					<button class="civics-refresh" data-js="refresh"><i class="ri-refresh-line" aria-hidden="true"></i>Actualizar</button>
+				</footer>
+			</section>
+		</div>
+	</div>
+	<script src="convivencia.js" defer></script>
+</body>
+</html>

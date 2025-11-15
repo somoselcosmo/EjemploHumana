@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Libro de Inventario</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+	<link rel="stylesheet" href="../libros.css">
+</head>
+<body class="libro-humana">
+	<div class="book-layout">
+		<div class="inventory-layout" data-js="inventory-layout">
+			<header class="inventory-hero">
+				<div>
+					<p class="inventory-label">Registro oficial JAC</p>
+					<h1>Libro de Inventario</h1>
+					<p class="inventory-subtitle">Bienes, equipos e infraestructura de la Junta de Acción Comunal.</p>
+				</div>
+				<div class="inventory-hero-actions">
+					<button class="inventory-btn ghost" data-js="back-home"><i class="ri-arrow-left-line"></i>Volver al inicio</button>
+				</div>
+			</header>
+
+			<section class="inventory-controls" aria-label="Filtros principales">
+				<div class="inventory-search">
+					<i class="ri-search-line" aria-hidden="true"></i>
+					<input type="search" placeholder="Buscar por código, bien o responsable" aria-label="Buscar" data-js="inventory-search">
+				</div>
+				<div class="inventory-actions">
+					<button class="inventory-btn primary" data-js="new-asset"><i class="ri-add-line"></i>Nuevo bien</button>
+					<button class="inventory-btn" data-js="import-csv"><i class="ri-upload-2-line"></i>Importar CSV</button>
+					<button class="inventory-btn" data-js="export-data"><i class="ri-share-forward-line"></i>Exportar</button>
+					<button class="inventory-btn ghost" data-js="print"><i class="ri-printer-line"></i>Imprimir</button>
+				</div>
+			</section>
+
+			<section class="inventory-metrics" aria-label="Resumen del inventario">
+				<article class="inventory-card">
+					<p class="metric-label">Total de bienes</p>
+					<p class="inventory-number" data-metric="total-items">0</p>
+				</article>
+				<article class="inventory-card">
+					<p class="metric-label">Valor total estimado</p>
+					<p class="inventory-number" data-metric="total-value">$ 0</p>
+				</article>
+				<article class="inventory-card">
+					<p class="metric-label">Bienes asignados</p>
+					<p class="inventory-number" data-metric="assigned">0</p>
+				</article>
+				<article class="inventory-card">
+					<p class="metric-label">En mal estado / baja</p>
+					<p class="inventory-number" data-metric="damaged">0</p>
+				</article>
+			</section>
+
+			<section class="inventory-table" aria-label="Listado de bienes">
+				<div class="table-scroll">
+					<table>
+						<thead>
+							<tr>
+								<th>Código</th>
+								<th>Nombre del bien</th>
+								<th>Categoría</th>
+								<th>Estado</th>
+								<th>Cantidad</th>
+								<th>Ubicación</th>
+								<th>Responsable</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody data-js="inventory-body"></tbody>
+					</table>
+				</div>
+				<footer class="inventory-footer">
+					<p data-js="inventory-count">Mostrando 0 bienes</p>
+					<button class="inventory-btn ghost" data-js="refresh"><i class="ri-refresh-line"></i>Actualizar</button>
+				</footer>
+			</section>
+		</div>
+	</div>
+
+	<script src="inventario.js" defer></script>
+</body>
+</html>

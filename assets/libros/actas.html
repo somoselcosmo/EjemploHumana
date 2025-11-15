@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Libro de Actas</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+	<link rel="stylesheet" href="../libros.css">
+</head>
+<body class="libro-humana">
+	<div class="book-layout">
+		<div class="acts-layout" data-js="acts-layout">
+			<header class="acts-hero">
+				<div class="acts-hero__info">
+					<span class="acts-hero__badge"><i class="ri-article-line" aria-hidden="true"></i>Actas · JAC Providencia</span>
+					<h1>Actas · JAC Providencia</h1>
+					<p>Generación y control de documentos de asamblea.</p>
+				</div>
+				<div class="acts-hero__actions">
+					<button class="acts-back" data-js="back-home"><i class="ri-arrow-left-line"></i><span>Volver</span></button>
+					<label class="acts-search" aria-label="Buscar actas">
+						<i class="ri-search-line" aria-hidden="true"></i>
+						<input type="search" placeholder="Buscar por tema o número de acta" data-js="acts-search">
+					</label>
+				</div>
+			</header>
+
+			<div class="acts-grid">
+				<section class="acts-primary">
+					<section class="acts-metrics" aria-label="Indicadores">
+						<article class="acts-card" data-card="sessions">
+							<p class="acts-card__label">Sesiones del mes</p>
+							<p class="acts-card__value" data-metric="sessions">0</p>
+						</article>
+						<article class="acts-card" data-card="certificates">
+							<p class="acts-card__label">Certificados emitidos</p>
+							<p class="acts-card__value" data-metric="certificates">0</p>
+							<p class="acts-card__caption">Incluye paz y salvos</p>
+						</article>
+						<article class="acts-card" data-card="status">
+							<p class="acts-card__label">Estado de actas</p>
+							<p class="acts-card__value" data-metric="status">—</p>
+							<p class="acts-card__badge" data-metric="status-note">Actualizado</p>
+						</article>
+					</section>
+
+					<section class="acts-records" aria-label="Historial de actas">
+						<header class="acts-records__header">
+							<nav class="acts-tabs" role="tablist">
+								<button class="acts-tab active" role="tab" aria-selected="true" data-acts-tab="todas">Todas</button>
+								<button class="acts-tab" role="tab" aria-selected="false" data-acts-tab="ordinarias">Ordinarias</button>
+								<button class="acts-tab" role="tab" aria-selected="false" data-acts-tab="extraordinarias">Extraordinarias</button>
+							</nav>
+							<div class="acts-records__actions">
+								<button class="acts-link" data-js="generate-cert">Generar certificado</button>
+								<button class="acts-btn primary" data-js="new-minute">+ Nueva acta</button>
+							</div>
+						</header>
+						<div class="table-scroll acts-table">
+							<table>
+								<thead>
+									<tr>
+										<th>Número</th>
+										<th>Fecha</th>
+										<th>Tema</th>
+										<th>Decisiones</th>
+										<th>Estado</th>
+									</tr>
+								</thead>
+								<tbody data-js="acts-body"></tbody>
+							</table>
+						</div>
+						<footer class="acts-table__footer">
+							<p data-js="acts-count">Mostrando 0 actas</p>
+							<button class="acts-refresh" data-js="refresh"><i class="ri-refresh-line" aria-hidden="true"></i>Actualizar</button>
+						</footer>
+					</section>
+				</section>
+
+				<aside class="acts-signatures" aria-label="Panel de firmas">
+					<div class="acts-signatures__header">
+						<p class="acts-signatures__title">Firmas (PIN)</p>
+						<p class="acts-signatures__subtitle">Seguimiento a responsables</p>
+					</div>
+					<ul class="acts-signatures__list" data-js="signature-list"></ul>
+					<div class="acts-pin">
+						<div class="acts-pin__dots" aria-label="PIN ingresado" role="presentation">
+							<span></span><span></span><span></span><span></span><span></span><span></span>
+						</div>
+						<button class="acts-btn primary" data-js="sign">Firmar</button>
+					</div>
+				</aside>
+			</div>
+		</div>
+	</div>
+	<script src="actas.js" defer></script>
+</body>
+</html>

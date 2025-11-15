@@ -44,9 +44,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const defaultTopMarkup = topContent ? topContent.innerHTML : '';
   const libroCache = {};
-  const libroRoutes = {
-    afiliados: './assets/libros/afiliados.html'
-  };
+  const libroRoutes = Array.from(libroLinks).reduce((routes, link) => {
+    const libroId = link.getAttribute('data-libro');
+    const route = link.getAttribute('data-route');
+    if (libroId && route) {
+      routes[libroId] = route;
+    }
+    return routes;
+  }, {});
 
   const showLibroState = (message) => {
     if (!topContent) return;
@@ -154,6 +159,13 @@ document.addEventListener('DOMContentLoaded', function() {
     topContent.scrollTop = 0;
     requestAnimationFrame(syncAsideHeight);
   };
+
+  document.addEventListener('humana:volver-inicio', (event) => {
+    if (event && typeof event.preventDefault === 'function') {
+      event.preventDefault();
+    }
+    restoreHomeView();
+  });
 
   // Observador para cambios dinámicos dentro de topContent
   if (topContent && 'ResizeObserver' in window) {

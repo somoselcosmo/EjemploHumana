@@ -227,6 +227,22 @@
     return Array.from(tbody.querySelectorAll('tr'));
   };
 
+  const attachRowHandlers = (rows, handler) => {
+    rows.forEach((row) => {
+      row.setAttribute('aria-selected', row.getAttribute('aria-selected') || 'false');
+
+      row.addEventListener('click', () => handler(row));
+      row.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          handler(row);
+        }
+      });
+    });
+
+    return rows;
+  };
+
   const setupLayout = (layout) => {
     if (!layout || layout.dataset.afiliadosReady === 'true') {
       return;
@@ -234,7 +250,7 @@
 
     const panel = layout.querySelector('[data-js="details-panel"]');
     const closeButton = panel ? panel.querySelector('.panel-close') : null;
-    const rows = renderAffiliateRows(layout);
+    let rows = renderAffiliateRows(layout);
 
     if (!panel || !rows.length) {
       return;
@@ -285,14 +301,12 @@
       pendingScrollSync = requestAnimationFrame(syncPanelScrollState);
     };
 
-    if (!panel.dataset.scrollObserverAttached) {
-      panel.dataset.scrollObserverAttached = 'true';
-      if (typeof ResizeObserver === 'function') {
-        const observer = new ResizeObserver(scheduleScrollSync);
-        observer.observe(panel);
-      }
-      window.addEventListener('resize', scheduleScrollSync);
+    let resizeObserver = null;
+    if (typeof ResizeObserver === 'function') {
+      resizeObserver = new ResizeObserver(scheduleScrollSync);
+      resizeObserver.observe(panel);
     }
+    window.addEventListener('resize', scheduleScrollSync);
 
     // Inject row dataset values into the detail pane.
     const populatePanel = (data) => {
@@ -456,21 +470,20 @@
       hideHostAside();
     };
 
-    // Bind click and keyboard handlers to each row.
-    rows.forEach((row) => {
-      row.setAttribute('aria-selected', 'false');
+    const bindRows = (preserveId) => {
+      rows = attachRowHandlers(renderAffiliateRows(layout), handleRowSelection);
+      if (!preserveId) {
+        return;
+      }
+      const replacement = rows.find((row) => row.dataset.affiliate === preserveId);
+      if (replacement) {
+        handleRowSelection(replacement);
+      } else {
+        resetPanel();
+      }
+    };
 
-      row.addEventListener('click', () => {
-        handleRowSelection(row);
-      });
-
-      row.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          handleRowSelection(row);
-        }
-      });
-    });
+    bindRows();
 
     if (closeButton) {
       closeButton.addEventListener('click', () => {
@@ -492,6 +505,13 @@
         }
       }
     });
+
+    const cleanup = () => {
+      window.removeEventListener('resize', scheduleScrollSync);
+      resizeObserver?.disconnect();
+    };
+
+    document.addEventListener('humana:libro-unload', cleanup, { once: true });
 
     resetPanel();
     scheduleScrollSync();
@@ -672,7 +692,7 @@
           // Añadir al array y re-render en este layout
           try {
             affiliates.push(entry);
-            renderAffiliateRows(layout);
+            bindRows(entry.id);
             const added = layout.querySelector(`tr[data-affiliate="${entry.id}"]`);
             if (added) added.focus();
 
