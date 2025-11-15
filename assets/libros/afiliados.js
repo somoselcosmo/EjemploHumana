@@ -4,14 +4,14 @@
     {
       id: 'albert',
       name: 'Albert Ramos',
-      document: 'DDI/CC: 243455087',
+  document: 'CC: 243455087',
       phone: '+57 300 184 597',
       email: 'aramos@example.org',
       address: 'Las Delicias',
       age: 35,
       gender: 'Masculino',
       affiliationDate: '23/07/2021',
-      sisben: 'Nivel II',
+  occupation: 'Gestor comunitario',
       eps: 'SaludVida',
       participation: 'Consejo de vigilancia',
       status: 'activo',
@@ -21,14 +21,14 @@
     {
       id: 'blanca',
       name: 'Blanca Ruiz',
-      document: 'DDI/CC: 18877994',
+  document: 'CC: 18877994',
       phone: '+57 319 884 225',
       email: 'bruiz@example.org',
       address: 'Santander',
       age: 42,
       gender: 'Femenino',
       affiliationDate: '15/05/2020',
-      sisben: 'Nivel III',
+  occupation: 'Facilitadora social',
       eps: 'Coosalud',
       participation: 'Mesa de trabajo territorial',
       status: 'activo',
@@ -38,14 +38,14 @@
     {
       id: 'marcela',
       name: 'Marcela Fuentes',
-      document: 'DDI/CC: 28505967',
+  document: 'CC: 28505967',
       phone: '+57 315 112 048',
       email: 'mfuentes@example.org',
       address: 'Zacatín',
       age: 39,
       gender: 'Femenino',
       affiliationDate: '02/11/2018',
-      sisben: 'Nivel I',
+  occupation: 'Artesana textil',
       eps: 'Nueva EPS',
       participation: 'Red de emprendimiento comunitario',
       status: 'inactivo',
@@ -55,82 +55,31 @@
     {
       id: 'alejandra',
       name: 'Alejandra Arroyo',
-      document: 'DDI/CC: 46960122',
+  document: 'CC: 46960122',
       phone: '+57 322 884 990',
       email: 'aarroyo@example.org',
       address: 'Buenos Aires',
       age: 29,
       gender: 'Femenino',
       affiliationDate: '07/08/2023',
-      sisben: 'Nivel II',
+  occupation: 'Mentora juvenil',
       eps: 'Compensar',
       participation: 'Programa de liderazgo juvenil',
       status: 'activo',
       avatarLarge: 'https://i.pravatar.cc/200?img=54',
       avatarThumb: 'https://i.pravatar.cc/120?img=54'
     },
-     {
-      id: 'albert',
-      name: 'Albert Ramos',
-      document: 'DDI/CC: 243455087',
-      phone: '+57 300 184 597',
-      email: 'aramos@example.org',
-      address: 'Las Delicias',
-      age: 35,
-      gender: 'Masculino',
-      affiliationDate: '23/07/2021',
-      sisben: 'Nivel II',
-      eps: 'SaludVida',
-      participation: 'Consejo de vigilancia',
-      status: 'activo',
-      avatarLarge: 'https://i.pravatar.cc/200?img=12',
-      avatarThumb: 'https://i.pravatar.cc/120?img=12'
-    },
-     {
-      id: 'albert',
-      name: 'Albert Ramos',
-      document: 'DDI/CC: 243455087',
-      phone: '+57 300 184 597',
-      email: 'aramos@example.org',
-      address: 'Las Delicias',
-      age: 35,
-      gender: 'Masculino',
-      affiliationDate: '23/07/2021',
-      sisben: 'Nivel II',
-      eps: 'SaludVida',
-      participation: 'Consejo de vigilancia',
-      status: 'activo',
-      avatarLarge: 'https://i.pravatar.cc/200?img=12',
-      avatarThumb: 'https://i.pravatar.cc/120?img=12'
-    },
-     {
-      id: 'albert',
-      name: 'Albert Ramos',
-      document: 'DDI/CC: 243455087',
-      phone: '+57 300 184 597',
-      email: 'aramos@example.org',
-      address: 'Las Delicias',
-      age: 35,
-      gender: 'Masculino',
-      affiliationDate: '23/07/2021',
-      sisben: 'Nivel II',
-      eps: 'SaludVida',
-      participation: 'Consejo de vigilancia',
-      status: 'activo',
-      avatarLarge: 'https://i.pravatar.cc/200?img=12',
-      avatarThumb: 'https://i.pravatar.cc/120?img=12'
-    },
     {
       id: 'juliana',
       name: 'Juliana Ortiz',
-      document: 'DDI/CC: 31095879',
+  document: 'CC: 31095879',
       phone: '+57 210 778 542',
       email: 'jortiz@example.org',
       address: 'Aranjuez',
       age: 33,
       gender: 'Femenino',
       affiliationDate: '16/12/2021',
-      sisben: 'Nivel II',
+  occupation: 'Profesora rural',
       eps: 'Savia Salud',
       participation: 'Escuela de formadores',
       status: 'activo',
@@ -140,14 +89,14 @@
     {
       id: 'miguel',
       name: 'Miguel Pardo',
-      document: 'DDI/CC: 28440639',
+  document: 'CC: 28440639',
       phone: '+57 311 446 901',
       email: 'mpardo@example.org',
       address: 'El Placer',
       age: 41,
       gender: 'Masculino',
       affiliationDate: '30/09/2019',
-      sisben: 'Nivel III',
+  occupation: 'Productor agrícola',
       eps: 'Famisanar',
       participation: 'Comité de convivencia',
       status: 'activo',
@@ -243,8 +192,8 @@
       row.dataset.address = affiliate.address;
       row.dataset.age = String(affiliate.age);
       row.dataset.gender = affiliate.gender;
-      row.dataset.affiliationDate = affiliate.affiliationDate;
-      row.dataset.sisben = affiliate.sisben;
+    row.dataset.affiliationDate = affiliate.affiliationDate;
+    row.dataset.occupation = affiliate.occupation;
       row.dataset.eps = affiliate.eps;
       row.dataset.participation = affiliate.participation;
       row.dataset.status = affiliate.status;
@@ -260,16 +209,16 @@
             <span class="member-avatar"${statusAttr}><img src="${affiliate.avatarThumb}" alt="Foto de ${affiliate.name}"></span>
             <div class="member-info">
               <strong>${affiliate.name}</strong>
-              <span>${affiliate.document} · Tel. ${affiliate.phone}</span>
-            
+              <span class="member-doc">${affiliate.document}</span>
+              <span class="member-phone">Tel. ${affiliate.phone}</span>
             </div>
           </div>
         </td>
         <td data-field="barrio">${affiliate.address}</td>
         <td data-field="edad">${affiliate.age}</td>
         <td data-field="afiliacion">${affiliate.affiliationDate}</td>
-        <td data-field="sexo">${affiliate.gender}</td>
-        <td data-field="sisben">${affiliate.sisben}</td>
+    <td data-field="sexo">${affiliate.gender}</td>
+    <td data-field="ocupacion">${affiliate.occupation}</td>
       `;
 
       tbody.appendChild(row);
@@ -306,12 +255,44 @@
       age: panel.querySelector('[data-detail="age"]'),
       gender: panel.querySelector('[data-detail="gender"]'),
       affiliationDate: panel.querySelector('[data-detail="affiliationDate"]'),
-      sisben: panel.querySelector('[data-detail="sisben"]'),
       eps: panel.querySelector('[data-detail="eps"]'),
-      participation: panel.querySelector('[data-detail="participation"]')
+      participation: panel.querySelector('[data-detail="participation"]'),
+      occupation: panel.querySelector('[data-detail="occupation"]')
     };
 
     let activeRow = null;
+    const SCROLLABLE_CLASS = 'is-scrollable';
+    let pendingScrollSync = null;
+
+    const syncPanelScrollState = () => {
+      pendingScrollSync = null;
+
+      if (!panel || panel.hidden) {
+        panel.classList.remove(SCROLLABLE_CLASS);
+        return;
+      }
+
+      const tolerance = 2;
+      const shouldScroll = panel.scrollHeight - panel.clientHeight > tolerance;
+      panel.classList.toggle(SCROLLABLE_CLASS, shouldScroll);
+    };
+
+    const scheduleScrollSync = () => {
+      if (pendingScrollSync !== null) {
+        return;
+      }
+
+      pendingScrollSync = requestAnimationFrame(syncPanelScrollState);
+    };
+
+    if (!panel.dataset.scrollObserverAttached) {
+      panel.dataset.scrollObserverAttached = 'true';
+      if (typeof ResizeObserver === 'function') {
+        const observer = new ResizeObserver(scheduleScrollSync);
+        observer.observe(panel);
+      }
+      window.addEventListener('resize', scheduleScrollSync);
+    }
 
     // Inject row dataset values into the detail pane.
     const populatePanel = (data) => {
@@ -324,7 +305,7 @@
         age,
         gender,
         affiliationDate,
-        sisben,
+        occupation,
         eps,
         participation,
         status,
@@ -363,8 +344,8 @@
         fields.affiliationDate.textContent = affiliationDate || 'N/D';
       }
 
-      if (fields.sisben) {
-        fields.sisben.textContent = sisben || 'N/D';
+      if (fields.occupation) {
+        fields.occupation.textContent = occupation || 'N/D';
       }
 
       if (fields.eps) {
@@ -401,6 +382,8 @@
           delete fields.photo.dataset.status;
         }
       }
+
+      scheduleScrollSync();
     };
 
     const resetPanel = () => {
@@ -447,6 +430,7 @@
       showHostAside();
       layout.classList.remove('has-selection');
       panel.hidden = true;
+      panel.classList.remove(SCROLLABLE_CLASS);
     };
 
     const handleRowSelection = (row) => {
@@ -468,6 +452,7 @@
       populatePanel(activeRow.dataset);
       layout.classList.add('has-selection');
       panel.hidden = false;
+      scheduleScrollSync();
       hideHostAside();
     };
 
@@ -509,6 +494,201 @@
     });
 
     resetPanel();
+    scheduleScrollSync();
+
+    // --- Nuevo afiliado: apertura del modal, envío y creación local ---
+    try {
+      // Asegura que exista el modal en el DOM (útil si estamos en index.html u otra página)
+      const ensureModalExists = () => {
+        let m = document.querySelector('[data-js="nuevo-modal"]');
+        if (m) return m;
+
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = `
+          <div class="modal-overlay" data-js="nuevo-modal">
+            <div class="modal-panel modal-dark" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+              <button type="button" class="modal-close" aria-label="Cerrar formulario">×</button>
+              <h3 id="modalTitulo">Agregar nuevo afiliado</h3>
+              <form id="nuevoAfiliadoForm" class="modal-grid">
+                <div class="modal-col">
+                  <h4 class="modal-section-title">Datos personales</h4>
+                  <div class="form-row"><label>Nombres<input name="name" required placeholder="Nombres"></label></div>
+                  <div class="form-row"><label>Apellidos<input name="lastname" placeholder="Apellidos"></label></div>
+                  <div class="form-row"><label>Tipo de documento<select name="docType"><option>CC</option><option>TI</option><option>Pasaporte</option></select></label></div>
+                  <div class="form-row"><label>Número de documento<input name="document" placeholder="Número de documento"></label></div>
+                  <div class="form-row"><label>Fecha de nacimiento<input name="birthDate" type="date"></label></div>
+                  <div class="form-row"><label>Teléfono<input name="phone" placeholder="Teléfono"></label></div>
+                </div>
+                <div class="modal-col">
+                  <h4 class="modal-section-title">Datos JAC</h4>
+                  <div class="form-row"><label>JAC<select name="jac"><option>JAC Providencia</option></select></label></div>
+                  <div class="form-row"><label>Rol<select name="role"><option>Selecciona</option></select></label></div>
+                  <div class="form-row"><label>Fecha de afiliación<input name="affiliationDate" type="date"></label></div>
+                  <div class="form-row"><label>Libro / Folio<input name="libro" placeholder="Ej: Activo"></label></div>
+                  <div class="form-row"><label>Estado<select name="status"><option>Activo</option><option>Inactivo</option></select></label></div>
+                </div>
+                <div class="modal-full">
+                  <div class="form-row"><label>ID Humana<input name="humanaId" placeholder="Se generará al guardar" readonly></label></div>
+                  <div class="modal-row">
+                    <div class="checkbox-group">
+                      <label class="checkbox-row">
+                        <input type="checkbox" name="createWallet" checked>
+                        <span class="checkbox-text">Crear wallet Humana para este afiliado</span>
+                      </label>
+                      <label class="checkbox-row">
+                        <input type="checkbox" name="consent" checked required>
+                        <span class="checkbox-text">Autoriza el uso y tratamiento de mis datos personales</span>
+                      </label>
+                    </div>
+
+                    <div class="form-actions modal-actions">
+                      <button type="button" class="btn-cancel">Cancelar</button>
+                      <button type="submit" class="btn-save primary">Guardar afiliado</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        `;
+
+        // El innerHTML crea el overlay > panel > form; añadimos al body
+        document.body.appendChild(wrapper.firstElementChild);
+        // ocultar por defecto
+        const created = document.querySelector('[data-js="nuevo-modal"]');
+        if (created) created.hidden = true;
+        return created;
+      };
+
+      const modal = ensureModalExists();
+      const newBtns = Array.from(document.querySelectorAll('[data-js="nuevo-affiliado"]'));
+      const form = modal ? modal.querySelector('#nuevoAfiliadoForm') : null;
+      const cancelBtn = modal ? modal.querySelector('.btn-cancel') : null;
+      const modalClose = modal ? modal.querySelector('.modal-close') : null;
+
+      let previouslyFocused = null;
+
+      const focusableSelectors = 'a[href], area[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+      const getFocusable = () => {
+        if (!modal) return [];
+        return Array.from(modal.querySelectorAll(focusableSelectors)).filter((el) => el.offsetParent !== null);
+      };
+
+      const onKeyDown = (e) => {
+        if (!modal || modal.hidden) return;
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeModal();
+          return;
+        }
+
+        if (e.key === 'Tab') {
+          const focusable = getFocusable();
+          if (!focusable.length) {
+            e.preventDefault();
+            return;
+          }
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      };
+
+      const openModal = () => {
+        if (!modal) return;
+        previouslyFocused = document.activeElement;
+        modal.hidden = false;
+        modal.setAttribute('aria-hidden', 'false');
+        document.addEventListener('keydown', onKeyDown);
+        const first = form ? form.querySelector('[name="name"]') : null;
+        if (first) first.focus();
+      };
+
+      const closeModal = () => {
+        if (!modal) return;
+        modal.hidden = true;
+        modal.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('keydown', onKeyDown);
+        form && form.reset();
+        if (previouslyFocused && previouslyFocused.focus) {
+          previouslyFocused.focus();
+        }
+      };
+
+      if (newBtns.length) {
+        newBtns.forEach((nb) => nb.addEventListener('click', (e) => { e.preventDefault(); openModal(); }));
+      }
+
+      if (cancelBtn) cancelBtn.addEventListener('click', (e) => { e.preventDefault(); closeModal(); });
+      if (modalClose) modalClose.addEventListener('click', closeModal);
+
+      // Cerrar al click fuera del panel (overlay)
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeModal();
+          }
+        });
+      }
+
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const fd = new FormData(form);
+          const entry = {
+            id: (fd.get('name') || 'nuevo').toString().toLowerCase().replace(/\s+/g,'-'),
+            name: (fd.get('name') || '').toString().trim() || 'Sin nombre',
+            lastname: (fd.get('lastname') || '').toString().trim(),
+            docType: (fd.get('docType') || '').toString().trim(),
+            document: (fd.get('document') || '').toString().trim(),
+            birthDate: fd.get('birthDate') ? new Date(fd.get('birthDate')).toLocaleDateString() : '',
+            phone: (fd.get('phone') || '').toString().trim(),
+            email: (fd.get('email') || '').toString().trim(),
+            address: (fd.get('address') || '').toString().trim(),
+            age: fd.get('age') ? Number(fd.get('age')) : undefined,
+            gender: (fd.get('gender') || '').toString().trim(),
+            affiliationDate: fd.get('affiliationDate') ? new Date(fd.get('affiliationDate')).toLocaleDateString() : '',
+            jac: (fd.get('jac') || '').toString().trim(),
+            role: (fd.get('role') || '').toString().trim(),
+            libro: (fd.get('libro') || '').toString().trim(),
+            status: (fd.get('status') || 'activo').toString().trim(),
+            createWallet: !!fd.get('createWallet'),
+            consent: !!fd.get('consent'),
+            humanaId: (fd.get('humanaId') || '').toString().trim(),
+            occupation: '',
+            eps: '',
+            participation: '',
+            avatarLarge: 'https://i.pravatar.cc/200?img=68',
+            avatarThumb: 'https://i.pravatar.cc/120?img=68'
+          };
+
+          // Añadir al array y re-render en este layout
+          try {
+            affiliates.push(entry);
+            renderAffiliateRows(layout);
+            const added = layout.querySelector(`tr[data-affiliate="${entry.id}"]`);
+            if (added) added.focus();
+
+            const event = new CustomEvent('humana:afiliado-creado', { detail: entry });
+            document.dispatchEvent(event);
+
+            closeModal();
+          } catch (err) {
+            console.error('No se pudo añadir afiliado localmente', err);
+          }
+        });
+      }
+    } catch (err) {
+      // no bloquear la página si algo falla aquí
+      console.error('Error al inicializar formulario nuevo afiliado', err);
+    }
   };
 
   const init = () => {

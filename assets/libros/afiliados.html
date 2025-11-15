@@ -7,7 +7,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
 	<link rel="stylesheet" href="../libros.css">
 </head>
 <body class="libro-humana">
@@ -16,15 +16,15 @@
 			<header class="book-header">
 				<h1 id="titleAfiliados">Libro de Afiliados</h1>
 				<div class="actions">
-					<a href="#" class="action-btn primary"><i class="fas fa-user-plus" aria-hidden="true"></i><span>Nuevo afiliado</span></a>
-					<a href="#" class="action-btn"><i class="fas fa-file-import" aria-hidden="true"></i><span>Importar CSV</span></a>
-					<a href="#" class="action-btn"><i class="fas fa-file-export" aria-hidden="true"></i><span>Exportar</span></a>
-					<a href="#" class="action-btn"><i class="fas fa-download" aria-hidden="true"></i><span>Descargar plantilla</span></a>
+					<button type="button" class="action-btn primary" data-js="nuevo-affiliado"><i class="ri-user-add-line" aria-hidden="true"></i><span>Nuevo afiliado</span></button>
+					<a href="#" class="action-btn"><i class="ri-upload-2-line" aria-hidden="true"></i><span>Importar CSV</span></a>
+					<a href="#" class="action-btn"><i class="ri-share-forward-line" aria-hidden="true"></i><span>Exportar</span></a>
+					<a href="#" class="action-btn"><i class="ri-download-2-line" aria-hidden="true"></i><span>Descargar plantilla</span></a>
 				</div>
 			</header>
 
 			<div class="search-box">
-				<i class="fas fa-search" aria-hidden="true"></i>
+				<i class="ri-search-line" aria-hidden="true"></i>
 				<input type="search" placeholder="Nombre, CC/DDI, teléfono, barrio..." aria-label="Buscar afiliado">
 			</div>
 
@@ -32,12 +32,12 @@
 				<table class="affiliate-table">
 					<thead>
 						<tr>
-							<th scope="col">Estado</th>
+							<th scope="col">Afiliado/a</th>
 							<th scope="col">Barrio / Vereda</th>
 							<th scope="col">Edad</th>
 							<th scope="col">Fecha de afiliación</th>
 							<th scope="col">Sexo</th>
-							<th scope="col">Nivel SISBEN</th>
+							<th scope="col">Ocupación</th>
 						</tr>
 					</thead>
 					<tbody data-js="affiliate-list"></tbody>
@@ -49,7 +49,7 @@
 
 		<aside class="details-panel" aria-labelledby="detalleAfiliado" hidden data-js="details-panel">
 			<button type="button" class="panel-close" aria-label="Cerrar panel de detalles">
-				<i class="fas fa-xmark" aria-hidden="true"></i>
+				<i class="ri-close-line" aria-hidden="true"></i>
 			</button>
 			<div class="profile">
 				<div class="photo" data-detail="photo">
@@ -64,21 +64,21 @@
 
 			<div class="contact-list" data-detail="contact">
 				<div class="contact-item">
-					<i class="fas fa-phone"></i>
+					<i class="ri-phone-line"></i>
 					<div>
 						<span>Teléfono</span>
 						<div data-detail="phone">N/D</div>
 					</div>
 				</div>
 				<div class="contact-item">
-					<i class="fas fa-envelope"></i>
+					<i class="ri-mail-line"></i>
 					<div>
 						<span>Email</span>
 						<div data-detail="email">N/D</div>
 					</div>
 				</div>
 				<div class="contact-item">
-					<i class="fas fa-map-marker-alt"></i>
+					<i class="ri-map-pin-line"></i>
 					<div>
 						<span>Barrio / Vereda</span>
 						<div data-detail="address">N/D</div>
@@ -90,19 +90,73 @@
 				<div><span>Edad</span><strong data-detail="age">N/D</strong></div>
 				<div><span>Sexo</span><strong data-detail="gender">N/D</strong></div>
 				<div><span>Fecha de afiliación</span><strong data-detail="affiliationDate">N/D</strong></div>
-				<div><span>SISBEN</span><strong data-detail="sisben">N/D</strong></div>
+				<div><span>Ocupación</span><strong data-detail="occupation">N/D</strong></div>
 				<div><span>EPS</span><strong data-detail="eps">N/D</strong></div>
 				<div><span>Nivel de participación</span><strong data-detail="participation">N/D</strong></div>
 			</div>
 
 			<div class="detail-actions" data-detail="actions">
-				<button type="button"><i class="fas fa-pen" aria-hidden="true"></i>Editar datos</button>
-				<button type="button"><i class="fas fa-random" aria-hidden="true"></i>Cambiar estado</button>
-				<a href="#"><i class="fas fa-id-card" aria-hidden="true"></i>Generar carné</a>
+				<button type="button"><i class="ri-pencil-line" aria-hidden="true"></i>Editar datos</button>
+				<button type="button"><i class="ri-shuffle-line" aria-hidden="true"></i>Cambiar estado</button>
+				<a href="#"><i class="ri-id-card-line" aria-hidden="true"></i>Generar carné</a>
 			</div>
 		</aside>
 	</div>
 
+
+	<!-- Nuevo afiliado: modal (estilo dark, dos columnas) -->
+	<div class="modal-overlay" data-js="nuevo-modal" hidden>
+		<div class="modal-panel modal-dark" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+			<button type="button" class="modal-close" aria-label="Cerrar formulario">×</button>
+			<h3 id="modalTitulo">Agregar nuevo afiliado</h3>
+
+			<form id="nuevoAfiliadoForm" class="modal-grid">
+				<div class="modal-col">
+					<h4 class="modal-section-title">Datos personales</h4>
+					<div class="form-row"><label>Nombres<input name="name" required placeholder="Nombres"></label></div>
+					<div class="form-row"><label>Apellidos<input name="lastname" placeholder="Apellidos"></label></div>
+					<div class="form-row"><label>Tipo de documento<select name="docType"><option>CC</option><option>TI</option><option>Pasaporte</option></select></label></div>
+					<div class="form-row"><label>Número de documento<input name="document" placeholder="Número de documento"></label></div>
+					<div class="form-row"><label>Fecha de nacimiento<input name="birthDate" type="date"></label></div>
+					<div class="form-row"><label>Teléfono<input name="phone" placeholder="Teléfono"></label></div>
+				</div>
+
+				<div class="modal-col">
+					<h4 class="modal-section-title">Datos JAC</h4>
+					<div class="form-row"><label>JAC<select name="jac"><option>JAC Providencia</option></select></label></div>
+					<div class="form-row"><label>Rol<select name="role"><option>Selecciona</option></select></label></div>
+					<div class="form-row"><label>Fecha de afiliación<input name="affiliationDate" type="date"></label></div>
+					<div class="form-row"><label>Libro / Folio<input name="libro" placeholder="Ej: Activo"></label></div>
+					<div class="form-row"><label>Estado<select name="status"><option>Activo</option><option>Inactivo</option></select></label></div>
+				</div>
+
+				<div class="modal-full">
+					<div class="form-row"><label>ID Humana<input name="humanaId" placeholder="Se generará al guardar" readonly></label></div>
+					<div class="modal-row">
+						<div class="checkbox-group">
+							<label class="checkbox-row">
+								<input type="checkbox" name="createWallet" checked>
+								<span class="checkbox-text">Crear wallet Humana para este afiliado</span>
+							</label>
+							<label class="checkbox-row">
+								<input type="checkbox" name="consent" checked required>
+								<span class="checkbox-text">Autoriza el uso y tratamiento de mis datos personales</span>
+							</label>
+						</div>
+
+						<div class="form-actions modal-actions">
+							<button type="button" class="btn-cancel">Cancelar</button>
+							<button type="submit" class="btn-save primary">Guardar afiliado</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
 	<script src="afiliados.js" defer></script>
+
+	
+</body>
 </body>
 </html>

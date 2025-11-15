@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Prototipo Koa</title>
+  <title>Humana Digitales</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -29,8 +29,8 @@
       }
     }
   </script>
-  <!-- Font Awesome para los iconos -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <!-- Remix Icon CDN (iconografía gratuita) -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
@@ -77,6 +77,11 @@
     </div>
   </div>
 </header>
+  <!-- Botón global para crear nuevo afiliado (abre modal, disponible desde cualquier página) -->
+  <button class="action-btn primary floating-new" data-js="nuevo-affiliado" title="Nuevo afiliado">
+    <i class="ri-user-add-line" aria-hidden="true"></i>
+    <span>Nuevo afiliado</span>
+  </button>
 
 <main class="humana-main">
 <div class="layout-top"> <!-- layout-top: agrupa aside y top-content para igualar alturas -->
@@ -98,20 +103,20 @@
 
   <!-- Menú superior (contenido original, ahora con estilo “menu-item”) -->
   <nav class="menu-list">
-  <a href="#" class="menu-item" data-nav="home">
-      <span class="menu-icon"><i class="fas fa-home"></i></span>
+    <a href="#" class="menu-item" data-nav="home">
+      <span class="menu-icon"><i class="ri-home-5-line"></i></span>
       <span class="menu-text">Inicio</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-search"></i></span>
+      <span class="menu-icon"><i class="ri-search-line"></i></span>
       <span class="menu-text">Buscar</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-cog"></i></span>
+      <span class="menu-icon"><i class="ri-settings-3-line"></i></span>
       <span class="menu-text">Configuracion</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-envelope"></i></span>
+      <span class="menu-icon"><i class="ri-mail-line"></i></span>
       <span class="menu-text">Bandeja de entrada</span>
     </a>
   </nav>
@@ -121,29 +126,29 @@
   <nav class="menu-list">
     <!-- Item con submenu: Libros JAC -->
     <div class="menu-item has-submenu" data-submenu="libros">
-      <span class="menu-icon"><i class="fas fa-book"></i></span>
+      <span class="menu-icon"><i class="ri-book-shelf-line"></i></span>
       <span class="menu-text">libros JAC</span>
       <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-libros" title="Mostrar libros">
-        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
       </button>
     </div>
     <div id="submenu-libros" class="submenu" role="region" aria-label="Libros JAC">
-      <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro de Actas: Asamblea General</span></a>
-  <a href="#" class="submenu-item" data-libro="afiliados"><i class="fas fa-book-open"></i><span>Libro de Afiliados</span></a>
-      <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro de Tesorería</span></a>
-      <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro Contable</span></a>
-      <a href="#" class="submenu-item"><i class="fas fa-book-open"></i><span>Libro de Convivencia</span></a>
+      <a href="#" class="submenu-item"><i class="ri-book-open-line"></i><span>Libro de Actas: Asamblea General</span></a>
+  <a href="#" class="submenu-item" data-libro="afiliados"><i class="ri-book-open-line"></i><span>Libro de Afiliados</span></a>
+      <a href="#" class="submenu-item"><i class="ri-book-open-line"></i><span>Libro de Tesorería</span></a>
+      <a href="#" class="submenu-item"><i class="ri-book-open-line"></i><span>Libro Contable</span></a>
+      <a href="#" class="submenu-item"><i class="ri-book-open-line"></i><span>Libro de Convivencia</span></a>
     </div>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-running"></i></span>
+      <span class="menu-icon"><i class="ri-run-line"></i></span>
       <span class="menu-text">Tramites JAC</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-balance-scale"></i></span>
+      <span class="menu-icon"><i class="ri-scales-3-line"></i></span>
       <span class="menu-text">Estatutos-2016 - 2021</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-file-alt"></i></span>
+      <span class="menu-icon"><i class="ri-file-text-line"></i></span>
       <span class="menu-text">Documentos</span>
     </a>
   </nav>
@@ -152,23 +157,23 @@
   <div class="aside-section-title">Tecnología avanzadas</div>
   <nav class="menu-list">
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-vote-yea"></i></span>
+      <span class="menu-icon"><i class="ri-checkbox-circle-line"></i></span>
       <span class="menu-text">Voto electronico</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-comments"></i></span>
+      <span class="menu-icon"><i class="ri-chat-3-line"></i></span>
       <span class="menu-text">Chat</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-video"></i></span>
+      <span class="menu-icon"><i class="ri-vidicon-line"></i></span>
       <span class="menu-text">Sala de conferencia</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-coins"></i></span>
+      <span class="menu-icon"><i class="ri-coins-line"></i></span>
       <span class="menu-text">UBI</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-donate"></i></span>
+      <span class="menu-icon"><i class="ri-hand-coin-line"></i></span>
       <span class="menu-text">Donación</span>
     </a>
   </nav>
@@ -177,27 +182,27 @@
   <div class="aside-section-title">Privado</div>
   <nav class="menu-list">
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-project-diagram"></i></span>
+      <span class="menu-icon"><i class="ri-folder-transfer-line"></i></span>
       <span class="menu-text">Proyectos</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-calendar-alt"></i></span>
+      <span class="menu-icon"><i class="ri-calendar-event-line"></i></span>
       <span class="menu-text">Agenda</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-book-open"></i></span>
+      <span class="menu-icon"><i class="ri-book-open-line"></i></span>
       <span class="menu-text">Librería</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-calendar"></i></span>
+      <span class="menu-icon"><i class="ri-calendar-line"></i></span>
       <span class="menu-text">Calendario</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-sticky-note"></i></span>
+      <span class="menu-icon"><i class="ri-sticky-note-line"></i></span>
       <span class="menu-text">Notas</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-question-circle"></i></span>
+      <span class="menu-icon"><i class="ri-question-line"></i></span>
       <span class="menu-text">Ayuda y soporte</span>
     </a>
   </nav>
@@ -205,19 +210,19 @@
   <div class="aside-section-title">Get started</div>
   <nav class="menu-list">
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-users"></i></span>
+      <span class="menu-icon"><i class="ri-group-line"></i></span>
       <span class="menu-text">Reuniones</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-microphone"></i></span>
+      <span class="menu-icon"><i class="ri-mic-line"></i></span>
       <span class="menu-text">Asambleas</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-crown"></i></span>
+      <span class="menu-icon"><i class="ri-vip-crown-line"></i></span>
       <span class="menu-text">Directiva</span>
     </a>
     <a href="#" class="menu-item">
-      <span class="menu-icon"><i class="fas fa-tools"></i></span>
+      <span class="menu-icon"><i class="ri-tools-line"></i></span>
       <span class="menu-text">Comisiones de Trabajo</span>
     </a>
   </nav>
@@ -280,7 +285,7 @@
     <!-- Junta directiva-->
     <div class="junta p-8">
       <div class="junta-title">
-        <i class="fas fa-users"></i>
+        <i class="ri-group-line"></i>
         Junta Directiva
       </div>
 
@@ -288,7 +293,7 @@
         <!-- Miembro 1 (Presidente) con mejoras Fase 1 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-tie"></i>
+            <i class="ri-user-3-line"></i>
             <span class="presence-dot is-online" title="En línea"></span>
           </div>
           <div class="member-info">
@@ -296,7 +301,7 @@
               <h3>Presidente</h3>
               <p>DDI 024567</p>
               <div class="member-meta">
-                <span class="role-badge"><i class="fas fa-award"></i> Rol</span>
+                <span class="role-badge"><i class="ri-medal-line"></i> Rol</span>
                 <span class="mandate-chip">Mandato 2024–2026</span>
               </div>
             </div>
@@ -306,7 +311,7 @@
         <!-- Miembro 2 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-tie"></i>
+            <i class="ri-user-3-line"></i>
           </div>
           <div class="member-info">
             <div class="member-details">
@@ -319,7 +324,7 @@
         <!-- Miembro 3 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-tie"></i>
+            <i class="ri-user-3-line"></i>
           </div>
           <div class="member-info">
             <div class="member-details">
@@ -332,7 +337,7 @@
         <!-- Miembro 4 (Tesorera) con mejoras Fase 1 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-tie"></i>
+            <i class="ri-user-3-line"></i>
             <span class="presence-dot is-offline" title="Desconectado"></span>
           </div>
           <div class="member-info">
@@ -340,7 +345,7 @@
               <h3>Tesorera</h3>
               <p>DDI 056789</p>
               <div class="member-meta">
-                <span class="role-badge"><i class="fas fa-piggy-bank"></i> Finanzas</span>
+                <span class="role-badge"><i class="ri-piggy-bank-line"></i> Finanzas</span>
                 <span class="mandate-chip">Mandato 2024–2026</span>
               </div>
             </div>
@@ -350,7 +355,7 @@
         <!-- Miembro 5 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-tie"></i>
+            <i class="ri-user-3-line"></i>
           </div>
           <div class="member-info">
             <div class="member-details">
@@ -365,7 +370,7 @@
     <!-- Comité de Trabajo -->
     <div class="junta p-8">
       <div class="junta-title">
-        <i class="fas fa-handshake"></i>
+        <i class="ri-handshake-line"></i>
         Comité de Trabajo
       </div>
 
@@ -373,7 +378,7 @@
         <!-- Miembro 1 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-hard-hat"></i>
+            <i class="ri-user-settings-line"></i>
           </div>
           <div class="member-info">
             <div class="member-details">
@@ -386,7 +391,7 @@
         <!-- Miembro 2 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-hard-hat"></i>
+            <i class="ri-user-settings-line"></i>
           </div>
           <div class="member-info">
             <div class="member-details">
@@ -401,7 +406,7 @@
     <!-- Conciliadores -->
     <div class="junta p-8">
       <div class="junta-title">
-        <i class="fas fa-balance-scale"></i>
+        <i class="ri-scales-3-line"></i>
         Conciliadores
       </div>
 
@@ -409,7 +414,7 @@
         <!-- Miembro 1 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-graduate"></i>
+            <i class="ri-graduation-cap-line"></i>
           </div>
           <div class="member-info">
             <div class="member-details">
@@ -422,7 +427,7 @@
         <!-- Miembro 2 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-graduate"></i>
+            <i class="ri-graduation-cap-line"></i>
           </div>
           <div class="member-info">
             <div class="member-details">
@@ -437,7 +442,7 @@
     <!-- Delegados -->
     <div class="junta p-8">
       <div class="junta-title">
-        <i class="fas fa-id-badge"></i>
+        <i class="ri-id-card-line"></i>
         Delegados
       </div>
 
@@ -445,7 +450,7 @@
         <!-- Miembro 1 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-secret"></i>
+            <i class="ri-user-secret-line"></i>
           </div>
           <div class="member-info">
             <div class="member-details">
@@ -458,7 +463,7 @@
         <!-- Miembro 2 -->
         <div class="member-card">
           <div class="member-avatar">
-            <i class="fas fa-user-secret"></i>
+            <i class="ri-user-secret-line"></i>
           </div>
           <div class="member-info">
             <div class="member-details">
@@ -476,10 +481,10 @@
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
       <div class="footer-social" aria-label="Redes sociales">
-        <a href="#" aria-label="Facebook" class="social-link"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" aria-label="Instagram" class="social-link"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="WhatsApp" class="social-link"><i class="fab fa-whatsapp"></i></a>
-        <a href="#" aria-label="TikTok" class="social-link"><i class="fab fa-tiktok"></i></a>
+        <a href="#" aria-label="Facebook" class="social-link"><i class="ri-facebook-fill"></i></a>
+        <a href="#" aria-label="Instagram" class="social-link"><i class="ri-instagram-line"></i></a>
+        <a href="#" aria-label="WhatsApp" class="social-link"><i class="ri-whatsapp-line"></i></a>
+        <a href="#" aria-label="TikTok" class="social-link"><i class="ri-tiktok-fill"></i></a>
       </div>
       <div class="footer-brand-block">
         <div class="sena-wrapper">
