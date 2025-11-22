@@ -28,7 +28,7 @@
 				</div>
 			</header>
 
-			<div class="acts-grid">
+			<div class="acts-content">
 				<section class="acts-primary">
 					<section class="acts-metrics" aria-label="Indicadores">
 						<article class="acts-card" data-card="sessions">
@@ -79,20 +79,80 @@
 						</footer>
 					</section>
 				</section>
-
-				<aside class="acts-signatures" aria-label="Panel de firmas">
-					<div class="acts-signatures__header">
-						<p class="acts-signatures__title">Firmas (PIN)</p>
-						<p class="acts-signatures__subtitle">Seguimiento a responsables</p>
+			</div>
+		</div>
+		<div class="modal-overlay acta-modal" data-js="acta-modal" hidden>
+			<div class="modal-panel acta-modal__panel" role="dialog" aria-modal="true" aria-labelledby="actaModalTitulo">
+				<button type="button" class="modal-close" data-js="acta-close" aria-label="Cerrar formulario">×</button>
+				<header class="acta-modal__header">
+					<div>
+						<p class="acta-modal__chip">Humana Digitales · Junta de Acción Comunal</p>
+						<h2 id="actaModalTitulo">Acta Nº <span data-field="numero">[###]</span> — <span data-field="tipo">Tipo de reunión</span></h2>
+						<p class="acta-modal__sub">Nombre del barrio / vereda</p>
 					</div>
-					<ul class="acts-signatures__list" data-js="signature-list"></ul>
-					<div class="acts-pin">
-						<div class="acts-pin__dots" aria-label="PIN ingresado" role="presentation">
-							<span></span><span></span><span></span><span></span><span></span><span></span>
+					<span class="acta-modal__badge">Borrador</span>
+				</header>
+				<form class="acta-form" data-js="acta-form">
+					<section class="acta-section" aria-labelledby="actaDatos">
+						<h3 id="actaDatos"><span>1</span> Datos generales</h3>
+						<div class="acta-grid">
+							<label>Acta Nº<input name="numero" required placeholder="Ej: ACT-0045"></label>
+							<label>Tipo de reunión<select name="tipo" required><option value="ordinaria">Ordinaria</option><option value="extraordinaria">Extraordinaria</option><option value="informativa">Informativa</option></select></label>
+							<label>Lugar<input name="lugar" placeholder="Casa comunal"></label>
+							<label>Fecha<input type="date" name="fecha" required></label>
+							<label>Hora inicio<input type="time" name="horaInicio"></label>
+							<label>Hora cierre<input type="time" name="horaCierre"></label>
+							<label>Convocatoria<input name="convocatoria" placeholder="Convocatoria Ordinaria 2025"></label>
+							<label>Código Humana / UUID<input name="uuid" placeholder="did:jac:providencia"></label>
 						</div>
-						<button class="acts-btn primary" data-js="sign">Firmar</button>
-					</div>
-				</aside>
+					</section>
+					<section class="acta-section" aria-labelledby="actaQuorum">
+						<h3 id="actaQuorum"><span>2</span> Verificación del quórum</h3>
+						<div class="acta-grid">
+							<label>Total afiliados hábiles<input type="number" name="afiliados" min="0"></label>
+							<label>Asistentes<input type="number" name="asistentes" min="0"></label>
+							<label>Resultado<select name="quorum"><option value="valido">Quórum válido</option><option value="novalido">No válido</option></select></label>
+						</div>
+					</section>
+					<section class="acta-section" aria-labelledby="actaOrden">
+						<h3 id="actaOrden"><span>3</span> Orden del día</h3>
+						<ol class="acta-orden" data-list="orden">
+							<li><input name="orden1" placeholder="Verificación del quórum"></li>
+							<li><input name="orden2" placeholder="Lectura y aprobación del acta anterior"></li>
+							<li><input name="orden3" placeholder="Proposiciones y varios"></li>
+							<li><input name="orden4" placeholder="---"></li>
+						</ol>
+					</section>
+					<section class="acta-section" aria-labelledby="actaDesarrollo">
+						<h3 id="actaDesarrollo"><span>4</span> Desarrollo de la sesión</h3>
+						<textarea name="desarrollo" rows="4" placeholder="Resumen de intervenciones y avances"></textarea>
+					</section>
+					<section class="acta-section" aria-labelledby="actaDecisiones">
+						<h3 id="actaDecisiones"><span>5</span> Decisiones y acuerdos</h3>
+						<div class="acta-grid acta-grid--decisions">
+							<label>Acuerdo 1<textarea name="acuerdo1" rows="2" placeholder="Descripción del acuerdo"></textarea></label>
+							<label>Responsable(s)<input name="responsable1" placeholder="Nombre(s)"></label>
+							<label>Plazo<input type="date" name="plazo1"></label>
+							<label>Acuerdo 2<textarea name="acuerdo2" rows="2" placeholder="Otro acuerdo"></textarea></label>
+							<label>Responsable(s)<input name="responsable2" placeholder="Nombre(s)"></label>
+							<label>Plazo<input type="date" name="plazo2"></label>
+						</div>
+					</section>
+					<section class="acta-section" aria-labelledby="actaCierre">
+						<h3 id="actaCierre"><span>7</span> Cierre</h3>
+						<textarea name="cierre" rows="2" placeholder="Siendo las hh:mm del dd/mm/aaaa se cierra la sesión."></textarea>
+					</section>
+					<footer class="acta-modal__footer">
+						<div class="acta-firmas">
+							<label>Presidente(a)<input name="presidente" placeholder="Nombre del presidente"></label>
+							<label>Secretario(a)<input name="secretario" placeholder="Nombre del secretario"></label>
+						</div>
+						<div class="acta-actions">
+							<button type="button" class="btn-cancel" data-js="acta-cancel">Cancelar</button>
+							<button type="submit" class="btn-save primary" data-js="acta-save">Guardar acta</button>
+						</div>
+					</footer>
+				</form>
 			</div>
 		</div>
 	</div>

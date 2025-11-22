@@ -18,7 +18,13 @@
 		refresh: layout.querySelector('[data-js="refresh"]'),
 		sign: layout.querySelector('[data-js="sign"]'),
 		signatureList: layout.querySelector('[data-js="signature-list"]'),
-		backHome: layout.querySelector('[data-js="back-home"]')
+		backHome: layout.querySelector('[data-js="back-home"]'),
+		modal: document.querySelector('[data-js="acta-modal"]'),
+		modalForm: document.querySelector('[data-js="acta-form"]'),
+		modalClose: document.querySelector('[data-js="acta-close"]'),
+		modalCancel: document.querySelector('[data-js="acta-cancel"]'),
+		modalNumberDisplay: document.querySelector('[data-field="numero"]'),
+		modalTypeDisplay: document.querySelector('[data-field="tipo"]')
 	};
 
 	const actsState = {
@@ -195,8 +201,8 @@
 
 	const bindActions = () => {
 		elements.newMinute?.addEventListener('click', () => {
+			openActaModal();
 			document.dispatchEvent(new CustomEvent('humana:acta-nueva', { detail: { from: 'actas' } }));
-			simulateAction('Crear nueva acta (prototipo)');
 		});
 		elements.generateCert?.addEventListener('click', () => simulateAction('Generar certificado (prototipo)'));
 		elements.sign?.addEventListener('click', () => simulateAction('Firmar acta (prototipo)'));
@@ -206,6 +212,97 @@
 				elements.refresh.classList.remove('is-spin');
 				renderTable();
 			}, 600);
+		});
+	};
+
+	const buildActaPayload = (formData) => {
+		const number = (formData.get('numero') || '').toString().trim() || `ACT-${Date.now()}`;
+		const tipo = (formData.get('tipo') || 'ordinaria').toString().toLowerCase();
+		const topic = (formData.get('orden1') || '').toString().trim() || 'Agenda general';
+		const acuerdo = (formData.get('acuerdo1') || '').toString().trim() || 'Pendiente de aprobación';
+		const fecha = formData.get('fecha') || new Date().toISOString().slice(0, 10);
+		return {
+			number,
+			date: fecha,
+			type: tipo === 'extraordinaria' ? 'extraordinarias' : 'ordinarias',
+			topic,
+			decision: { label: acuerdo, approved: false },
+			status: { key: 'pendiente', label: 'Por aprobar' },
+			extra: Object.fromEntries(formData.entries())
+		};
+	};
+
+	let previouslyFocused = null;
+
+	const openActaModal = () => {
+		if (!elements.modal || !elements.modalForm) return;
+		previouslyFocused = document.activeElement;
+		elements.modal.hidden = false;
+		elements.modal.removeAttribute('aria-hidden');
+		elements.modal.classList.add('is-open');
+		elements.modalForm.reset();
+		updateModalHeader();
+		const firstField = elements.modalForm.querySelector('input, select, textarea');
+		firstField?.focus();
+		document.addEventListener('keydown', handleModalKeydown);
+	};
+
+	const closeActaModal = () => {
+		if (!elements.modal || !elements.modalForm) return;
+		elements.modal.hidden = true;
+		elements.modal.setAttribute('aria-hidden', 'true');
+		elements.modal.classList.remove('is-open');
+		elements.modalForm.reset();
+		document.removeEventListener('keydown', handleModalKeydown);
+		if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+			previouslyFocused.focus();
+		}
+	};
+
+	const handleModalKeydown = (event) => {
+		if (event.key === 'Escape') {
+			event.preventDefault();
+			closeActaModal();
+		}
+	};
+
+	const updateModalHeader = () => {
+		if (!elements.modalForm) return;
+		const numero = elements.modalForm.numero?.value || '[###]';
+		const tipo = elements.modalForm.tipo?.selectedOptions?.[0]?.textContent || 'Tipo de reunión';
+		if (elements.modalNumberDisplay) {
+			elements.modalNumberDisplay.textContent = numero;
+		}
+		if (elements.modalTypeDisplay) {
+			elements.modalTypeDisplay.textContent = tipo;
+		}
+	};
+
+	const bindModalInteractions = () => {
+		if (!elements.modal || !elements.modalForm) return;
+
+		elements.modalClose?.addEventListener('click', closeActaModal);
+		elements.modalCancel?.addEventListener('click', closeActaModal);
+		elements.modal.addEventListener('click', (event) => {
+			if (event.target === elements.modal) {
+				closeActaModal();
+			}
+		});
+		elements.modalForm.addEventListener('input', (event) => {
+			if (event.target.name === 'numero' || event.target.name === 'tipo') {
+				updateModalHeader();
+			}
+		});
+		elements.modalForm.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const formData = new FormData(elements.modalForm);
+			const payload = buildActaPayload(formData);
+			actsState.entries.unshift(payload);
+			actsState.summary.sessions += 1;
+			renderMetrics();
+			renderTable();
+			document.dispatchEvent(new CustomEvent('humana:acta-creada', { detail: payload }));
+			closeActaModal();
 		});
 	};
 
@@ -235,6 +332,7 @@
 		bindSearch();
 		bindActions();
 		bindBackHome();
+		bindModalInteractions();
 	};
 
 	init();
