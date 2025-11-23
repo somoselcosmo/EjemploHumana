@@ -27,6 +27,13 @@
 		exportPdf: layout.querySelector('[data-js="export-pdf"]')
 	};
 
+	const modalElements = {
+		overlay: document.querySelector('[data-js="ledger-modal"]'),
+		form: document.querySelector('[data-js="ledger-form"]'),
+		close: document.querySelector('[data-js="ledger-modal-close"]'),
+		cancel: document.querySelector('[data-js="ledger-modal-cancel"]')
+	};
+
 	const currencyFormatter = new Intl.NumberFormat('es-CO', {
 		style: 'currency',
 		currency: 'COP',
@@ -282,14 +289,76 @@
 		console.info(`[Libro Contable] ${message}`);
 	};
 
+	const toggleModal = (visible) => {
+		if (!modalElements.overlay) {
+			return;
+		}
+		modalElements.overlay.hidden = !visible;
+		if (visible) {
+			modalElements.form?.reset();
+			modalElements.form?.querySelector('[name="fecha"]')?.focus();
+		}
+	};
+
+	const closeModal = () => {
+		toggleModal(false);
+		modalElements.form?.reset();
+	};
+
+	const collectFormPayload = (form) => {
+		const formData = new FormData(form);
+		return {
+			fecha: formData.get('fecha') || '',
+			tipo: formData.get('tipo') || 'ingreso',
+			concepto: (formData.get('concepto') || '').toString().trim(),
+			moneda: formData.get('moneda') || 'COP',
+			valor: Number(formData.get('valor')) || 0,
+			medio: formData.get('medio') || 'efectivo',
+			categoria: formData.get('categoria') || '',
+			etiquetas: formData.getAll('etiquetas'),
+			anexos: formData.getAll('anexos').map((file) => file?.name).filter(Boolean),
+			origen: 'libro-contable'
+		};
+	};
+
+	const bindModal = () => {
+		if (!modalElements.overlay || !modalElements.form) {
+			return;
+		}
+
+		modalElements.close?.addEventListener('click', closeModal);
+		modalElements.cancel?.addEventListener('click', closeModal);
+		modalElements.overlay.addEventListener('click', (event) => {
+			if (event.target === modalElements.overlay) {
+				closeModal();
+			}
+		});
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && !modalElements.overlay.hidden) {
+				closeModal();
+			}
+		});
+
+			modalElements.form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const payload = collectFormPayload(modalElements.form);
+			const submitEvent = new CustomEvent('humana:contable-crear', {
+				detail: payload,
+				cancelable: true
+			});
+			document.dispatchEvent(submitEvent);
+				simulateAction(`Registrar comprobante (${payload.tipo})`);
+				closeModal();
+		});
+	};
+
 	const bindPrimaryActions = () => {
 		elements.newRecord?.addEventListener('click', () => {
 			const actionEvent = new CustomEvent('humana:contable-nuevo', {
-				detail: { source: 'contable' }
+				detail: { source: 'contable', action: 'open-modal' }
 			});
-			if (document.dispatchEvent(actionEvent)) {
-				simulateAction('Nuevo comprobante (prototipo)');
-			}
+			document.dispatchEvent(actionEvent);
+			toggleModal(true);
 		});
 
 		elements.uploadCsv?.addEventListener('click', () => simulateAction('Cargar CSV (prototipo)'));
@@ -341,5 +410,6 @@
 	bindSearch();
 	bindPrimaryActions();
 	bindBackHome();
+	bindModal();
 	renderAll();
 })();

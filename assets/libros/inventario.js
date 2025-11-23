@@ -20,6 +20,13 @@
 		print: layout.querySelector('[data-js="print"]')
 	};
 
+	const modalElements = {
+		overlay: document.querySelector('[data-js="inventory-modal"]'),
+		form: document.querySelector('[data-js="inventory-form"]'),
+		close: document.querySelector('[data-js="inventory-modal-close"]'),
+		cancel: document.querySelector('[data-js="inventory-modal-cancel"]')
+	};
+
 	const currencyFormatter = new Intl.NumberFormat('es-CO', {
 		style: 'currency',
 		currency: 'COP',
@@ -161,10 +168,67 @@
 		console.info(`[Libro de Inventario] ${message}`);
 	};
 
+	const toggleModal = (visible) => {
+		if (!modalElements.overlay) return;
+		modalElements.overlay.hidden = !visible;
+		if (visible) {
+			modalElements.form?.reset();
+			modalElements.form?.querySelector('[name="codigo"]')?.focus();
+		}
+	};
+
+	const closeModal = () => toggleModal(false);
+
+	const collectModalPayload = () => {
+		const data = new FormData(modalElements.form);
+		return {
+			codigo: (data.get('codigo') || '').toString().trim(),
+			nombre: (data.get('nombre') || '').toString().trim(),
+			categoria: data.get('categoria') || 'otros',
+			fecha: data.get('fecha') || '',
+			estado: data.get('estado') || 'operativo',
+			cantidad: Number(data.get('cantidad')) || 1,
+			valor: Number(data.get('valor')) || 0,
+			ubicacion: (data.get('ubicacion') || '').toString().trim(),
+			responsable: (data.get('responsable') || '').toString().trim(),
+			observaciones: (data.get('observaciones') || '').toString().trim(),
+			soportes: data.getAll('soportes').map((file) => file?.name).filter(Boolean)
+		};
+	};
+
+	const bindModal = () => {
+		if (!modalElements.overlay || !modalElements.form) return;
+		modalElements.close?.addEventListener('click', closeModal);
+		modalElements.cancel?.addEventListener('click', closeModal);
+		modalElements.overlay.addEventListener('click', (event) => {
+			if (event.target === modalElements.overlay) {
+				closeModal();
+			}
+		});
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && !modalElements.overlay.hidden) {
+				closeModal();
+			}
+		});
+		modalElements.form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const payload = collectModalPayload();
+			const submitEvent = new CustomEvent('humana:inventario-crear', {
+				detail: payload,
+				cancelable: true
+			});
+			document.dispatchEvent(submitEvent);
+			simulateAction(`Registrar bien (${payload.codigo || 'sin código'})`);
+			closeModal();
+		});
+	};
+
 	const bindActions = () => {
 		elements.newAsset?.addEventListener('click', () => {
-			document.dispatchEvent(new CustomEvent('humana:inventario-nuevo'));
-			simulateAction('Nuevo bien (prototipo)');
+			document.dispatchEvent(new CustomEvent('humana:inventario-nuevo', {
+				detail: { source: 'inventario', action: 'open-modal' }
+			}));
+			toggleModal(true);
 		});
 		elements.importCsv?.addEventListener('click', () => simulateAction('Importar CSV (prototipo)'));
 		elements.exportData?.addEventListener('click', () => simulateAction('Exportar inventario (prototipo)'));
@@ -209,6 +273,7 @@
 		bindSearch();
 		bindActions();
 		bindBackHome();
+		bindModal();
 	};
 
 	init();

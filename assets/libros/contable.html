@@ -89,6 +89,124 @@
 			</footer>
 		</section>
 		</div>
+		<div class="modal-overlay ledger-modal" data-js="ledger-modal" hidden>
+		<div class="modal-panel ledger-modal__panel" role="dialog" aria-modal="true" aria-labelledby="ledgerModalTitle">
+			<button class="modal-close" type="button" data-js="ledger-modal-close" aria-label="Cerrar formulario">×</button>
+			<header class="ledger-modal__header">
+				<div>
+					<p class="ledger-modal__chip">Libro contable · JAC Providencia</p>
+					<h2 id="ledgerModalTitle">Nuevo comprobante contable</h2>
+					<p class="ledger-modal__sub">Registra ingresos o egresos con la estructura oficial</p>
+				</div>
+			</header>
+			<form class="ledger-form" data-js="ledger-form">
+				<section class="ledger-form__section" aria-label="Datos generales">
+					<div class="ledger-form__grid">
+						<label class="ledger-field">Fecha del comprobante
+							<input class="ledger-control" type="date" name="fecha" required>
+						</label>
+						<label class="ledger-field">Tipo de comprobante
+							<select class="ledger-control" name="tipo" required>
+								<option value="ingreso" selected>Ingreso</option>
+								<option value="egreso">Egreso</option>
+								<option value="transferencia">Transferencia</option>
+							</select>
+						</label>
+						<label class="ledger-field ledger-field--full">Concepto
+							<textarea class="ledger-control" name="concepto" rows="2" placeholder="Descripción clara del movimiento contable" required></textarea>
+						</label>
+					</div>
+					<div class="ledger-form__grid ledger-form__grid--value">
+						<label class="ledger-field">Moneda
+							<select class="ledger-control" name="moneda">
+								<option value="COP" selected>COP $</option>
+								<option value="USD">USD $</option>
+								<option value="EUR">EUR €</option>
+							</select>
+						</label>
+						<label class="ledger-field">Valor
+							<input class="ledger-control" type="number" name="valor" min="0" step="100" placeholder="0" required>
+						</label>
+					</div>
+				</section>
+
+				<section class="ledger-form__section" aria-label="Medios de pago y categoría">
+					<div class="ledger-form__grid ledger-form__grid--split">
+						<fieldset class="ledger-form__fieldset">
+							<legend>Medio de pago</legend>
+							<div class="ledger-pill-group" role="radiogroup">
+								<label class="ledger-pill">
+									<input type="radio" name="medio" value="efectivo" checked>
+									<i class="ri-wallet-3-line" aria-hidden="true"></i>
+									<span>Efectivo</span>
+								</label>
+								<label class="ledger-pill">
+									<input type="radio" name="medio" value="transferencia">
+									<i class="ri-exchange-dollar-line" aria-hidden="true"></i>
+									<span>Transferencia</span>
+								</label>
+								<label class="ledger-pill">
+									<input type="radio" name="medio" value="tarjeta">
+									<i class="ri-bank-card-line" aria-hidden="true"></i>
+									<span>Tarjeta</span>
+								</label>
+							</div>
+						</fieldset>
+						<div class="ledger-form__stack">
+							<label class="ledger-field">Categoría contable
+								<select class="ledger-control" name="categoria">
+									<option value="ingresos-operacionales" selected>Ingresos operacionales</option>
+									<option value="egresos-operativos">Egresos operativos</option>
+									<option value="inversiones">Inversiones</option>
+									<option value="donaciones">Donaciones</option>
+								</select>
+							</label>
+							<fieldset class="ledger-form__fieldset">
+								<legend>Etiquetas rápidas</legend>
+								<div class="ledger-pill-group ledger-pill-group--wrap">
+									<label class="ledger-pill ledger-pill--ghost">
+										<input type="checkbox" name="etiquetas" value="nequi">
+										<i class="ri-smartphone-line" aria-hidden="true"></i>
+										<span>Nequi</span>
+									</label>
+									<label class="ledger-pill ledger-pill--ghost">
+										<input type="checkbox" name="etiquetas" value="hum-wallet">
+										<i class="ri-wallet-line" aria-hidden="true"></i>
+										<span>HUM Wallet</span>
+									</label>
+									<label class="ledger-pill ledger-pill--ghost">
+										<input type="checkbox" name="etiquetas" value="compras">
+										<i class="ri-shopping-bag-3-line" aria-hidden="true"></i>
+										<span>Compras</span>
+									</label>
+									<label class="ledger-pill ledger-pill--ghost">
+										<input type="checkbox" name="etiquetas" value="donaciones">
+										<i class="ri-hand-heart-line" aria-hidden="true"></i>
+										<span>Donaciones</span>
+									</label>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+				</section>
+
+				<section class="ledger-form__section" aria-label="Anexos">
+					<label class="ledger-dropzone">
+						<input type="file" name="anexos" multiple data-js="ledger-files">
+						<i class="ri-paperclip-line" aria-hidden="true"></i>
+						<div>
+							<p>Arrastrar y soltar archivos</p>
+							<span>o haz clic para seleccionarlos</span>
+						</div>
+					</label>
+				</section>
+				<footer class="ledger-modal__actions">
+					<button type="button" class="btn ghost" data-js="ledger-modal-cancel">Cancelar</button>
+					<button type="submit" class="btn primary">Registrar comprobante</button>
+				</footer>
+			</form>
+		</div>
+	</div>
 	</div>
 
 	<script src="contable.js" defer></script>

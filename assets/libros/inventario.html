@@ -80,6 +80,98 @@
 				</footer>
 			</section>
 		</div>
+		<div class="modal-overlay inventory-modal" data-js="inventory-modal" hidden>
+			<div class="modal-panel inventory-modal__panel" role="dialog" aria-modal="true" aria-labelledby="inventoryModalTitle">
+				<button class="modal-close" type="button" data-js="inventory-modal-close" aria-label="Cerrar formulario">×</button>
+				<header class="inventory-modal__header">
+					<div>
+						<p class="inventory-modal__chip">Inventario · JAC Providencia</p>
+						<h2 id="inventoryModalTitle">Registrar nuevo bien</h2>
+						<p class="inventory-modal__sub">Controla el ciclo de vida de los activos de la junta</p>
+					</div>
+				</header>
+				<form class="inventory-form" data-js="inventory-form">
+					<section class="inventory-form__section" aria-label="Identificación del bien">
+						<div class="inventory-form__grid">
+							<label class="inventory-field">Código interno
+								<input class="inventory-control" name="codigo" placeholder="INV-000" required>
+							</label>
+							<label class="inventory-field">Nombre del bien
+								<input class="inventory-control" name="nombre" placeholder="Ej: Computador portátil" required>
+							</label>
+							<label class="inventory-field">
+								Categoría
+								<select class="inventory-control" name="categoria" required>
+									<option value="tecnologia">Tecnología</option>
+									<option value="mobiliario">Mobiliario</option>
+									<option value="equipo">Equipo</option>
+									<option value="infraestructura">Infraestructura</option>
+									<option value="otros">Otros</option>
+								</select>
+							</label>
+							<label class="inventory-field">Fecha de adquisición
+								<input class="inventory-control" type="date" name="fecha">
+							</label>
+						</div>
+					</section>
+					<section class="inventory-form__section" aria-label="Estado y ubicación">
+						<div class="inventory-form__grid inventory-form__grid--split">
+							<fieldset class="inventory-form__fieldset">
+								<legend>Estado actual</legend>
+								<div class="inventory-chip-group" role="radiogroup">
+									<label class="inventory-chip">
+										<input type="radio" name="estado" value="operativo" checked>
+										<i class="ri-checkbox-circle-line" aria-hidden="true"></i>
+										<span>Operativo</span>
+									</label>
+									<label class="inventory-chip">
+										<input type="radio" name="estado" value="mantenimiento">
+										<i class="ri-tools-line" aria-hidden="true"></i>
+										<span>Mantenimiento</span>
+									</label>
+									<label class="inventory-chip">
+										<input type="radio" name="estado" value="baja">
+										<i class="ri-alert-line" aria-hidden="true"></i>
+										<span>Para baja</span>
+									</label>
+								</div>
+							</fieldset>
+							<div class="inventory-form__stack">
+								<label class="inventory-field">Cantidad
+									<input class="inventory-control" type="number" name="cantidad" min="1" value="1" required>
+								</label>
+								<label class="inventory-field">Valor estimado
+									<input class="inventory-control" type="number" name="valor" min="0" step="5000" placeholder="0">
+								</label>
+								<label class="inventory-field">Ubicación
+									<input class="inventory-control" name="ubicacion" placeholder="Ej: Sede principal">
+								</label>
+								<label class="inventory-field">Responsable
+									<input class="inventory-control" name="responsable" placeholder="Nombre del responsable">
+								</label>
+							</div>
+						</div>
+					</section>
+					<section class="inventory-form__section" aria-label="Observaciones y anexos">
+						<label class="inventory-field">Observaciones
+							<textarea class="inventory-control" name="observaciones" rows="3" placeholder="Detalles relevantes sobre el bien"></textarea>
+						</label>
+						<label class="inventory-dropzone">
+							<input type="file" name="soportes" multiple>
+							<i class="ri-attachment-2" aria-hidden="true"></i>
+							<div>
+								<p>Adjuntar soportes o facturas</p>
+								<span>Arrastra documentos o haz clic para subirlos</span>
+							</div>
+						</label>
+					</section>
+					<footer class="inventory-modal__actions">
+						<button type="button" class="inventory-btn ghost" data-js="inventory-modal-cancel">Cancelar</button>
+						<button type="submit" class="inventory-btn primary">Registrar bien</button>
+					</footer>
+				</form>
+			</div>
+		</div>
 	</div>
 
 	<script src="inventario.js" defer></script>
