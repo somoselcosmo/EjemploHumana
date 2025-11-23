@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const submenuToggle = document.querySelector('.submenu-toggle[aria-controls="submenu-libros"]');
   const submenu = document.getElementById('submenu-libros');
   const homeNav = document.querySelector('.menu-item[data-nav="home"]');
-  const libroLinks = document.querySelectorAll('.submenu-item[data-libro]');
+  const libroLinks = document.querySelectorAll('[data-libro]');
 
   // Recuperar estado del localStorage (si el usuario ya colapsó antes)
   const isCollapsed = localStorage.getItem('asideCollapsed') === 'true';
@@ -125,26 +125,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  const loadLibroView = (libroId) => {
+  const loadLibroView = (libroId, routeOverride) => {
     if (!topContent) return;
+    if (routeOverride) {
+      libroRoutes[libroId] = routeOverride;
+    }
+    const targetRoute = libroRoutes[libroId];
     topContent.classList.add('is-libro');
-    if (!libroRoutes[libroId]) {
-      showLibroState('Este libro aún se está preparando.');
+    if (!targetRoute) {
+      showLibroState('Este módulo aún se está preparando.');
       return;
     }
     if (libroCache[libroId]) {
-      renderLibroView(libroCache[libroId], libroRoutes[libroId], libroId);
+      renderLibroView(libroCache[libroId], targetRoute, libroId);
       return;
     }
-    showLibroState('Cargando libro...');
-    fetch(libroRoutes[libroId])
+    showLibroState('Cargando módulo...');
+    fetch(targetRoute)
       .then((response) => {
         if (!response.ok) throw new Error('Network');
         return response.text();
       })
       .then((html) => {
         libroCache[libroId] = html;
-        renderLibroView(html, libroRoutes[libroId], libroId);
+        renderLibroView(html, targetRoute, libroId);
       })
       .catch(() => {
         showLibroState('No se pudo cargar el libro. Inténtalo nuevamente.');
@@ -227,7 +231,8 @@ document.addEventListener('DOMContentLoaded', function() {
       event.preventDefault();
       const libroId = link.getAttribute('data-libro');
       if (!libroId) return;
-      loadLibroView(libroId);
+      const route = link.getAttribute('data-route');
+      loadLibroView(libroId, route);
     });
   });
 

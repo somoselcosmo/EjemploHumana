@@ -11,6 +11,13 @@
 		backHome: layout.querySelector('[data-js="back-home"]')
 	};
 
+	const modalElements = {
+		overlay: document.querySelector('[data-js="civics-modal"]'),
+		form: document.querySelector('[data-js="civics-form"]'),
+		close: document.querySelector('[data-js="civics-modal-close"]'),
+		cancel: document.querySelector('[data-js="civics-modal-cancel"]')
+	};
+
 	const civicsState = {
 		filters: {
 			search: ''
@@ -99,10 +106,67 @@
 		console.info(`[Libro de Convivencia] ${message}`);
 	};
 
+	const toggleModal = (visible) => {
+		if (!modalElements.overlay) return;
+		modalElements.overlay.hidden = !visible;
+		if (visible) {
+			modalElements.form?.reset();
+			modalElements.form?.querySelector('[name="regla"]')?.focus();
+		}
+	};
+
+	const closeModal = () => toggleModal(false);
+
+	const collectModalPayload = () => {
+		if (!modalElements.form) return null;
+		const data = new FormData(modalElements.form);
+		return {
+			fecha: (data.get('fecha') || '').toString(),
+			tipo: (data.get('tipo') || 'otros').toString(),
+			responsable: (data.get('responsable') || '').toString().trim(),
+			votos: (data.get('votos') || '').toString().trim(),
+			regla: (data.get('regla') || '').toString().trim(),
+			descripcion: (data.get('descripcion') || '').toString().trim(),
+			revision: (data.get('revision') || '').toString(),
+			comite: (data.get('comite') || '').toString().trim(),
+			observaciones: (data.get('observaciones') || '').toString().trim()
+		};
+	};
+
+	const bindModal = () => {
+		if (!modalElements.overlay || !modalElements.form) return;
+		modalElements.close?.addEventListener('click', closeModal);
+		modalElements.cancel?.addEventListener('click', closeModal);
+		modalElements.overlay.addEventListener('click', (event) => {
+			if (event.target === modalElements.overlay) {
+				closeModal();
+			}
+		});
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && !modalElements.overlay.hidden) {
+				closeModal();
+			}
+		});
+		modalElements.form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const payload = collectModalPayload();
+			if (!payload) return;
+			const submitEvent = new CustomEvent('humana:convivencia-crear', {
+				detail: payload,
+				cancelable: true
+			});
+			document.dispatchEvent(submitEvent);
+			simulateAction(`Registrar norma (${payload.regla || 'sin título'})`);
+			closeModal();
+		});
+	};
+
 	const bindActions = () => {
 		elements.newRule?.addEventListener('click', () => {
-			document.dispatchEvent(new CustomEvent('humana:convivencia-norma', { detail: { source: 'convivencia' } }));
-			simulateAction('Agregar norma (prototipo)');
+			document.dispatchEvent(new CustomEvent('humana:convivencia-norma', {
+				detail: { source: 'convivencia', action: 'open-modal' }
+			}));
+			toggleModal(true);
 		});
 		elements.refresh?.addEventListener('click', () => {
 			elements.refresh.classList.add('is-spin');
@@ -135,6 +199,7 @@
 		bindSearch();
 		bindActions();
 		bindBackHome();
+		bindModal();
 	};
 
 	init();

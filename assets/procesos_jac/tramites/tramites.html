@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Trámites JAC</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../humana-modulos.css">
+</head>
+<body class="libro-humana">
+	<div class="book-layout">
+		<section class="tramites-layout" data-js="tramites-layout">
+			<header class="tramites-hero">
+				<div>
+					<p class="tramites-label">Procesos Administrativos JAC</p>
+					<h1>Trámites</h1>
+					<p>Consulta el estado de tus solicitudes y crea nuevos trámites en segundos.</p>
+				</div>
+				<div class="tramites-actions">
+					<label class="tramites-search">
+						<i class="ri-search-line" aria-hidden="true"></i>
+						<input type="search" placeholder="Buscar trámite" aria-label="Buscar" data-js="tramites-search">
+					</label>
+					<button class="tramites-btn primary" type="button" data-js="tramites-new"><i class="ri-add-line"></i>Nuevo trámite</button>
+				</div>
+			</header>
+			<nav class="tramites-tabs" data-js="tramites-tabs" aria-label="Filtros de estado">
+				<button class="tramites-tab is-active" type="button" data-filter="todos">En proceso</button>
+				<button class="tramites-tab" type="button" data-filter="aprobados">Aprobados</button>
+				<button class="tramites-tab" type="button" data-filter="rechazados">Rechazados</button>
+			</nav>
+			<section class="tramites-grid" aria-label="Tipos de trámites">
+				<button class="tramites-card" type="button" data-category="documentos">
+					<i class="ri-file-list-2-line" aria-hidden="true"></i>
+					<span>Documentos</span>
+				</button>
+				<button class="tramites-card" type="button" data-category="financieros">
+					<i class="ri-database-2-line" aria-hidden="true"></i>
+					<span>Financieros</span>
+				</button>
+				<button class="tramites-card" type="button" data-category="comunitarios">
+					<i class="ri-leaf-line" aria-hidden="true"></i>
+					<span>Comunitarios</span>
+				</button>
+				<button class="tramites-card" type="button" data-category="proyectos">
+					<i class="ri-tools-line" aria-hidden="true"></i>
+					<span>Proyectos</span>
+				</button>
+				<button class="tramites-card" type="button" data-category="afiliacion">
+					<i class="ri-user-add-line" aria-hidden="true"></i>
+					<span>Afiliación</span>
+				</button>
+				<button class="tramites-card" type="button" data-category="certificados">
+					<i class="ri-stamp-line" aria-hidden="true"></i>
+					<span>Certificados</span>
+				</button>
+			</section>
+			<section class="tramites-list" aria-label="Listado de trámites">
+				<ul class="tramites-items" data-js="tramites-list"></ul>
+			</section>
+		</section>
+	</div>
+	<script src="tramites.js" defer></script>
+</body>
+</html>

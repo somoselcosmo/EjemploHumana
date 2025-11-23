@@ -8,7 +8,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
-	<link rel="stylesheet" href="../libros.css">
+	<link rel="stylesheet" href="../humana-modulos.css">
 </head>
 <body class="libro-humana">
 	<div class="book-layout">
@@ -49,6 +49,67 @@
 					<button class="civics-refresh" data-js="refresh"><i class="ri-refresh-line" aria-hidden="true"></i>Actualizar</button>
 				</footer>
 			</section>
+		</div>
+		<div class="modal-overlay civics-modal" data-js="civics-modal" hidden>
+			<div class="modal-panel civics-modal__panel" role="dialog" aria-modal="true" aria-labelledby="civicsModalTitle">
+				<button class="modal-close" type="button" data-js="civics-modal-close" aria-label="Cerrar formulario">×</button>
+				<header class="civics-modal__header">
+					<div>
+						<p class="civics-modal__chip">Convivencia · JAC Providencia</p>
+						<h2 id="civicsModalTitle">Registrar nueva norma</h2>
+						<p class="civics-modal__sub">Documenta acuerdos y responsables de la comunidad</p>
+					</div>
+				</header>
+				<form class="civics-form" data-js="civics-form">
+					<section class="civics-form__section" aria-label="Datos principales de la norma">
+						<div class="civics-form__grid">
+							<label class="civics-field">Fecha del acuerdo
+								<input class="civics-control" type="date" name="fecha" required>
+							</label>
+							<label class="civics-field">Tipo de norma
+								<select class="civics-control" name="tipo" required>
+									<option value="convivencia">Convivencia</option>
+									<option value="ambiente">Cuidado ambiental</option>
+									<option value="infraestructura">Infraestructura</option>
+									<option value="seguridad">Seguridad</option>
+									<option value="otros">Otros</option>
+								</select>
+							</label>
+							<label class="civics-field">Responsable principal
+								<input class="civics-control" name="responsable" placeholder="Ej: Secretaría 045678" required>
+							</label>
+							<label class="civics-field">Votos a favor
+								<input class="civics-control" name="votos" placeholder="Ej: 12/15 afiliados" required>
+							</label>
+						</div>
+					</section>
+					<section class="civics-form__section" aria-label="Contenido de la norma">
+						<label class="civics-field">Nombre de la norma o regla
+							<input class="civics-control" name="regla" placeholder="Ej: Respeto a horarios de silencio" required>
+						</label>
+						<label class="civics-field">Descripción y justificación
+							<textarea class="civics-control" name="descripcion" rows="4" placeholder="Explica por qué se adopta la norma y cómo se aplica" required></textarea>
+						</label>
+					</section>
+					<section class="civics-form__section" aria-label="Seguimiento y observaciones">
+						<div class="civics-form__grid">
+							<label class="civics-field">Fecha de revisión
+								<input class="civics-control" type="date" name="revision">
+							</label>
+							<label class="civics-field">Área o comité responsable
+								<input class="civics-control" name="comite" placeholder="Ej: Comité de convivencia">
+							</label>
+						</div>
+						<label class="civics-field">Observaciones adicionales
+							<textarea class="civics-control" name="observaciones" rows="3" placeholder="Notas, condiciones o compromisos a seguir"></textarea>
+						</label>
+					</section>
+					<footer class="civics-modal__actions">
+						<button type="button" class="civics-btn ghost" data-js="civics-modal-cancel">Cancelar</button>
+						<button type="submit" class="civics-btn primary">Registrar norma</button>
+					</footer>
+				</form>
+			</div>
 		</div>
 	</div>
 	<script src="convivencia.js" defer></script>

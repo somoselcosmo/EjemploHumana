@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bandeja de Entrada · JAC Providencia</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+	<link rel="stylesheet" href="../humana-modulos.css">
+</head>
+<body class="libro-humana">
+	<div class="book-layout">
+		<div class="inbox-shell" data-js="inbox-shell">
+			<section class="inbox-layout" data-js="inbox-layout">
+				<header class="inbox-hero">
+					<div class="inbox-panel__section">
+					<p class="inbox-panel__eyebrow">Resumen de hoy</p>
+					<h2>Actividad rápida</h2>
+					<ul class="inbox-metrics" data-js="inbox-metrics">
+						<li>
+							<span>Pendientes</span>
+							<strong data-metric="pending">0</strong>
+						</li>
+						<li>
+							<span>Votos abiertos</span>
+							<strong data-metric="votes">0</strong>
+						</li>
+						<li>
+							<span>Pagos</span>
+							<strong data-metric="payments">0</strong>
+						</li>
+					</ul>
+				</div>
+                <div class="inbox-panel__section">
+					<p class="inbox-panel__eyebrow">Filtros rápidos</p>
+					<div class="inbox-filter-chipset" data-js="inbox-quickfilters">
+						<button type="button" class="inbox-chip" data-quick="nuevo"><i class="ri-fire-line"></i>Nuevo</button>
+						<button type="button" class="inbox-chip" data-quick="importante"><i class="ri-error-warning-line"></i>Importante</button>
+						<button type="button" class="inbox-chip" data-quick="verificado"><i class="ri-shield-check-line"></i>Verificado</button>
+					</div>
+				</div>
+					<div class="inbox-actions">
+						<label class="inbox-search">
+							<i class="ri-search-line" aria-hidden="true"></i>
+							<input type="search" placeholder="Buscar" aria-label="Buscar" data-js="inbox-search">
+						</label>
+						<button class="inbox-btn" type="button" data-js="new-message"><i class="ri-edit-line"></i>Nuevo mensaje</button>
+					</div>
+				</header>
+
+				<nav class="inbox-tabs" data-js="inbox-tabs" aria-label="Categorías bandeja">
+					<button class="inbox-tab is-active" type="button" data-filter="todos">Documentos</button>
+					<button class="inbox-tab" type="button" data-filter="votaciones">Votaciones</button>
+					<button class="inbox-tab" type="button" data-filter="mensajes">Mensajes</button>
+					<button class="inbox-tab" type="button" data-filter="alertas">Alertas</button>
+					<button class="inbox-tab" type="button" data-filter="pagos">Pagos</button>
+					<button class="inbox-tab" type="button" data-filter="jac">JAC</button>
+				</nav>
+
+				<section class="inbox-list" aria-label="Listado de comunicaciones">
+					<ul class="inbox-items" data-js="inbox-list"></ul>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="bandeja.js" defer></script>
+</body>
+</html>
