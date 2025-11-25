@@ -2160,3 +2160,104 @@ body.libro-humana .member-avatar[data-status="inactivo"],
 	.tramites-actions{flex-direction:column;align-items:stretch;}
 	.tramites-btn{width:100%;justify-content:center;}
 }
+
+/* =========================================================
+	Estatutos JAC
+========================================================= */
+.estatutos-layout{
+	width:min(1200px,100%);
+	padding:46px clamp(20px,4vw,56px);
+	background:linear-gradient(180deg,rgba(3,5,8,0.98),rgba(8,12,16,0.96));
+	box-shadow:0 50px 120px -70px rgba(0,0,0,0.8);
+	border-radius:36px;
+	border:1px solid rgba(255,255,255,0.04);
+	display:flex;
+	flex-direction:column;
+	gap:28px;
+}
+.estatutos-header{
+	display:flex;
+	justify-content:space-between;
+	align-items:flex-start;
+	gap:24px;
+	flex-wrap:wrap;
+}
+.estatutos-label{
+	margin:0 0 10px;
+	color:rgba(255,255,255,0.55);
+	letter-spacing:0.1em;
+	text-transform:uppercase;
+	font-size:0.85rem;
+}
+.estatutos-header h1{
+	margin:0;
+	font-size:clamp(2.2rem,4vw,3.2rem);
+	line-height:1.2;
+}
+.estatutos-btn{
+	border:none;
+	border-radius:18px;
+	padding:12px 20px;
+	background:rgba(16,106,102,0.9);
+	color:#ecfff9;
+	font-weight:600;
+	display:inline-flex;
+	align-items:center;
+	gap:8px;
+	cursor:pointer;
+	box-shadow:0 14px 32px -20px rgba(16,106,102,0.9);
+}
+.estatutos-body{
+	display:grid;
+	grid-template-columns:minmax(220px,0.9fr) minmax(0,2.4fr);
+	gap:24px;
+}
+.estatutos-nav ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+.estatutos-nav button{
+	width:100%;
+	text-align:left;
+	border:none;
+	background:rgba(17,24,31,0.7);
+	color:var(--libro-text-primary);
+	border-radius:14px;
+	padding:12px 16px;
+	font-weight:600;
+	letter-spacing:0.02em;
+	cursor:pointer;
+	border:1px solid transparent;
+}
+.estatutos-nav button.is-active{
+	background:#0c3f3a;
+	border-color:rgba(55,204,187,0.5);
+}
+.estatutos-content{
+	background:rgba(8,12,16,0.8);
+	border-radius:24px;
+	border:1px solid rgba(255,255,255,0.04);
+	padding:28px;
+	box-shadow:inset 0 0 0 1px rgba(255,255,255,0.02);
+	display:flex;
+	flex-direction:column;
+	gap:18px;
+}
+.estatutos-chip{
+	display:inline-flex;
+	padding:6px 12px;
+	border-radius:999px;
+	background:rgba(55,204,187,0.18);
+	color:#8ff5e8;
+	letter-spacing:0.08em;
+	text-transform:uppercase;
+	font-size:0.78rem;
+}
+.estatutos-content__header h2{margin:6px 0 0;font-size:1.8rem;}
+.estatutos-articles{display:flex;flex-direction:column;gap:16px;}
+.estatutos-article h3{margin:0;font-size:1.12rem;color:#7defff;}
+.estatutos-article p{margin:4px 0 0;color:var(--libro-text-primary);line-height:1.6;}
+.estatutos-article ol{margin:8px 0 0 18px;color:var(--libro-text-muted);}
+
+@media(max-width:900px){
+	.estatutos-body{grid-template-columns:1fr;}
+	.estatutos-nav ul{flex-direction:row;flex-wrap:wrap;}
+	.estatutos-nav button{flex:1 1 180px;}
+}

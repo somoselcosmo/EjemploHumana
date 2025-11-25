@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Estatutos JAC</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../humana-modulos.css">
+</head>
+<body class="libro-humana">
+	<div class="book-layout">
+		<section class="estatutos-layout" data-js="estatutos-layout">
+			<header class="estatutos-header">
+				<div>
+					<p class="estatutos-label">Versión vigente · Última actualización: 2025</p>
+					<h1>Estatutos de la Junta de Acción Comunal</h1>
+				</div>
+				<button class="estatutos-btn" type="button" data-js="update-statutes"><i class="ri-refresh-line"></i>Actualizar Estatutos</button>
+			</header>
+			<div class="estatutos-body">
+				<nav class="estatutos-nav" aria-label="Capítulos">
+					<ul data-js="chapters-list"></ul>
+				</nav>
+				<article class="estatutos-content" aria-live="polite">
+					<header class="estatutos-content__header">
+						<p class="estatutos-chip" data-js="chapter-chip">Capítulo 1</p>
+						<h2 data-js="chapter-title">Capítulo 1 - Naturaleza y Finalidades</h2>
+					</header>
+					<div class="estatutos-articles" data-js="chapter-body"></div>
+				</article>
+			</div>
+		</section>
+	</div>
+	<script src="estatutos.js" defer></script>
+</body>
+</html>
