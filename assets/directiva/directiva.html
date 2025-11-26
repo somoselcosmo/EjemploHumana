@@ -1,0 +1,42 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Directiva JAC</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+	<link rel="stylesheet" href="../humana-modulos.css">
+</head>
+<body class="libro-humana">
+	<div class="book-layout">
+		<section class="directiva-layout" data-js="directiva-layout">
+			<header class="directiva-header">
+				<div>
+					<p class="directiva-label">Gobernanza comunitaria · Vigencia 2025</p>
+					<h1>Consejo Directivo y Comités</h1>
+				</div>
+				<div class="directiva-actions">
+					<button type="button" class="directiva-btn" data-js="directiva-refresh"><i class="ri-refresh-line"></i>Actualizar</button>
+					<button type="button" class="directiva-btn ghost"><i class="ri-download-2-line"></i>Exportar</button>
+				</div>
+			</header>
+			<section class="directiva-summary" data-js="directiva-summary"></section>
+			<nav class="directiva-tabs" role="tablist" data-js="directiva-nav">
+				<button type="button" class="directiva-tab is-active" data-target="junta">Junta Directiva</button>
+				<button type="button" class="directiva-tab" data-target="comite">Comité de Trabajo</button>
+				<button type="button" class="directiva-tab" data-target="conciliadores">Conciliadores</button>
+				<button type="button" class="directiva-tab" data-target="delegados">Delegados</button>
+			</nav>
+			<div class="directiva-sections" data-js="directiva-sections" aria-live="polite"></div>
+		</section>
+	</div>
+	<script src="directiva.js" defer></script>
+</body>
+</html>
+
+

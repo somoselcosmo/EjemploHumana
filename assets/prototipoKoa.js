@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const submenu = document.getElementById('submenu-libros');
   const homeNav = document.querySelector('.menu-item[data-nav="home"]');
   const libroLinks = document.querySelectorAll('[data-libro]');
+  const directivaMount = document.getElementById('directivaMount');
+  const directivaSection = document.getElementById('directivaSection');
 
   // Recuperar estado del localStorage (si el usuario ya colapsó antes)
   const isCollapsed = localStorage.getItem('asideCollapsed') === 'true';
@@ -53,6 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
     return routes;
   }, {});
 
+  const scrollToDirectivaSection = () => {
+    if (!directivaSection) return;
+    directivaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const showLibroState = (message) => {
     if (!topContent) return;
     topContent.innerHTML = `
@@ -61,6 +68,19 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
     requestAnimationFrame(syncAsideHeight);
+  };
+
+  const showDirectivaState = (message, shouldScroll = true) => {
+    if (!directivaMount) return;
+    directivaMount.innerHTML = `
+      <div class="directiva-feedback">
+        <i class="ri-information-line" aria-hidden="true"></i>
+        <span>${message}</span>
+      </div>
+    `;
+    if (shouldScroll) {
+      scrollToDirectivaSection();
+    }
   };
 
   const resolveScriptSrc = (value, sourceUrl) => {
@@ -125,6 +145,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
+  const renderDirectivaView = (html, sourceUrl, options = {}) => {
+    const { scroll = true } = options;
+    if (!directivaMount) return;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const layout = doc.querySelector('.book-layout');
+    if (!layout) {
+      showDirectivaState('No se pudo preparar el contenido de la directiva.', scroll);
+      return;
+    }
+    const wrapper = document.createElement('div');
+    wrapper.className = 'directiva-embed';
+    wrapper.appendChild(layout);
+    directivaMount.innerHTML = '';
+    directivaMount.appendChild(wrapper);
+    runEmbeddedScripts(doc, wrapper, sourceUrl);
+    requestAnimationFrame(() => {
+      if (scroll) {
+        scrollToDirectivaSection();
+      }
+      syncAsideHeight();
+    });
+    document.dispatchEvent(new CustomEvent('humana:directiva-loaded'));
+  };
+
   const loadLibroView = (libroId, routeOverride) => {
     if (!topContent) return;
     if (routeOverride) {
@@ -152,6 +197,42 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .catch(() => {
         showLibroState('No se pudo cargar el libro. Inténtalo nuevamente.');
+      });
+  };
+
+  const loadDirectivaView = (routeOverride, options = {}) => {
+    const { scroll = true } = options;
+    if (!directivaMount) {
+      if (scroll) {
+        scrollToDirectivaSection();
+      }
+      return;
+    }
+    const directivaId = 'directiva';
+    if (routeOverride) {
+      libroRoutes[directivaId] = routeOverride;
+    }
+    const targetRoute = libroRoutes[directivaId];
+    if (!targetRoute) {
+      showDirectivaState('Este módulo aún se está preparando.', scroll);
+      return;
+    }
+    if (libroCache[directivaId]) {
+      renderDirectivaView(libroCache[directivaId], targetRoute, { scroll });
+      return;
+    }
+    showDirectivaState('Cargando módulo...', scroll);
+    fetch(targetRoute)
+      .then((response) => {
+        if (!response.ok) throw new Error('Network');
+        return response.text();
+      })
+      .then((html) => {
+        libroCache[directivaId] = html;
+        renderDirectivaView(html, targetRoute, { scroll });
+      })
+      .catch(() => {
+        showDirectivaState('No se pudo cargar la directiva. Inténtalo nuevamente.', scroll);
       });
   };
 
@@ -228,13 +309,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
   libroLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
+      const scrollTarget = link.getAttribute('data-scroll-target');
+      if (scrollTarget) {
+        event.preventDefault();
+        restoreHomeView();
+        const anchor = document.querySelector(scrollTarget);
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        return;
+      }
       event.preventDefault();
       const libroId = link.getAttribute('data-libro');
       if (!libroId) return;
       const route = link.getAttribute('data-route');
+      if (libroId === 'directiva') {
+        loadDirectivaView(route, { scroll: true });
+        return;
+      }
       loadLibroView(libroId, route);
     });
   });
+
+  // Mostrar la directiva por defecto sin hacer scroll inmediato
+  loadDirectivaView(null, { scroll: false });
 
   // Panel de tema eliminado: se removió la lógica de UI del switch/orb
 });

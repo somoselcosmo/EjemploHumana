@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Documentos JAC</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+	<link rel="stylesheet" href="../humana-modulos.css">
+</head>
+<body class="libro-humana">
+	<div class="book-layout book-layout--full">
+		<section class="documentos-layout" data-js="documentos-layout">
+			<header class="documentos-header">
+				<h1>DOCUMENTOS</h1>
+				<button class="documentos-btn" type="button" data-js="new-document">
+					<i class="ri-add-line"></i>Nuevo documento
+				</button>
+			</header>
+			
+			<div class="documentos-controls">
+				<div class="documentos-search">
+					<i class="ri-search-line" aria-hidden="true"></i>
+					<input 
+						type="search" 
+						placeholder="Buscar por nombre, tipo, código, persona..." 
+						data-js="documentos-search"
+						aria-label="Buscar documentos"
+					>
+				</div>
+			</div>
+
+			<nav class="documentos-tabs" aria-label="Filtrar documentos por tipo">
+				<button class="documentos-tab is-active" data-filter="todos" type="button">Todos</button>
+				<button class="documentos-tab" data-filter="libros" type="button">Libros</button>
+				<button class="documentos-tab" data-filter="actas" type="button">Actas</button>
+				<button class="documentos-tab" data-filter="estatutos" type="button">Estatutos</button>
+				<button class="documentos-tab" data-filter="reglamentos" type="button">Reglamentos</button>
+				<button class="documentos-tab" data-filter="certificados" type="button">Certificados</button>
+				<button class="documentos-tab" data-filter="contratos" type="button">Contratos</button>
+				<button class="documentos-tab" data-filter="adjuntos" type="button">Adjuntos</button>
+			</nav>
+
+			<div class="documentos-table-container">
+				<table class="documentos-table">
+					<thead>
+						<tr>
+							<th>Tipo</th>
+							<th>Nombre</th>
+							<th>JAC / Comité</th>
+							<th>Fecha</th>
+							<th>Estado</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody data-js="documentos-tbody">
+						<!-- Rows injected by JS -->
+					</tbody>
+				</table>
+			</div>
+		</section>
+		<div class="modal-overlay" data-js="documentos-modal" hidden>
+			<div class="modal-panel modal-dark documentos-modal__panel" role="dialog" aria-modal="true" aria-labelledby="documentosModalTitle">
+				<button type="button" class="modal-close" data-js="documentos-modal-close" aria-label="Cerrar ventana">×</button>
+				<h3 id="documentosModalTitle">Registrar nuevo documento</h3>
+				<form class="documentos-form" data-js="documentos-form">
+					<div class="documentos-form__grid">
+						<label class="form-row">
+							<span>Tipo de documento</span>
+							<select name="docType">
+								<option value="libros">Libro</option>
+								<option value="actas">Acta</option>
+								<option value="estatutos">Estatuto</option>
+								<option value="reglamentos">Reglamento</option>
+								<option value="certificados">Certificado</option>
+								<option value="contratos">Contrato</option>
+								<option value="adjuntos">Adjunto</option>
+							</select>
+						</label>
+						<label class="form-row">
+							<span>Nombre del documento</span>
+							<input type="text" name="name" placeholder="Ej: Acta n° 2025-004" required>
+						</label>
+						<label class="form-row">
+							<span>JAC / Comité</span>
+							<input type="text" name="entity" placeholder="Comité o dependencia">
+						</label>
+						<label class="form-row">
+							<span>Fecha</span>
+							<input type="date" name="date" required>
+						</label>
+						<label class="form-row">
+							<span>Estado</span>
+							<select name="status">
+								<option value="vigente">Vigente</option>
+								<option value="vencido">Vencido</option>
+							</select>
+						</label>
+					</div>
+					<label class="form-row documentos-form__notes">
+						<span>Notas</span>
+						<textarea name="notes" rows="3" placeholder="Observaciones o enlaces"></textarea>
+					</label>
+					<div class="documentos-form__actions">
+						<button type="button" class="btn-cancel" data-js="documentos-modal-cancel">Cancelar</button>
+						<button type="submit" class="btn-save primary">Guardar documento</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="documentos.js" defer></script>
+</body>
+</html>
