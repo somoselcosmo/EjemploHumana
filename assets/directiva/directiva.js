@@ -3,23 +3,25 @@
 	if (!layout) return;
 
 	const elements = {
-		summary: layout.querySelector('[data-js="directiva-summary"]'),
-		sections: layout.querySelector('[data-js="directiva-sections"]'),
-		nav: layout.querySelector('[data-js="directiva-nav"]'),
-		refreshBtn: layout.querySelector('[data-js="directiva-refresh"]')
+		period: layout.querySelector('[data-js="council-period"]'),
+		boardCard: layout.querySelector('[data-js="board-card"]'),
+		committeeCard: layout.querySelector('[data-js="committee-card"]'),
+		conciliatorsBody: layout.querySelector('[data-js="conciliators-body"]'),
+		delegateFilter: layout.querySelector('[data-js="delegate-filter"]'),
+		delegatesList: layout.querySelector('[data-js="delegates-list"]')
 	};
 
 	const statusMap = {
-		online: { label: 'Online', className: 'is-online' },
-		offline: { label: 'Offline', className: 'is-offline' },
-		busy: { label: 'Reunión', className: 'is-busy' }
+		online: { label: 'Activo', className: 'is-active' },
+		offline: { label: 'Inactivo', className: 'is-inactive' },
+		busy: { label: 'En reunión', className: 'is-busy' }
 	};
 
 	const groups = [
 		{
 			id: 'junta',
-			title: 'Junta Directiva',
-			description: 'Orienta la estrategia general de la JAC, aprueba proyectos y vela por el cumplimiento del plan comunitario.',
+			title: 'Junta Directiva actual',
+			description: 'Equipo encargado de la estrategia general de la JAC y del cumplimiento del plan comunitario.',
 			members: [
 				{
 					name: 'Felipe Chaverra',
@@ -167,128 +169,200 @@
 
 	const getInitials = (name = '') => name.split(' ').filter(Boolean).map((segment) => segment[0]).slice(0, 2).join('').toUpperCase();
 
-	const createSummaryData = () => {
-		const totalMembers = groups.reduce((acc, group) => acc + group.members.length, 0);
-		return [
-			{ label: 'Miembros activos', value: totalMembers, meta: 'Registrados 2025' },
-			{ label: 'Órganos', value: groups.length, meta: 'Junta + comités' },
-			{ label: 'Reuniones programadas', value: 4, meta: 'Próxima: 18 dic' }
-		];
+	const groupById = groups.reduce((acc, group) => {
+		acc[group.id] = group;
+		return acc;
+	}, {});
+
+	const state = {
+		delegateFilter: 'all'
 	};
 
-	const renderSummary = () => {
-		if (!elements.summary) return;
-		const fragment = document.createDocumentFragment();
-		createSummaryData().forEach((item) => {
-			const card = document.createElement('article');
-			card.className = 'directiva-summary__card';
-			card.innerHTML = `
-				<span class="directiva-summary__label">${item.label}</span>
-				<strong class="directiva-summary__value">${item.value}</strong>
-				<span class="directiva-summary__meta">${item.meta}</span>
-			`;
-			fragment.appendChild(card);
-		});
-		elements.summary.innerHTML = '';
-		elements.summary.appendChild(fragment);
-	};
-
-	const createMemberCard = (member) => {
-		const card = document.createElement('article');
-		card.className = 'directiva-card';
-		const status = statusMap[member.status] || statusMap.offline;
-		const tagsTemplate = Array.isArray(member.tags)
-			? member.tags.map((tag) => `<span class="directiva-tag">${tag}</span>`).join('')
+	const renderBoardCard = () => {
+		if (!elements.boardCard) return;
+		const board = groupById.junta;
+		if (!board || !board.members.length) {
+			elements.boardCard.innerHTML = '<p class="council-empty">Aún no hay integrantes registrados.</p>';
+			return;
+		}
+		const leader = board.members[0];
+		const secondaryLine = leader.focus || leader.tenure || '—';
+		const tagChips = Array.isArray(leader.tags)
+			? leader.tags.map((tag) => `<span class="council-tag">${tag}</span>`).join('')
 			: '';
-
-		const contactLines = [];
-		if (member.email) contactLines.push(`<span><i class="ri-mail-line" aria-hidden="true"></i>${member.email}</span>`);
-		if (member.phone) contactLines.push(`<span><i class="ri-phone-line" aria-hidden="true"></i>${member.phone}</span>`);
-
-		card.innerHTML = `
-			<div class="directiva-card__header">
-				<div class="directiva-avatar">${getInitials(member.name)}</div>
+		elements.boardCard.innerHTML = `
+			<header class="council-card__header">
 				<div>
-					<p class="directiva-role">${member.position}</p>
-					<h3 class="directiva-name">${member.name}</h3>
+					<p class="council-chip">${board.title}</p>
+					<h2 class="council-card__title">${leader.position}</h2>
 				</div>
-				<span class="directiva-status ${status.className}">${status.label}</span>
+				<button class="council-link" type="button">
+					Ver perfil<i class="ri-arrow-right-line" aria-hidden="true"></i>
+				</button>
+			</header>
+			<div class="council-highlight">
+				<span class="council-avatar">${getInitials(leader.name)}</span>
+				<div>
+					<h3>${leader.name}</h3>
+					<p class="council-meta">${secondaryLine}</p>
+				</div>
 			</div>
-			<div class="directiva-card__body">
-				<span><i class="ri-fingerprint-line" aria-hidden="true"></i>${member.idCode || 'N/D'}</span>
-				<span><i class="ri-compass-3-line" aria-hidden="true"></i>${member.focus || ''}</span>
-				<span><i class="ri-timer-line" aria-hidden="true"></i>${member.tenure || ''}</span>
-			</div>
-			${tagsTemplate ? `<div class="directiva-tags">${tagsTemplate}</div>` : ''}
-			${contactLines.length ? `<div class="directiva-card__footer">${contactLines.join('')}</div>` : ''}
+			<footer class="council-card__footer">
+				<span class="council-link council-link--muted" role="button">Ver perfil</span>
+				<span class="council-count">${board.members.length} integrante${board.members.length > 1 ? 's' : ''}</span>
+			</footer>
+			${tagChips ? `<div class="council-tags">${tagChips}</div>` : ''}
 		`;
-		return card;
 	};
 
-	const renderSections = () => {
-		if (!elements.sections) return;
-		const fragment = document.createDocumentFragment();
-		groups.forEach((group) => {
-			const section = document.createElement('section');
-			section.className = 'directiva-group';
-			section.id = `directiva-${group.id}`;
-			section.innerHTML = `
-				<div class="directiva-group__header">
-					<div>
-						<h2>${group.title}</h2>
-						<p class="directiva-group__meta">${group.description}</p>
-					</div>
-					<span class="directiva-summary__meta">Miembros: ${group.members.length}</span>
+	const renderCommitteeCard = () => {
+		if (!elements.committeeCard) return;
+		const committee = groupById.comite;
+		if (!committee) {
+			elements.committeeCard.innerHTML = '<p class="council-empty">No se han definido comités de trabajo.</p>';
+			return;
+		}
+		const committeeLead = committee.members[0];
+		const summary = `${committee.title} · ${committee.members.length} integrante${committee.members.length !== 1 ? 's' : ''}`;
+		const actionButtons = [
+			{ label: 'Ver integrantes', icon: 'ri-team-line' },
+			{ label: 'Tareas', icon: 'ri-task-line' },
+			{ label: 'Actas', icon: 'ri-article-line' }
+		];
+		elements.committeeCard.innerHTML = `
+			<header class="council-card__header">
+				<div>
+					<p class="council-chip">Comité de trabajo</p>
+					<h2 class="council-card__title">${committeeLead ? committeeLead.name : committee.title}</h2>
+					<p class="council-meta">${committeeLead ? committeeLead.position : 'Coordinación'}</p>
 				</div>
-				<div class="directiva-members" data-group="${group.id}"></div>
+			</header>
+			<div class="council-summary">
+				<p>${summary}</p>
+				<p class="council-meta">${committee.description}</p>
+			</div>
+			<div class="council-actions">
+				${actionButtons.map((action) => `
+					<button type="button" class="council-action">
+						<i class="${action.icon}" aria-hidden="true"></i>${action.label}
+					</button>
+				`).join('')}
+			</div>
+		`;
+	};
+
+	const getStatus = (status) => statusMap[status] || statusMap.offline;
+
+	const renderConciliators = () => {
+		if (!elements.conciliatorsBody) return;
+		const conciliators = groupById.conciliadores;
+		if (!conciliators) {
+			elements.conciliatorsBody.innerHTML = '<tr><td colspan="4" class="council-empty">Sin registros</td></tr>';
+			return;
+		}
+		const rows = conciliators.members.map((member) => {
+			const status = getStatus(member.status);
+			return `
+				<tr>
+					<td>
+						<div class="council-name">
+							<span class="council-avatar council-avatar--sm">${getInitials(member.name)}</span>
+							<div>
+								<span class="council-name__label">${member.name}</span>
+								${member.email ? `<span class="council-meta">${member.email}</span>` : ''}
+							</div>
+						</div>
+					</td>
+					<td>${member.position || '—'}</td>
+					<td>${member.tenure || '—'}</td>
+					<td><span class="council-status ${status.className}">${status.label}</span></td>
+				</tr>
 			`;
-			const membersWrapper = section.querySelector('.directiva-members');
-			group.members.forEach((member) => {
-				membersWrapper.appendChild(createMemberCard(member));
-			});
-			fragment.appendChild(section);
-		});
-		elements.sections.innerHTML = '';
-		elements.sections.appendChild(fragment);
+		}).join('');
+		elements.conciliatorsBody.innerHTML = rows;
 	};
 
-	const bindNavigation = () => {
-		if (!elements.nav) return;
-		const buttons = elements.nav.querySelectorAll('.directiva-tab');
-		const setActive = (targetId) => {
-			buttons.forEach((btn) => {
-				btn.classList.toggle('is-active', btn.dataset.target === targetId);
-			});
-		};
-		buttons.forEach((button) => {
-			button.addEventListener('click', () => {
-				const targetId = button.dataset.target;
-				setActive(targetId);
-				const section = layout.querySelector(`#directiva-${targetId}`);
-				section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-			});
+	const collectDelegateTags = () => {
+		const delegates = groupById.delegados;
+		if (!delegates) return [];
+		const tagSet = new Set();
+		delegates.members.forEach((member) => {
+			(member.tags || []).forEach((tag) => tagSet.add(tag));
+		});
+		return Array.from(tagSet).sort((a, b) => a.localeCompare(b));
+	};
+
+	const renderDelegateFilterOptions = () => {
+		if (!elements.delegateFilter) return;
+		const tags = collectDelegateTags();
+		const baseOption = '<option value="all">Todos</option>';
+		elements.delegateFilter.innerHTML = baseOption + tags.map((tag) => `<option value="${tag}">${tag}</option>`).join('');
+		if (tags.length && !tags.includes(state.delegateFilter)) {
+			state.delegateFilter = 'all';
+		}
+		elements.delegateFilter.value = state.delegateFilter;
+	};
+
+	const renderDelegates = () => {
+		if (!elements.delegatesList) return;
+		const delegates = groupById.delegados;
+		if (!delegates) {
+			elements.delegatesList.innerHTML = '<p class="council-empty">No hay delegados registrados.</p>';
+			return;
+		}
+		const filtered = delegates.members.filter((member) => {
+			if (state.delegateFilter === 'all') return true;
+			return (member.tags || []).includes(state.delegateFilter);
+		});
+		if (!filtered.length) {
+			elements.delegatesList.innerHTML = '<p class="council-empty">No hay delegados para este filtro.</p>';
+			return;
+		}
+		elements.delegatesList.innerHTML = filtered.map((member) => {
+			const tags = (member.tags || []).map((tag) => `<span class="council-tag">${tag}</span>`).join('');
+			return `
+				<article class="council-list__item">
+					<div class="council-list__main">
+						<h3>${member.name}</h3>
+						<p class="council-meta">${member.position || ''}</p>
+					</div>
+					<div class="council-list__details">
+						${member.tenure ? `<span>${member.tenure}</span>` : ''}
+						${member.focus ? `<span>${member.focus}</span>` : ''}
+						${tags ? `<div class="council-tags">${tags}</div>` : ''}
+					</div>
+					<div class="council-list__contact">
+						${member.email ? `<a href="mailto:${member.email}"><i class="ri-mail-line" aria-hidden="true"></i>${member.email}</a>` : ''}
+						${member.phone ? `<span><i class="ri-phone-line" aria-hidden="true"></i>${member.phone}</span>` : ''}
+					</div>
+				</article>
+			`;
+		}).join('');
+	};
+
+	const bindFilter = () => {
+		if (!elements.delegateFilter) return;
+		elements.delegateFilter.addEventListener('change', (event) => {
+			state.delegateFilter = event.target.value || 'all';
+			renderDelegates();
 		});
 	};
 
-	const bindRefresh = () => {
-		if (!elements.refreshBtn) return;
-		const defaultHtml = elements.refreshBtn.innerHTML;
-		elements.refreshBtn.addEventListener('click', () => {
-			elements.refreshBtn.disabled = true;
-			elements.refreshBtn.innerHTML = '<i class="ri-loader-2-line ri-spin"></i>Sincronizando';
-			setTimeout(() => {
-				elements.refreshBtn.disabled = false;
-				elements.refreshBtn.innerHTML = defaultHtml;
-				console.info('[Directiva JAC] Datos sincronizados (prototipo)');
-			}, 1400);
+	const bindPeriod = () => {
+		if (!elements.period) return;
+		elements.period.addEventListener('change', (event) => {
+			console.info('[Directiva JAC] Vigencia seleccionada:', event.target.value);
 		});
 	};
 
 	const init = () => {
-		renderSummary();
-		renderSections();
-		bindNavigation();
-		bindRefresh();
+		renderBoardCard();
+		renderCommitteeCard();
+		renderConciliators();
+		renderDelegateFilterOptions();
+		renderDelegates();
+		bindFilter();
+		bindPeriod();
 	};
 
 	init();

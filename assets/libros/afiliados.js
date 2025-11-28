@@ -110,6 +110,81 @@
     document: 'Usa la lista para ver la información detallada.'
   };
 
+  const numberFormatter = new Intl.NumberFormat('es-CO');
+
+  const formatNumber = (value) => {
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) {
+      return numberFormatter.format(numeric);
+    }
+    return String(value ?? '');
+  };
+
+  const parseAffiliationYear = (value) => {
+    if (!value) {
+      return null;
+    }
+    if (value instanceof Date && !Number.isNaN(value.getTime())) {
+      return value.getFullYear();
+    }
+    if (typeof value === 'string') {
+      const match = value.match(/(19|20)\d{2}/);
+      if (match) {
+        return Number.parseInt(match[0], 10);
+      }
+    }
+    return null;
+  };
+
+  const computeAffiliatesSummary = () => {
+    const currentYear = new Date().getFullYear();
+    let active = 0;
+    let newThisYear = 0;
+
+    affiliates.forEach((affiliate) => {
+      if ((affiliate.status || '').trim().toLowerCase() === 'activo') {
+        active += 1;
+      }
+      const year = parseAffiliationYear(affiliate.affiliationDate);
+      if (year === currentYear) {
+        newThisYear += 1;
+      }
+    });
+
+    return {
+      total: affiliates.length,
+      active,
+      newThisYear
+    };
+  };
+
+  const updateAffiliatesSummary = (layout) => {
+    if (!layout) {
+      return;
+    }
+    const summary = computeAffiliatesSummary();
+    const totalEl = layout.querySelector('[data-metric="afiliados-total"]');
+    if (totalEl) {
+      totalEl.textContent = formatNumber(summary.total);
+    }
+    const activeEl = layout.querySelector('[data-metric="afiliados-activos"]');
+    if (activeEl) {
+      activeEl.textContent = formatNumber(summary.active);
+    }
+    const newEl = layout.querySelector('[data-metric="afiliados-nuevos"]');
+    if (newEl) {
+      newEl.textContent = formatNumber(summary.newThisYear);
+    }
+    const countNumber = layout.querySelector('[data-count="afiliados"]');
+    if (countNumber) {
+      countNumber.textContent = formatNumber(summary.total);
+    }
+    const countWrapper = layout.querySelector('[data-js="affiliate-count"]');
+    if (countWrapper && !countNumber) {
+      countWrapper.textContent = `Mostrando ${formatNumber(summary.total)} afiliados`;
+    }
+  };
+
   const hostAside = document.querySelector('.humana-aside');
   const HIDDEN_FLAG = 'afiliadosHideState';
   const PREV_COLLAPSED = 'afiliadosPrevCollapsed';
@@ -223,6 +298,8 @@
 
       tbody.appendChild(row);
     });
+
+    updateAffiliatesSummary(layout);
 
     return Array.from(tbody.querySelectorAll('tr'));
   };

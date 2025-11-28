@@ -12,22 +12,27 @@
 </head>
 <body class="libro-humana">
 	<div class="book-layout">
-		<div class="civics-layout" data-js="civics-layout">
-			<header class="civics-hero">
-				<div class="civics-hero__heading">
-					<p class="civics-chip">JAC · Providencia</p>
+		<div class="civics-layout libro-surface" data-js="civics-layout">
+			<header class="ledger-hero civics-hero">
+				<div>
+					<p class="ledger-breadcrumb">Libro de Convivencia · JAC Providencia</p>
 					<h1>Libro de Convivencia</h1>
-					<p>Normas básicas de convivencia acordadas por la comunidad.</p>
+					<p class="ledger-subtitle">Normas básicas de convivencia acordadas por la comunidad.</p>
 				</div>
-				<div class="civics-hero__actions">
-					<button class="civics-back" data-js="back-home"><i class="ri-arrow-left-line" aria-hidden="true"></i><span>Volver</span></button>
-					<label class="civics-search">
-						<i class="ri-search-line" aria-hidden="true"></i>
-						<input type="search" placeholder="Buscar" data-js="civics-search" aria-label="Buscar norma">
-					</label>
-					<button class="civics-btn primary" data-js="new-rule">+ Agregar norma</button>
+				<div class="ledger-hero-actions civics-hero__actions">
+					<button class="btn-ghost" data-js="back-home"><i class="ri-arrow-left-line" aria-hidden="true"></i>Volver al inicio</button>
 				</div>
 			</header>
+
+			<section class="ledger-actions civics-actions" aria-label="Gestión de normas">
+				<div class="ledger-search" role="search">
+					<i class="ri-search-line" aria-hidden="true"></i>
+					<input type="search" placeholder="Buscar" data-js="civics-search" aria-label="Buscar norma">
+				</div>
+				<div class="ledger-actions-group civics-actions__group">
+					<button class="btn primary" data-js="new-rule"><i class="ri-add-line" aria-hidden="true"></i>Agregar norma</button>
+				</div>
+			</section>
 
 			<section class="civics-table" aria-label="Normas de convivencia">
 				<div class="table-scroll">

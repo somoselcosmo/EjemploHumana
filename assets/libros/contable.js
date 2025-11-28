@@ -85,7 +85,7 @@
 				type: 'egreso',
 				concept: 'Compra de suministros La 20',
 				movement: { kind: 'debito', amount: 0 },
-				status: { key: 'revision', label: 'En revisión' }
+				status: { key: 'revision', label: 'Revisión' }
 			},
 			{
 				id: 'CMP-000141',
@@ -93,7 +93,7 @@
 				type: 'egreso',
 				concept: 'Compra de suministros',
 				movement: { kind: 'egreso', amount: 1500000 },
-				status: { key: 'revision', label: 'En revisión' }
+				status: { key: 'revision', label: 'Revisión' }
 			},
 			{
 				id: 'CMP-000140',

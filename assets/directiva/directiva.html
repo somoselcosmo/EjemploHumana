@@ -1,42 +1,76 @@
-
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Directiva JAC</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
-	<link rel="stylesheet" href="../humana-modulos.css">
-</head>
 <body class="libro-humana">
 	<div class="book-layout">
-		<section class="directiva-layout" data-js="directiva-layout">
-			<header class="directiva-header">
+		<section class="council-layout" data-js="directiva-layout">
+			<header class="council-header">
 				<div>
-					<p class="directiva-label">Gobernanza comunitaria · Vigencia 2025</p>
-					<h1>Consejo Directivo y Comités</h1>
+					<h1>Gobierno JAC Providencia</h1>
+					<p class="council-header__subtitle">Directiva, comités de trabajo, conciliadores y delegados</p>
 				</div>
-				<div class="directiva-actions">
-					<button type="button" class="directiva-btn" data-js="directiva-refresh"><i class="ri-refresh-line"></i>Actualizar</button>
-					<button type="button" class="directiva-btn ghost"><i class="ri-download-2-line"></i>Exportar</button>
-				</div>
+				<label class="council-select">
+					<span>Vigencia</span>
+					<select data-js="council-period" aria-label="Seleccionar vigencia">
+						<option value="2024-2028">2024-2028</option>
+						<option value="2022-2024">2022-2024</option>
+					</select>
+				</label>
 			</header>
-			<section class="directiva-summary" data-js="directiva-summary"></section>
-			<nav class="directiva-tabs" role="tablist" data-js="directiva-nav">
-				<button type="button" class="directiva-tab is-active" data-target="junta">Junta Directiva</button>
-				<button type="button" class="directiva-tab" data-target="comite">Comité de Trabajo</button>
-				<button type="button" class="directiva-tab" data-target="conciliadores">Conciliadores</button>
-				<button type="button" class="directiva-tab" data-target="delegados">Delegados</button>
-			</nav>
-			<div class="directiva-sections" data-js="directiva-sections" aria-live="polite"></div>
+
+			<section class="council-panels">
+				<article class="council-card council-card--board" data-js="board-card"></article>
+				<article class="council-card" data-js="committee-card"></article>
+			</section>
+
+			<section class="council-section" aria-labelledby="conciliatorsTitle">
+				<header class="council-section__header">
+					<div>
+						<h2 id="conciliatorsTitle">Conciliadores y convivencia</h2>
+						<p class="council-section__subtitle">Personas autorizadas para mediar conflictos dentro de la JAC.</p>
+					</div>
+				</header>
+				<div class="council-table">
+					<table>
+						<thead>
+							<tr>
+								<th scope="col">Nombre</th>
+								<th scope="col">Rol</th>
+								<th scope="col">Formación</th>
+								<th scope="col">Estado</th>
+							</tr>
+						</thead>
+						<tbody data-js="conciliators-body"></tbody>
+					</table>
+				</div>
+			</section>
+
+			<section class="council-section" aria-labelledby="delegatesTitle">
+				<header class="council-section__header">
+					<div>
+						<h2 id="delegatesTitle">Delegados ante organismos externos</h2>
+						<p class="council-section__subtitle">Enlaces oficiales con entidades municipales y mesas de participación.</p>
+					</div>
+					<label class="council-select council-select--inline">
+						<span>Filtrar por enfoque</span>
+						<select data-js="delegate-filter" aria-label="Filtrar delegados">
+							<option value="all">Todos</option>
+						</select>
+					</label>
+				</header>
+				<div class="council-list" data-js="delegates-list"></div>
+			</section>
 		</section>
 	</div>
-	<script src="directiva.js" defer></script>
-</body>
-</html>
+
+	<script src="./directiva.js" type="module"></script>
+									<label class="council-select council-select--inline">
+										<span>Filtrar por enfoque</span>
+										<select data-js="delegate-filter" aria-label="Filtrar delegados">
+											<option value="all">Todos</option>
+										</select>
+									</label>
+								</header>
+								<div class="council-list" data-js="delegates-list"></div>
+							</section>
+						</section>
+					</div>
 
 

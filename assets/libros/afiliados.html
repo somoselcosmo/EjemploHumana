@@ -11,43 +11,74 @@
 	<link rel="stylesheet" href="../humana-modulos.css">
 </head>
 <body class="libro-humana">
-	<div class="book-layout" data-js="book-layout">
-		<section class="book-list" aria-labelledby="titleAfiliados">
-			<header class="book-header">
-				<h1 id="titleAfiliados">Libro de Afiliados</h1>
-				<div class="actions">
-					<button type="button" class="action-btn primary" data-js="nuevo-affiliado"><i class="ri-user-add-line" aria-hidden="true"></i><span>Nuevo afiliado</span></button>
-					<a href="#" class="action-btn"><i class="ri-upload-2-line" aria-hidden="true"></i><span>Importar CSV</span></a>
-					<a href="#" class="action-btn"><i class="ri-share-forward-line" aria-hidden="true"></i><span>Exportar</span></a>
-					<a href="#" class="action-btn"><i class="ri-download-2-line" aria-hidden="true"></i><span>Descargar plantilla</span></a>
+	<div class="book-layout book-layout--afiliados" data-js="book-layout">
+		<div class="contable-layout afiliados-layout libro-surface">
+			<header class="ledger-hero afiliados-hero">
+				<div>
+					<p class="ledger-breadcrumb">Libro de Afiliados · JAC Providencia</p>
+					<h1>Personas que sostienen la comunidad</h1>
+					<p class="ledger-subtitle">Gestiona y actualiza afiliaciones, contacto y participación de manera integrada.</p>
+				</div>
+				<div class="ledger-hero-actions">
+					<button class="btn-ghost" type="button" data-js="back-home"><i class="ri-arrow-left-line"></i>Volver al inicio</button>
 				</div>
 			</header>
 
-			<div class="search-box">
-				<i class="ri-search-line" aria-hidden="true"></i>
-				<input type="search" placeholder="Nombre, CC/DDI, teléfono, barrio..." aria-label="Buscar afiliado">
-			</div>
+			<section class="ledger-metrics afiliados-metrics" aria-label="Resumen de afiliados">
+				<article class="metric-card" data-card="total">
+					<p class="metric-label">Afiliados totales</p>
+					<p class="metric-value" data-metric="afiliados-total">0</p>
+					<p class="metric-caption">Incluye estados activos e inactivos</p>
+				</article>
+				<article class="metric-card" data-card="activos">
+					<p class="metric-label">Afiliados activos</p>
+					<p class="metric-value" data-metric="afiliados-activos">0</p>
+					<p class="metric-caption">Participan en procesos vigentes</p>
+				</article>
+				<article class="metric-card" data-card="nuevos">
+					<p class="metric-label">Nuevos este año</p>
+					<p class="metric-value" data-metric="afiliados-nuevos">0</p>
+					<p class="metric-caption">Seguimiento de incorporaciones</p>
+				</article>
+			</section>
 
-			<div class="table-scroll" role="region" aria-live="polite">
-				<table class="affiliate-table">
-					<thead>
-						<tr>
-							<th scope="col">Afiliado/a</th>
-							<th scope="col">Barrio / Vereda</th>
-							<th scope="col">Edad</th>
-							<th scope="col">Fecha de afiliación</th>
-							<th scope="col">Sexo</th>
-							<th scope="col">Ocupación</th>
-						</tr>
-					</thead>
-					<tbody data-js="affiliate-list"></tbody>
-				</table>
-			</div>
+			<section class="ledger-actions afiliados-actions" aria-label="Acciones sobre afiliados">
+				<div class="ledger-search">
+					<i class="ri-search-line" aria-hidden="true"></i>
+					<input type="search" placeholder="Buscar por nombre, documento o barrio" aria-label="Buscar afiliado" data-js="affiliate-search">
+				</div>
+				<div class="ledger-actions-group">
+					<button class="btn primary" type="button" data-js="nuevo-affiliado"><i class="ri-user-add-line"></i>Nuevo afiliado</button>
+					<button class="btn" type="button"><i class="ri-upload-2-line"></i>Importar CSV</button>
+					<button class="btn" type="button"><i class="ri-share-forward-line"></i>Exportar</button>
+					<button class="btn ghost" type="button"><i class="ri-download-2-line"></i>Descargar plantilla</button>
+				</div>
+			</section>
 
-			<p class="table-note">* Datos simulados para ilustrar el diseño de la libreta digital de afiliados.</p>
-		</section>
+			<section class="ledger-table afiliados-table" aria-label="Listado de afiliados">
+				<div class="table-scroll" role="region" aria-live="polite">
+					<table class="affiliate-table">
+						<thead>
+							<tr>
+								<th scope="col">Afiliado/a</th>
+								<th scope="col">Barrio / Vereda</th>
+								<th scope="col">Edad</th>
+								<th scope="col">Fecha de afiliación</th>
+								<th scope="col">Sexo</th>
+								<th scope="col">Ocupación</th>
+							</tr>
+						</thead>
+						<tbody data-js="affiliate-list"></tbody>
+					</table>
+				</div>
+				<footer class="table-footer afiliados-table__footer">
+					<p data-js="affiliate-count">Mostrando <span data-count="afiliados">0</span> afiliados</p>
+					<button class="btn ghost" type="button" data-js="refresh-affiliates"><i class="ri-refresh-line"></i>Actualizar</button>
+				</footer>
+			</section>
+		</div>
 
-		<aside class="details-panel" aria-labelledby="detalleAfiliado" hidden data-js="details-panel">
+		<aside class="details-panel afiliados-panel" aria-labelledby="detalleAfiliado" hidden data-js="details-panel">
 			<button type="button" class="panel-close" aria-label="Cerrar panel de detalles">
 				<i class="ri-close-line" aria-hidden="true"></i>
 			</button>
@@ -103,7 +134,6 @@
 		</aside>
 	</div>
 
-
 	<!-- Nuevo afiliado: modal (estilo dark, dos columnas) -->
 	<div class="modal-overlay" data-js="nuevo-modal" hidden>
 		<div class="modal-panel modal-dark" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
@@ -155,8 +185,5 @@
 	</div>
 
 	<script src="afiliados.js" defer></script>
-
-	
-</body>
 </body>
 </html>
