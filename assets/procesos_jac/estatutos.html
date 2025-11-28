@@ -12,22 +12,59 @@
 </head>
 <body class="libro-humana">
 	<div class="book-layout">
-		<section class="estatutos-layout" data-js="estatutos-layout">
-			<header class="estatutos-header">
+		<section class="estatutos-layout libro-surface" data-js="estatutos-layout">
+			<header class="ledger-hero estatutos-hero">
 				<div>
-					<p class="estatutos-label">Versión vigente · Última actualización: 2025</p>
-					<h1>Estatutos de la Junta de Acción Comunal</h1>
+					<p class="ledger-breadcrumb">Procesos administrativos · JAC Providencia</p>
+					<h1>Estatutos comunitarios</h1>
+					<p class="ledger-subtitle">Consulta la base normativa que guía la participación y el gobierno comunal.</p>
+					<dl class="estatutos-hero__meta">
+						<div>
+							<dt>Versión vigente</dt>
+							<dd data-js="estatutos-version">2025</dd>
+						</div>
+						<div>
+							<dt>Última reforma</dt>
+							<dd data-js="estatutos-last-update">Junio 2025</dd>
+						</div>
+					</dl>
 				</div>
-				<button class="estatutos-btn" type="button" data-js="update-statutes"><i class="ri-refresh-line"></i>Actualizar Estatutos</button>
+				<div class="estatutos-hero__actions">
+					<button class="btn ghost" type="button" data-js="download-statutes"><i class="ri-download-2-line"></i>Descargar estatutos</button>
+				</div>
 			</header>
-			<div class="estatutos-body">
+
+			<section class="ledger-metrics estatutos-metrics" aria-label="Resumen de estatutos">
+				<article class="metric-card">
+					<p class="metric-label">Capítulos</p>
+					<p class="metric-value" data-js="estatutos-metric-chapters">0</p>
+					<p class="metric-caption">Organizados por temática</p>
+				</article>
+				<article class="metric-card">
+					<p class="metric-label">Artículos</p>
+					<p class="metric-value" data-js="estatutos-metric-articles">0</p>
+					<p class="metric-caption">Reglamento vigente</p>
+				</article>
+				<article class="metric-card">
+					<p class="metric-label">Puntos clave</p>
+					<p class="metric-value" data-js="estatutos-metric-points">0</p>
+					<p class="metric-caption">Lineamientos prácticos</p>
+				</article>
+			</section>
+
+			<div class="estatutos-panels">
 				<nav class="estatutos-nav" aria-label="Capítulos">
+					<header class="estatutos-nav__header">
+						<h2>Capítulos</h2>
+						<p>Explora la estructura normativa y accede rápidamente a cada apartado.</p>
+					</header>
 					<ul data-js="chapters-list"></ul>
 				</nav>
 				<article class="estatutos-content" aria-live="polite">
 					<header class="estatutos-content__header">
-						<p class="estatutos-chip" data-js="chapter-chip">Capítulo 1</p>
-						<h2 data-js="chapter-title">Capítulo 1 - Naturaleza y Finalidades</h2>
+						<span class="estatutos-chip" data-js="chapter-chip">Capítulo 1</span>
+						<h3 data-js="chapter-title">Capítulo 1 - Naturaleza y Finalidades</h3>
+						<p class="estatutos-summary" data-js="chapter-summary"></p>
 					</header>
 					<div class="estatutos-articles" data-js="chapter-body"></div>
 				</article>

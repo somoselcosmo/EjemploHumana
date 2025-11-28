@@ -5,13 +5,19 @@
 	const elements = {
 		search: layout.querySelector('[data-js="tramites-search"]'),
 		list: layout.querySelector('[data-js="tramites-list"]'),
+		count: layout.querySelector('[data-js="tramites-count"]'),
 		tabs: layout.querySelectorAll('.tramites-tab'),
 		cards: layout.querySelectorAll('.tramites-card'),
-		newBtn: layout.querySelector('[data-js="tramites-new"]')
+		newBtn: layout.querySelector('[data-js="tramites-new"]'),
+		metrics: {
+			pending: layout.querySelector('[data-metric="pending"]'),
+			approved: layout.querySelector('[data-metric="approved"]'),
+			rejected: layout.querySelector('[data-metric="rejected"]')
+		}
 	};
 
 	const tramitesState = {
-		filter: 'todos',
+		filter: 'pendientes',
 		category: 'todos',
 		search: '',
 		items: [
@@ -19,7 +25,7 @@
 				id: 'TR-001',
 				title: 'Actualización de Datos',
 				status: 'En proceso de revisión por la JAC',
-				state: 'todos',
+				state: 'pendientes',
 				category: 'documentos',
 				time: 'Hoy · 11:20'
 			},
@@ -35,7 +41,7 @@
 				id: 'TR-003',
 				title: 'Constancia de Residencia',
 				status: 'Pendiente confirmación de domicilio',
-				state: 'todos',
+				state: 'pendientes',
 				category: 'documentos',
 				time: 'Ayer · 4:35'
 			},
@@ -43,7 +49,7 @@
 				id: 'TR-004',
 				title: 'Emisión de Certificado',
 				status: 'Certificado en trámite de generación',
-				state: 'todos',
+				state: 'pendientes',
 				category: 'certificados',
 				time: 'Ayer · 2:15'
 			},
@@ -51,8 +57,8 @@
 				id: 'TR-005',
 				title: 'Registro de Proyecto Comunitario',
 				status: 'Esperando aprobación de comité',
-				state: 'todos',
-				category: 'proyectos',
+				state: 'pendientes',
+				category: 'comunitarios',
 				time: 'Hace 2 días'
 			},
 			{
@@ -62,6 +68,14 @@
 				state: 'rechazados',
 				category: 'afiliacion',
 				time: 'Hace 4 días'
+			},
+			{
+				id: 'TR-007',
+				title: 'Adecuación salón comunal',
+				status: 'Presupuesto en análisis',
+				state: 'pendientes',
+				category: 'proyectos',
+				time: 'Hace 5 días'
 			}
 		]
 	};
@@ -90,6 +104,32 @@
 		});
 	};
 
+	const renderMetrics = () => {
+		const baseMetrics = {
+			pending: 0,
+			approved: 0,
+			rejected: 0
+		};
+
+		tramitesState.items.forEach((item) => {
+			switch (item.state) {
+				case 'aprobados':
+					baseMetrics.approved += 1;
+					break;
+				case 'rechazados':
+					baseMetrics.rejected += 1;
+					break;
+				default:
+					baseMetrics.pending += 1;
+					break;
+			}
+		});
+
+		if (elements.metrics.pending) elements.metrics.pending.textContent = baseMetrics.pending;
+		if (elements.metrics.approved) elements.metrics.approved.textContent = baseMetrics.approved;
+		if (elements.metrics.rejected) elements.metrics.rejected.textContent = baseMetrics.rejected;
+	};
+
 	const renderList = () => {
 		if (!elements.list) return;
 		const rows = getFilteredItems();
@@ -108,6 +148,10 @@
 		});
 		elements.list.innerHTML = '';
 		elements.list.appendChild(fragment);
+		if (elements.count) {
+			const total = rows.length;
+			elements.count.textContent = `${total} trámite${total === 1 ? '' : 's'}`;
+		}
 	};
 
 	const bindSearch = () => {
@@ -146,6 +190,7 @@
 	};
 
 	const init = () => {
+		renderMetrics();
 		renderList();
 		bindSearch();
 		bindTabs();

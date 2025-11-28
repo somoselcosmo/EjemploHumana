@@ -11,28 +11,52 @@
 	<link rel="stylesheet" href="../humana-modulos.css">
 </head>
 <body class="libro-humana">
-	<div class="book-layout book-layout--full">
-		<section class="tramites-layout" data-js="tramites-layout">
-			<header class="tramites-hero">
+	<div class="book-layout">
+		<section class="tramites-layout libro-surface" data-js="tramites-layout">
+			<header class="ledger-hero tramites-hero">
 				<div>
-					<p class="tramites-label">Procesos Administrativos JAC</p>
-					<h1>Trámites</h1>
-					<p>Consulta el estado de tus solicitudes y crea nuevos trámites en segundos.</p>
+					<p class="ledger-breadcrumb">Procesos administrativos · JAC Providencia</p>
+					<h1>Gestión de trámites</h1>
+					<p class="ledger-subtitle">Consulta, filtra y crea solicitudes comunitarias en un solo lugar.</p>
 				</div>
-				<div class="tramites-actions">
-					<label class="tramites-search">
+				<div class="tramites-hero__actions">
+					<label class="ledger-search" aria-label="Buscar trámites">
 						<i class="ri-search-line" aria-hidden="true"></i>
-						<input type="search" placeholder="Buscar trámite" aria-label="Buscar" data-js="tramites-search">
+						<input type="search" placeholder="Buscar por asunto o estado" data-js="tramites-search" aria-label="Buscar trámite">
 					</label>
-					<button class="tramites-btn primary" type="button" data-js="tramites-new"><i class="ri-add-line"></i>Nuevo trámite</button>
+					<button class="btn primary" type="button" data-js="tramites-new"><i class="ri-add-line"></i>Nuevo trámite</button>
 				</div>
 			</header>
+
+			<section class="ledger-metrics tramites-metrics" aria-label="Estado de los trámites">
+				<article class="metric-card">
+					<p class="metric-label">En proceso</p>
+					<p class="metric-value" data-metric="pending">0</p>
+					<p class="metric-caption">Seguimiento activo</p>
+				</article>
+				<article class="metric-card">
+					<p class="metric-label">Aprobados</p>
+					<p class="metric-value" data-metric="approved">0</p>
+					<p class="metric-caption">Listos para entrega</p>
+				</article>
+				<article class="metric-card">
+					<p class="metric-label">Rechazados</p>
+					<p class="metric-value" data-metric="rejected">0</p>
+					<p class="metric-caption">Requieren ajustes</p>
+				</article>
+			</section>
+
 			<nav class="tramites-tabs" data-js="tramites-tabs" aria-label="Filtros de estado">
-				<button class="tramites-tab is-active" type="button" data-filter="todos">En proceso</button>
+				<button class="tramites-tab is-active" type="button" data-filter="pendientes">En proceso</button>
 				<button class="tramites-tab" type="button" data-filter="aprobados">Aprobados</button>
 				<button class="tramites-tab" type="button" data-filter="rechazados">Rechazados</button>
 			</nav>
-			<section class="tramites-grid" aria-label="Tipos de trámites">
+
+			<section class="tramites-grid" aria-label="Categorías de trámites">
+				<button class="tramites-card is-active" type="button" data-category="todos">
+					<i class="ri-dashboard-2-line" aria-hidden="true"></i>
+					<span>Todos</span>
+				</button>
 				<button class="tramites-card" type="button" data-category="documentos">
 					<i class="ri-file-list-2-line" aria-hidden="true"></i>
 					<span>Documentos</span>
@@ -58,7 +82,11 @@
 					<span>Certificados</span>
 				</button>
 			</section>
+
 			<section class="tramites-list" aria-label="Listado de trámites">
+				<header class="tramites-list__header">
+					<p class="tramites-count" data-js="tramites-count">0 trámites</p>
+				</header>
 				<ul class="tramites-items" data-js="tramites-list"></ul>
 			</section>
 		</section>

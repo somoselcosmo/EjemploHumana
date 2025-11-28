@@ -12,25 +12,39 @@
 </head>
 <body class="libro-humana">
 	<div class="book-layout book-layout--full">
-		<section class="documentos-layout" data-js="documentos-layout">
-			<header class="documentos-header">
-				<h1>DOCUMENTOS</h1>
-				<button class="documentos-btn" type="button" data-js="new-document">
-					<i class="ri-add-line"></i>Nuevo documento
-				</button>
-			</header>
-			
-			<div class="documentos-controls">
-				<div class="documentos-search">
-					<i class="ri-search-line" aria-hidden="true"></i>
-					<input 
-						type="search" 
-						placeholder="Buscar por nombre, tipo, código, persona..." 
-						data-js="documentos-search"
-						aria-label="Buscar documentos"
-					>
+		<section class="documentos-layout libro-surface" data-js="documentos-layout">
+			<header class="ledger-hero documentos-hero">
+				<div>
+					<p class="ledger-breadcrumb">Gestión documental · JAC Providencia</p>
+					<h1>Repositorio documental</h1>
+					<p class="ledger-subtitle">Accede y organiza la documentación clave de la organización.</p>
 				</div>
-			</div>
+				<div class="documentos-hero__actions">
+					<label class="ledger-search" aria-label="Buscar documentos">
+						<i class="ri-search-line" aria-hidden="true"></i>
+						<input type="search" placeholder="Buscar por nombre, código o comité" data-js="documentos-search" aria-label="Buscar documento">
+					</label>
+					<button class="btn primary" type="button" data-js="new-document"><i class="ri-add-line"></i>Nuevo documento</button>
+				</div>
+			</header>
+
+			<section class="ledger-metrics documentos-metrics" aria-label="Resumen del repositorio">
+				<article class="metric-card">
+					<p class="metric-label">Documentos</p>
+					<p class="metric-value" data-js="documentos-metric-total" data-metric="total">0</p>
+					<p class="metric-caption">Repositorio general</p>
+				</article>
+				<article class="metric-card">
+					<p class="metric-label">Vigentes</p>
+					<p class="metric-value" data-js="documentos-metric-active" data-metric="active">0</p>
+					<p class="metric-caption">Disponibles para consulta</p>
+				</article>
+				<article class="metric-card">
+					<p class="metric-label">Vencidos</p>
+					<p class="metric-value" data-js="documentos-metric-expired" data-metric="expired">0</p>
+					<p class="metric-caption">Requieren actualización</p>
+				</article>
+			</section>
 
 			<nav class="documentos-tabs" aria-label="Filtrar documentos por tipo">
 				<button class="documentos-tab is-active" data-filter="todos" type="button">Todos</button>
@@ -43,23 +57,25 @@
 				<button class="documentos-tab" data-filter="adjuntos" type="button">Adjuntos</button>
 			</nav>
 
-			<div class="documentos-table-container">
-				<table class="documentos-table">
-					<thead>
-						<tr>
-							<th>Tipo</th>
-							<th>Nombre</th>
-							<th>JAC / Comité</th>
-							<th>Fecha</th>
-							<th>Estado</th>
-							<th>Acciones</th>
-						</tr>
-					</thead>
-					<tbody data-js="documentos-tbody">
-						<!-- Rows injected by JS -->
-					</tbody>
-				</table>
-			</div>
+			<section class="documentos-table" aria-label="Listado de documentos">
+				<header class="documentos-table__header">
+					<p class="documentos-count" data-js="documentos-count">0 documentos</p>
+				</header>
+				<div class="documentos-table__container">
+					<table class="documentos-table__grid">
+						<thead>
+							<tr>
+								<th>Documento</th>
+								<th>JAC / Comité</th>
+								<th>Actualización</th>
+								<th>Estado</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody data-js="documentos-tbody"></tbody>
+					</table>
+				</div>
+			</section>
 		</section>
 		<div class="modal-overlay" data-js="documentos-modal" hidden>
 			<div class="modal-panel modal-dark documentos-modal__panel" role="dialog" aria-modal="true" aria-labelledby="documentosModalTitle">
